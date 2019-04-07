@@ -13,9 +13,11 @@ import org.apptopia.waterwayfreightsystem.api.api.authentication.Account;
 import org.apptopia.waterwayfreightsystem.api.api.core.model.Schedule;
 import org.apptopia.waterwayfreightsystem.api.api.core.model.TravelProblem;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
-@Entity @Data
+@Entity
+@Data @AllArgsConstructor
 public class Ship {
 	
 	@Id

@@ -7,9 +7,11 @@ import javax.persistence.Id;
 
 import org.apptopia.waterwayfreightsystem.api.api.authentication.Account;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
-@Entity @Data
+@Entity
+@Data @AllArgsConstructor
 public class Cargo {
 	
 	@Id
