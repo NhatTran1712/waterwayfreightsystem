@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import org.apptopia.waterwayfreightsystem.api.api.authentication.Account;
 import org.apptopia.waterwayfreightsystem.api.api.core.model.Schedule;
@@ -25,7 +26,7 @@ public class Ship {
     private Integer idShip;
 	@ManyToOne
 	private Schedule schedule;
-	@OneToMany
+	@OneToOne
 	private TravelProblem travelProblem;
 	private Float shipCapacity;
 	private Float shipSpeed;
