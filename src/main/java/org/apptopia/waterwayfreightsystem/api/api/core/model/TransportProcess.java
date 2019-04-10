@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
 import org.apptopia.waterwayfreightsystem.api.api.ship.model.Ship;
@@ -17,6 +18,7 @@ import lombok.Data;
 @Data @AllArgsConstructor
 public class TransportProcess {
 	
+	@Id
 	private Integer idOrder;
 	@OneToOne
 	private Order order;

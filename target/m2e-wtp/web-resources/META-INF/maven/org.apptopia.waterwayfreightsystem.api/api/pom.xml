@@ -120,6 +120,18 @@
 	  <artifactId>mapstruct-processor</artifactId> <!-- use mapstruct-jdk8 for Java 8 or higher -->
 	  <version>${org.mapstruct.version}</version>
 	</dependency>
+	
+	<!-- http://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
+     <dependency>
+       <groupId>org.hibernate</groupId>
+       <artifactId>hibernate-core</artifactId>
+     </dependency>
+ 
+     <!-- http://mvnrepository.com/artifact/org.hibernate/hibernate-entitymanager -->
+     <dependency>
+       <groupId>org.hibernate</groupId>
+       <artifactId>hibernate-entitymanager</artifactId>
+     </dependency>
   </dependencies>
   
    <build>

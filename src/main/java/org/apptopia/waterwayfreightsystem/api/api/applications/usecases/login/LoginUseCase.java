@@ -1,6 +1,6 @@
-package org.apptopia.waterwayfreightsystem.api.api.application.usecases.login;
+package org.apptopia.waterwayfreightsystem.api.api.applications.usecases.login;
 
-import org.apptopia.waterwayfreightsystem.api.api.application.usecases.UseCase;
+import org.apptopia.waterwayfreightsystem.api.api.applications.usecases.UseCase;
 import org.apptopia.waterwayfreightsystem.api.api.authentication.Account;
 import org.apptopia.waterwayfreightsystem.api.api.authentication.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;

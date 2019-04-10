@@ -1,4 +1,4 @@
-package org.apptopia.waterwayfreightsystem.api.api.application.usecases.login;
+package org.apptopia.waterwayfreightsystem.api.api.applications.usecases.login;
 
 import org.apptopia.waterwayfreightsystem.api.api.authentication.Account;
 import org.mapstruct.Mapper;
