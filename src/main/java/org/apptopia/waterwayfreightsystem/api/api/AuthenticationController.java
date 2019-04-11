@@ -2,9 +2,9 @@ package org.apptopia.waterwayfreightsystem.api.api;
 
 import java.security.Principal;
 
-import org.apptopia.waterwayfreightsystem.api.api.applications.usecases.login.LoginInput;
-import org.apptopia.waterwayfreightsystem.api.api.applications.usecases.login.LoginOutput;
-import org.apptopia.waterwayfreightsystem.api.api.applications.usecases.login.LoginUseCase;
+import org.apptopia.waterwayfreightsystem.api.api.application.usecases.login.LoginInput;
+import org.apptopia.waterwayfreightsystem.api.api.application.usecases.login.LoginOutput;
+import org.apptopia.waterwayfreightsystem.api.api.application.usecases.login.LoginUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;

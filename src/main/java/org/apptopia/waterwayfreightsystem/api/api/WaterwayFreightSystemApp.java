@@ -21,31 +21,31 @@ public class WaterwayFreightSystemApp {
         SpringApplication.run(WaterwayFreightSystemApp.class, args);
     }
     
-    @Bean
-	public CommandLineRunner init(final AccountRepository accountRepository) {
-		return new CommandLineRunner() {
-			
-			@Override
-			public void run(String... args) throws Exception {
-				Account account1 = Account.builder()
-						.username("admin")
-						.password(passwordEncoder.encode("123456"))
-						.accountType(AccountType.ADMIN)
-						.build();
-				accountRepository.save(account1);
-				Account account2 = Account.builder()
-						.username("manager")
-						.password(passwordEncoder.encode("123456"))
-						.accountType(AccountType.MANAGER)
-						.build();
-				accountRepository.save(account2);
-				Account account3 = Account.builder()
-						.username("user")
-						.password(passwordEncoder.encode("123456"))
-						.accountType(AccountType.USER)
-						.build();
-				accountRepository.save(account3);
-			}
-		};
-    }
+//    @Bean
+//	public CommandLineRunner init(final AccountRepository accountRepository) {
+//		return new CommandLineRunner() {
+//			
+//			@Override
+//			public void run(String... args) throws Exception {
+//				Account account1 = Account.builder()
+//						.username("admin")
+//						.password(passwordEncoder.encode("123456"))
+//						.accountType(AccountType.ADMIN)
+//						.build();
+//				accountRepository.save(account1);
+//				Account account2 = Account.builder()
+//						.username("manager")
+//						.password(passwordEncoder.encode("123456"))
+//						.accountType(AccountType.MANAGER)
+//						.build();
+//				accountRepository.save(account2);
+//				Account account3 = Account.builder()
+//						.username("user")
+//						.password(passwordEncoder.encode("123456"))
+//						.accountType(AccountType.USER)
+//						.build();
+//				accountRepository.save(account3);
+//			}
+//		};
+//    }
 }

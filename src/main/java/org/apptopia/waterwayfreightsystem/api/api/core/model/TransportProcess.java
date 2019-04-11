@@ -21,7 +21,7 @@ public class TransportProcess {
 	@Id
 	private Integer idOrder;
 	@OneToOne
-	private Order order;
+	private Orders order;
 	@OneToOne
 	private Ship ship;
 	@Enumerated(EnumType.STRING)

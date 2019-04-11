@@ -1,0 +1,23 @@
+package org.apptopia.waterwayfreightsystem.api.api.application.usecases.account;
+
+import org.apptopia.waterwayfreightsystem.api.api.application.AccountService;
+import org.apptopia.waterwayfreightsystem.api.api.application.usecases.UseCase;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class UpdateAccountUseCase implements UseCase<RawAccountInput, RawAccountOutput> {
+	
+	@Autowired AccountService accountService;
+	
+	public RawAccountOutput handle(Integer idAccount, RawAccountInput rawAccountInput) {
+		return accountService.updateAccount(idAccount, rawAccountInput);
+	}
+	
+	@Override
+	public RawAccountOutput handle(RawAccountInput rawAccountInput) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

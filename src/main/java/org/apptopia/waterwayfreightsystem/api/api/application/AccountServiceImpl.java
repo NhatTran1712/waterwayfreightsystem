@@ -1,8 +1,10 @@
 package org.apptopia.waterwayfreightsystem.api.api.application;
 
-import org.apptopia.waterwayfreightsystem.api.api.applications.usecases.addaccount.RawAccountInput;
-import org.apptopia.waterwayfreightsystem.api.api.applications.usecases.addaccount.RawAccountMapper;
-import org.apptopia.waterwayfreightsystem.api.api.applications.usecases.addaccount.RawAccountOutput;
+import java.util.Optional;
+
+import org.apptopia.waterwayfreightsystem.api.api.application.usecases.account.RawAccountInput;
+import org.apptopia.waterwayfreightsystem.api.api.application.usecases.account.RawAccountMapper;
+import org.apptopia.waterwayfreightsystem.api.api.application.usecases.account.RawAccountOutput;
 import org.apptopia.waterwayfreightsystem.api.api.authentication.Account;
 import org.apptopia.waterwayfreightsystem.api.api.authentication.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,18 @@ public class AccountServiceImpl implements AccountService {
 	@Override
 	@Transactional
 	public RawAccountOutput newAccount(RawAccountInput rawAccountInput){
+		Account account = RawAccountMapper.INSTANCE.fromRawInput(rawAccountInput);
+		accountRepository.save(account);
+		return RawAccountMapper.INSTANCE.fromAccount(account);
+	}
+	
+	@Override
+	@Transactional
+	public RawAccountOutput updateAccount(Integer idAccount, RawAccountInput rawAccountInput) {
+		Optional<Account> existingOneOptional = accountRepository.findOne(idAccount);
+		if(! existingOneOptional.isPresent()) {
+			throw new IllegalArgumentException("Account not exist!");
+		}
 		Account account = RawAccountMapper.INSTANCE.fromRawInput(rawAccountInput);
 		accountRepository.save(account);
 		return RawAccountMapper.INSTANCE.fromAccount(account);
