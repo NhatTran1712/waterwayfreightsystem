@@ -11,9 +11,12 @@ import javax.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
-@Data @AllArgsConstructor @Builder
+@Data @Builder
+@AllArgsConstructor 
+@NoArgsConstructor
 public class Account {
 	
 	@Id
@@ -28,4 +31,8 @@ public class Account {
 	private String address;
 	private String phoneNumber;
 	private String idCard;
+	
+	public Account(Integer idUser) {
+		this.idUser = idUser;
+	}
 }

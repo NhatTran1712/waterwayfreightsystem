@@ -13,9 +13,11 @@ import org.apptopia.waterwayfreightsystem.api.api.ship.model.Ship;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Entity
-@Data @AllArgsConstructor
+@Entity @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Orders {
 	
 	@Id

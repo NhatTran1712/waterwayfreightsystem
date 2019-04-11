@@ -50,9 +50,8 @@ public class AccountController {
 	@RequestMapping(value = {"/update/","/update"}, produces = "application/json",
 			consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.PUT)
 	@ResponseBody
-	public RawAccountOutput updateAccount(@PathVariable("id") Integer idAccount,
-		@RequestBody RawAccountInput rawAccountInput) {
-		return updateAccountUseCase.handle(idAccount, rawAccountInput);
+	public RawAccountOutput updateAccount(@RequestBody RawAccountInput rawAccountInput) {
+		return updateAccountUseCase.handle(rawAccountInput);
 	}
 	
 }

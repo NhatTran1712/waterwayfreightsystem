@@ -5,8 +5,10 @@ import org.apptopia.waterwayfreightsystem.api.api.application.usecases.UseCaseIn
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Data @AllArgsConstructor @Builder
+@Data @Builder 
+@AllArgsConstructor @NoArgsConstructor
 public class LoginInput implements UseCaseInput {
 	private String username;
 }

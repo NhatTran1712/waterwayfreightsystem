@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Service;
 
 @Service
-@Qualifier("PostgresPortRepositoryImpl")
+@Qualifier("PostgresPortRepository")
 public interface PostgresPortRepositoryImpl extends JpaRepository<Port, Integer>,
 	PortRepository, JpaSpecificationExecutor{
 

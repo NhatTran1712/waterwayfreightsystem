@@ -31,8 +31,14 @@ public class AccountServiceImpl implements AccountService {
 	
 	@Override
 	@Transactional
-	public RawAccountOutput updateAccount(Integer idAccount, RawAccountInput rawAccountInput) {
-		Optional<Account> existingOneOptional = accountRepository.findOne(idAccount);
+	public RawAccountOutput updateAccount(RawAccountInput rawAccountInput) {
+		
+		if(rawAccountInput.getIdUser() == null) {
+			throw new IllegalArgumentException("Account not exist!");
+		}
+		Optional<Account> existingOneOptional = accountRepository.findOne(
+			rawAccountInput.getIdUser());
+		
 		if(! existingOneOptional.isPresent()) {
 			throw new IllegalArgumentException("Account not exist!");
 		}

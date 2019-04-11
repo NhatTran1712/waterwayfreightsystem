@@ -8,8 +8,8 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Service;
 
 @Service
-@Qualifier("PostgresOrderRepositoryImpl")
-public interface PostgresOrderRepositoryImpl extends JpaRepository<Orders, Integer>,
+@Qualifier("PostgresOrdersRepository")
+public interface PostgresOrdersRepositoryImpl extends JpaRepository<Orders, Integer>,
 	OrdersRepository, JpaSpecificationExecutor{
 
 }

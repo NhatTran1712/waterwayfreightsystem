@@ -9,15 +9,10 @@ import org.springframework.stereotype.Service;
 public class UpdateAccountUseCase implements UseCase<RawAccountInput, RawAccountOutput> {
 	
 	@Autowired AccountService accountService;
-	
-	public RawAccountOutput handle(Integer idAccount, RawAccountInput rawAccountInput) {
-		return accountService.updateAccount(idAccount, rawAccountInput);
-	}
-	
+
 	@Override
 	public RawAccountOutput handle(RawAccountInput rawAccountInput) {
-		// TODO Auto-generated method stub
-		return null;
+		return accountService.updateAccount(rawAccountInput);
 	}
 
 }

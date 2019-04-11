@@ -8,7 +8,7 @@ import org.apptopia.waterwayfreightsystem.api.api.core.model.TransportProcess;
 import org.apptopia.waterwayfreightsystem.api.api.core.model.TransportProcessRepository;
 
 @Service
-@Qualifier("PostgresTransportProcessRepositoryImpl")
+@Qualifier("PostgresTransportProcessRepository")
 public interface PostgresTransportProcessRepositoryImpl extends 
 	JpaRepository<TransportProcess, Integer>, TransportProcessRepository,
 	JpaSpecificationExecutor {

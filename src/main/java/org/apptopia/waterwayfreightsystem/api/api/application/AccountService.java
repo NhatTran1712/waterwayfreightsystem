@@ -6,5 +6,5 @@ import org.apptopia.waterwayfreightsystem.api.api.application.usecases.account.R
 public interface AccountService {
 	
 	RawAccountOutput newAccount(RawAccountInput rawAccountInput);
-	RawAccountOutput updateAccount(Integer idAccount, RawAccountInput rawAccountInput);
+	RawAccountOutput updateAccount(RawAccountInput rawAccountInput);
 }

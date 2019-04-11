@@ -5,8 +5,9 @@ import org.apptopia.waterwayfreightsystem.api.api.authentication.AccountType;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Data @AllArgsConstructor
+@Data @AllArgsConstructor @NoArgsConstructor
 public class RawAccountOutput implements UseCaseOutput{
 
 	private String username;

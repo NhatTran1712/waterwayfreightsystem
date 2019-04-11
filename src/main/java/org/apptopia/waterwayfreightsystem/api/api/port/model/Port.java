@@ -10,9 +10,11 @@ import javax.persistence.OneToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Entity
-@Data @AllArgsConstructor
+@Entity @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Port {
 	
 	@Id

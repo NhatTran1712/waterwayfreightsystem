@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Service;
 
 @Service
-@Qualifier("PostgresTravelProblemRepositoryImpl")
+@Qualifier("PostgresTravelProblemRepository")
 public interface PostgresTravelProblemRepositoryImpl extends 
 	JpaRepository<TravelProblem, Integer>, TravelProblemRepository, JpaSpecificationExecutor {
 
