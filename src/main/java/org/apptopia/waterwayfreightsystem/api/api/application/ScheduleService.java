@@ -6,5 +6,5 @@ import org.apptopia.waterwayfreightsystem.api.api.application.usecases.schedule.
 
 public interface ScheduleService {
 	
-	List<RawScheduleOutput> getAllSchedules();
+	List<RawScheduleOutput> findAllSchedules();
 }

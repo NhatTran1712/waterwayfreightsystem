@@ -24,4 +24,8 @@ public class TravelProblem {
 	private Integer distanceExtend;
 	@ManyToOne
 	private Account whoManage;
+	
+	public TravelProblem(Integer idTravelProblem) {
+		this.idTravelProblem = idTravelProblem;
+	}
 }

@@ -22,7 +22,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 	}
 	
 	@Override
-	public List<RawScheduleOutput> getAllSchedules() {
+	public List<RawScheduleOutput> findAllSchedules() {
 		List<Schedule> schedules = scheduleRepository.findAll();
 		List<RawScheduleOutput> rawScheduleOutputs = new ArrayList<>();
 		

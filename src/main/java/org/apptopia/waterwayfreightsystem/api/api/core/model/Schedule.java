@@ -33,4 +33,8 @@ public class Schedule {
 	private LocalDateTime dateArrive;
 	@ManyToOne
 	private Account whoManage;
+	
+	public Schedule(Integer idSchedule) {
+		this.idSchedule = idSchedule;
+	}
 }

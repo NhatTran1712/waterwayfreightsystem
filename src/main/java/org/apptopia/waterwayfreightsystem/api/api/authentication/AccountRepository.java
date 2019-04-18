@@ -9,7 +9,7 @@ import org.apptopia.waterwayfreightsystem.api.api.authentication.Account;
 public interface AccountRepository extends JpaRepository<Account, Integer> {
 	
 	Account findByUsername(String username);
-	default Optional<Account> findOne(Integer idAccount) {
-		return findById(idAccount);
+	default Optional<Account> findOne(Integer idUser) {
+		return findById(idUser);
 	}
 }

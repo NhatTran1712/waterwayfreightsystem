@@ -31,16 +31,17 @@ public class AccountController {
 		this.updateAccountUseCase = updateAccountUseCase;
 	}
 	
-	@RequestMapping(value = {"/",""}, produces = "application/json",
-			consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
+	@RequestMapping(value = {"/register-customer-account/","/register-customer-account"},
+		produces = "application/json", consumes = MediaType.APPLICATION_JSON_VALUE,
+		method = RequestMethod.POST)
 	@ResponseBody
 	public RawAccountOutput addNewCustomerAccount(@RequestBody RawAccountInput rawAccountInput){
 		return registerAccountUseCase.handle(rawAccountInput);
 	}
 	
 	@RequestMapping(value = {"/register-staff-account","/register-staff-account/"},
-			produces = "application/json", consumes = MediaType.APPLICATION_JSON_VALUE,
-			method = RequestMethod.POST)
+		produces = "application/json", consumes = MediaType.APPLICATION_JSON_VALUE,
+		method = RequestMethod.POST)
 	@ResponseBody
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public RawAccountOutput addNewStaffAccount(@RequestBody RawAccountInput rawAccountInput){
