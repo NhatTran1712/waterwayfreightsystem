@@ -1,5 +1,7 @@
 package org.apptopia.waterwayfreightsystem.api.api.application.usecases.login;
 
+import java.util.Optional;
+
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.UseCase;
 import org.apptopia.waterwayfreightsystem.api.api.authentication.Account;
 import org.apptopia.waterwayfreightsystem.api.api.authentication.AccountRepository;
@@ -17,8 +19,11 @@ public class LoginUseCase implements UseCase<LoginInput, LoginOutput> {
 
 	@Override
 	public LoginOutput handle(LoginInput input) {
-		Account account = accountRepository.findByUsername(input.getUsername());
-		return AccountMapper.INSTANCE.fromAccount(account);
+		Optional<Account> account = accountRepository.findByUsername(input.getUsername());
+		if(account.isPresent()) {
+			return AccountMapper.INSTANCE.fromAccount(account.get());
+		}
+		return null;
 	}
 	
 }

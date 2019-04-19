@@ -1,6 +1,9 @@
 package org.apptopia.waterwayfreightsystem.api.api;
 
 import org.apptopia.waterwayfreightsystem.api.api.authentication.AccountRepository;
+
+import java.util.Optional;
+
 import org.apptopia.waterwayfreightsystem.api.api.authentication.Account;
 import org.apptopia.waterwayfreightsystem.api.api.authentication.AccountType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,36 +19,50 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class WaterwayFreightSystemApp {
 	
 	@Autowired PasswordEncoder passwordEncoder;
+	@Autowired AccountRepository accountRepository;
 	
     public static void main(String[] args) {
         SpringApplication.run(WaterwayFreightSystemApp.class, args);
     }
     
-//    @Bean
-//	public CommandLineRunner init(final AccountRepository accountRepository) {
-//		return new CommandLineRunner() {
-//			
-//			@Override
-//			public void run(String... args) throws Exception {
-//				Account account1 = Account.builder()
-//						.username("admin")
-//						.password(passwordEncoder.encode("123456"))
-//						.accountType(AccountType.ADMIN)
-//						.build();
-//				accountRepository.save(account1);
-//				Account account2 = Account.builder()
-//						.username("manager")
-//						.password(passwordEncoder.encode("123456"))
-//						.accountType(AccountType.MANAGER)
-//						.build();
-//				accountRepository.save(account2);
-//				Account account3 = Account.builder()
-//						.username("user")
-//						.password(passwordEncoder.encode("123456"))
-//						.accountType(AccountType.USER)
-//						.build();
-//				accountRepository.save(account3);
-//			}
-//		};
-//    }
+    @Bean
+	public CommandLineRunner init(final AccountRepository accountRepository) {
+		return new CommandLineRunner() {
+			
+			@Override
+			public void run(String... args) throws Exception {
+				Optional<Account> account = accountRepository.findByUsername("admin");
+				
+				if(!account.isPresent()) {
+					Account account1 = Account.builder()
+						.username("admin")
+						.password(passwordEncoder.encode("123456"))
+						.accountType(AccountType.ADMIN)
+						.build();
+					
+					accountRepository.save(account1);
+				}
+				account = accountRepository.findByUsername("manager");
+				
+				if(!account.isPresent()) {
+					Account account2 = Account.builder()
+						.username("manager")
+						.password(passwordEncoder.encode("123456"))
+						.accountType(AccountType.MANAGER)
+						.build();
+					accountRepository.save(account2);
+				}
+				account = accountRepository.findByUsername("user");
+				
+				if(!account.isPresent()) {
+					Account account3 = Account.builder()
+						.username("user")
+						.password(passwordEncoder.encode("123456"))
+						.accountType(AccountType.USER)
+						.build();
+					accountRepository.save(account3);
+				}
+			}
+		};
+    }
 }
