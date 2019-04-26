@@ -1,14 +1,8 @@
-package org.apptopia.waterwayfreightsystem.api.api.core.model;
+package org.apptopia.waterwayfreightsystem.api.api.application.usecases.transportprocess;
 
 import java.time.LocalDateTime;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-
-import org.apptopia.waterwayfreightsystem.api.api.ship.model.Ship;
+import org.apptopia.waterwayfreightsystem.api.api.application.usecases.UseCaseOutput;
 import org.apptopia.waterwayfreightsystem.api.api.ship.model.ShipStatus;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -18,21 +12,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity @Data
-@AllArgsConstructor
+@Data @AllArgsConstructor
 @NoArgsConstructor
-public class TransportProcess {
-	
-	@Id
+public class RawTransportProcessOutput implements UseCaseOutput{
 	private Integer idOrder;
-	@OneToOne
-	private Orders order;
-	@OneToOne
-	private Ship ship;
-	@Enumerated(EnumType.STRING)
 	private ShipStatus transportProcessStatus;
 	private Integer realDay;
 	private Integer dayRemaining;
+	@JsonDeserialize(using=LocalDateTimeDeserializer.class)
 	private LocalDateTime dateDepart;
+	@JsonDeserialize(using=LocalDateTimeDeserializer.class)
 	private LocalDateTime dateArrive;
 }

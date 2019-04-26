@@ -38,4 +38,8 @@ public class Ship {
 	private Float realTime;
 	@ManyToOne
 	private Account whoManager;
+	
+	public Ship(Integer idShip) {
+		this.idShip = idShip;
+	}
 }

@@ -1,5 +1,6 @@
 package org.apptopia.waterwayfreightsystem.api.api.application.usecases.ship;
 
+import org.apptopia.waterwayfreightsystem.api.api.application.usecases.UseCaseOutput;
 import org.apptopia.waterwayfreightsystem.api.api.ship.model.ShipStatus;
 
 import lombok.AllArgsConstructor;
@@ -8,7 +9,7 @@ import lombok.NoArgsConstructor;
 
 @Data @AllArgsConstructor
 @NoArgsConstructor
-public class RawShipOutput {
+public class RawShipOutput implements UseCaseOutput {
 	
 	private Integer schedule;
 	private Float shipCapacity;

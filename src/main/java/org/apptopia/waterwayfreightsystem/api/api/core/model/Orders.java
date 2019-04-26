@@ -30,4 +30,8 @@ public class Orders {
 	private String senderAddress;
 	private String receiverAddress;
 	private Integer orderExpense;
+	
+	public Orders(Integer idOrders) {
+		this.idOrder = idOrders;
+	}
 }
