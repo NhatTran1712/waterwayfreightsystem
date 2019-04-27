@@ -20,7 +20,7 @@ public class TravelProblem {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer idTravelProblem;
 	private String description;
-	private Integer timeExtend;
+	private Float timeExtend;
 	private Integer distanceExtend;
 	@ManyToOne
 	private Account whoManage;

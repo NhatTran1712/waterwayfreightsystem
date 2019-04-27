@@ -12,8 +12,8 @@ import lombok.NoArgsConstructor;
 public class RawShipInput implements UseCaseInput {
 	
     private Integer idShip;
-	private Integer schedule;
-	private Integer travelProblem;
+    private Integer idSchedule;
+    private Integer idTravelProblem;
 	private Float shipCapacity;
 	private Float shipSpeed;
 	private ShipStatus shipStatus;

@@ -7,13 +7,8 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
-
 import org.apptopia.waterwayfreightsystem.api.api.ship.model.Ship;
 import org.apptopia.waterwayfreightsystem.api.api.ship.model.ShipStatus;
-
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

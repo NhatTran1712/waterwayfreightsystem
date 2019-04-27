@@ -11,7 +11,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class RawShipOutput implements UseCaseOutput {
 	
-	private Integer schedule;
+	private Integer idSchedule;
+	private Integer idTravelProblem;
 	private Float shipCapacity;
 	private Float shipSpeed;
 	private ShipStatus shipStatus;

@@ -7,8 +7,6 @@ import org.apptopia.waterwayfreightsystem.api.api.ship.model.Ship;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
-import ch.qos.logback.core.joran.conditional.IfAction;
-
 @Mapper
 public interface RawShipMapper {
 	RawShipMapper INSTANCE = Mappers.getMapper(RawShipMapper.class);
@@ -31,7 +29,7 @@ public interface RawShipMapper {
 		return schedule.getIdSchedule();
 	}
 	
-	default TravelProblem toTravelProblem(Integer idTravelProblem) {
+	default TravelProblem totravelProblem(Integer idTravelProblem) {
 		if(idTravelProblem == null || idTravelProblem == 0) {
 			return null;
 		}
