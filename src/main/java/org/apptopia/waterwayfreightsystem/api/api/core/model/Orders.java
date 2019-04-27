@@ -8,7 +8,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
+import org.apptopia.waterwayfreightsystem.api.api.authentication.Account;
 import org.apptopia.waterwayfreightsystem.api.api.ship.model.Ship;
 
 import lombok.AllArgsConstructor;
@@ -27,8 +29,8 @@ public class Orders {
 	private Ship shipTransport;
 	@OneToMany
 	private List<Cargo> cargos;
-	private String senderAddress;
-	private String receiverAddress;
+	@OneToOne
+	private Account whoReceive;
 	private Integer orderExpense;
 	
 	public Orders(Integer idOrders) {

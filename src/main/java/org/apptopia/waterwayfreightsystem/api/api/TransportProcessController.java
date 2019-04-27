@@ -2,6 +2,7 @@ package org.apptopia.waterwayfreightsystem.api.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,16 +31,17 @@ public class TransportProcessController {
 		this.transportProcessInformationCalculator = transportProcessInformationCalculator;
 	}
 	
-	@RequestMapping(value = {"/",""}, produces = "application/json",
-		consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
-	@ResponseBody
-	public List<RawTransportProcessOutput> getAllTransportProcesses(){
-		return transportProcessService.findAllTransportProcesses();
-	}
+//	@RequestMapping(value = {"/",""}, produces = "application/json",
+//		consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
+//	@ResponseBody
+//	public List<RawTransportProcessOutput> getAllTransportProcesses(){
+//		return transportProcessService.findAllTransportProcesses();
+//	}
 	
 	@RequestMapping(value = {"/{id}/","/{id}"}, produces = "application/json",
 		consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.PUT)
 	@ResponseBody
+	@PreAuthorize("hasRole('ROLE_USER')")
 	public RawTransportProcessOutput showTransportProcess(@PathVariable("id")
 		Integer idTransportProcess) {
 		return transportProcessInformationCalculator.handle(idTransportProcess);

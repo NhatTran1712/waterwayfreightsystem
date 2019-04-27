@@ -22,5 +22,5 @@ public class Cargo {
     private Integer idCargo;
 	@ManyToOne
 	private Account owner;
-	private Integer cargoWeight;
+	private Float cargoWeight;
 }
