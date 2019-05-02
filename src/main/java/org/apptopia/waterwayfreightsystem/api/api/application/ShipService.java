@@ -11,4 +11,5 @@ public interface ShipService {
 	List<RawShipOutput> findAllShips();
 	RawShipOutput updateStatusForShip(RawShipInput rawShipInput);
 	RawTravelProblemOutput newTravelProblem(RawTravelProblemInput rawTravelProblemInput);
+	RawTravelProblemOutput updateTravelProblem(RawTravelProblemInput rawTravelProblemInput);
 }

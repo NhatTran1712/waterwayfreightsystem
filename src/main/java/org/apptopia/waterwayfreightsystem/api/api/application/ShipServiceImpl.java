@@ -69,5 +69,20 @@ public class ShipServiceImpl implements ShipService {
 		travelProblemRepository.save(travelProblem);
 		return RawTravelProblemMapper.INSTANCE.fromTravelProblem(travelProblem);
 	}
+
+	@Override
+	public RawTravelProblemOutput updateTravelProblem(RawTravelProblemInput rawTravelProblemInput) {
+		Optional<TravelProblem> existingOne = travelProblemRepository
+			.findById(rawTravelProblemInput.getIdTravelProblem());
+		
+		if(!existingOne.isPresent()) {
+			throw new IllegalArgumentException("Travel Problem not existed");
+		}
+		TravelProblem travelProblem = RawTravelProblemMapper.INSTANCE
+			.fromRawInput(rawTravelProblemInput);
+		
+		travelProblemRepository.save(travelProblem);
+		return RawTravelProblemMapper.INSTANCE.fromTravelProblem(travelProblem);
+	}
 	
 }

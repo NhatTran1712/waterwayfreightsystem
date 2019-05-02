@@ -5,6 +5,7 @@ import java.util.List;
 import org.apptopia.waterwayfreightsystem.api.api.application.ShipService;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.rawinput.AddNewTravelProblemUseCase;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.rawupdate.UpdateStatusForShipUseCase;
+import org.apptopia.waterwayfreightsystem.api.api.application.usecases.rawupdate.UpdateTravelProblemUseCase;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.ship.RawShipInput;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.ship.RawShipOutput;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.travelproblem.RawTravelProblemInput;
@@ -25,14 +26,18 @@ public class ShipController {
 	private ShipService shipService;
 	private UpdateStatusForShipUseCase updateStatusForShipUseCase;
 	private AddNewTravelProblemUseCase addNewTravelProblemUseCase;
+	private UpdateTravelProblemUseCase updateTravelProblemUseCase;
 	
 	@Autowired
 	public void setShipService(ShipService shipService,
 		UpdateStatusForShipUseCase updateStatusForShipUseCase,
-		AddNewTravelProblemUseCase addNewTravelProblemUseCase) {
+		AddNewTravelProblemUseCase addNewTravelProblemUseCase,
+		UpdateTravelProblemUseCase updateTravelProblemUseCase) {
+		
 		this.shipService = shipService;
 		this.updateStatusForShipUseCase = updateStatusForShipUseCase;
 		this.addNewTravelProblemUseCase = addNewTravelProblemUseCase;
+		this.updateTravelProblemUseCase = updateTravelProblemUseCase;
 	}
 	
 	@RequestMapping(value = {"/",""}, produces = "application/json",
@@ -56,5 +61,14 @@ public class ShipController {
 	public RawTravelProblemOutput addNewTravelProblem(@RequestBody RawTravelProblemInput
 		rawTravelProblemInput) {
 		return addNewTravelProblemUseCase.handle(rawTravelProblemInput);
+	}
+	
+	@RequestMapping(value = {"/travel-problem/update","/travel-problem/update/"},
+		produces = "application/json", consumes = MediaType.APPLICATION_JSON_VALUE,
+		method = RequestMethod.PUT)
+	@ResponseBody
+	public RawTravelProblemOutput updateTravelProblem(@RequestBody RawTravelProblemInput
+		rawTravelProblemInput) {
+		return updateTravelProblemUseCase.handle(rawTravelProblemInput);
 	}
 }
