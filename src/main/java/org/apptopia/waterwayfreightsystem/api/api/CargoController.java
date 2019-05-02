@@ -26,10 +26,17 @@ public class CargoController {
 		this.cargoService = cargoService;
 	}
 	
+	@RequestMapping(value = {"/",""}, produces = "application/json",
+		consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
+	@ResponseBody
+	public List<RawCargoOutput> getAllCargos(){
+		return cargoService.findAllCargos();
+	}
+	
 	@RequestMapping(value = {"/{id}","/{id}/"}, produces = "application/json",
 		consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
 	@ResponseBody
-	@PreAuthorize("hasRole('ROLE_USER')")
+	@PreAuthorize("hasRole('ROLE_USER' || 'ROLE_MANAGER')")
 	public List<RawCargoOutput> getCargosOfCustomer(@RequestBody RawAccountInput rawAccountInput){
 		return cargoService.getCargosOfCustomer(rawAccountInput);
 	}

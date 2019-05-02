@@ -3,7 +3,7 @@ package org.apptopia.waterwayfreightsystem.api.api;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.account.RawAccountInput;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.account.RawAccountOutput;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.account.RegisterAccountUseCase;
-import org.apptopia.waterwayfreightsystem.api.api.application.usecases.account.UpdateAccountUseCase;
+import org.apptopia.waterwayfreightsystem.api.api.application.usecases.rawupdate.UpdateAccountUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -24,7 +24,7 @@ public class AccountController {
 	private UpdateAccountUseCase updateAccountUseCase;
 	
 	@Autowired
-	public void setAccountService(RegisterAccountUseCase registerAccountUseCase,
+	public void setAccountUseCase(RegisterAccountUseCase registerAccountUseCase,
 		UpdateAccountUseCase updateAccountUseCase) {
 		
 		this.registerAccountUseCase = registerAccountUseCase;

@@ -19,7 +19,7 @@ public class TransportProcessServiceImpl implements TransportProcessService {
 	private TransportProcessRepository transportProcessRepository;
 	
 	@Autowired
-	public void setTransportProcessService(@Qualifier("PostgresTransportProcessRepository")
+	public void setTransportProcessRepository(@Qualifier("PostgresTransportProcessRepository")
 		TransportProcessRepository transportProcessRepository) {
 		this.transportProcessRepository = transportProcessRepository;
 	}

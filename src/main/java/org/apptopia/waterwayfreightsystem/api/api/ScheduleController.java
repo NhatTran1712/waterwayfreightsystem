@@ -26,9 +26,13 @@ public class ScheduleController {
 	private UpdateScheduleUseCase updateScheduleUseCase;
 	
 	@Autowired
-	public void setScheduleService(ScheduleService scheduleService,
-		AddNewScheduleUseCase addNewScheduleUseCase, UpdateScheduleUseCase updateScheduleUseCase) {
+	public void setScheduleService(ScheduleService scheduleService) {
 		this.scheduleService = scheduleService;
+	}
+	
+	@Autowired
+	public void setScheduleUseCase(AddNewScheduleUseCase addNewScheduleUseCase,
+		UpdateScheduleUseCase updateScheduleUseCase) {
 		this.addNewScheduleUseCase = addNewScheduleUseCase;
 		this.updateScheduleUseCase = updateScheduleUseCase;
 	}

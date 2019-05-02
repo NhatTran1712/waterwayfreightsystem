@@ -29,12 +29,15 @@ public class ShipController {
 	private UpdateTravelProblemUseCase updateTravelProblemUseCase;
 	
 	@Autowired
-	public void setShipService(ShipService shipService,
-		UpdateStatusForShipUseCase updateStatusForShipUseCase,
+	public void setShipService(ShipService shipService) {
+		this.shipService = shipService;
+	}
+	
+	@Autowired
+	public void setShipUseCase(UpdateStatusForShipUseCase updateStatusForShipUseCase,
 		AddNewTravelProblemUseCase addNewTravelProblemUseCase,
 		UpdateTravelProblemUseCase updateTravelProblemUseCase) {
 		
-		this.shipService = shipService;
 		this.updateStatusForShipUseCase = updateStatusForShipUseCase;
 		this.addNewTravelProblemUseCase = addNewTravelProblemUseCase;
 		this.updateTravelProblemUseCase = updateTravelProblemUseCase;

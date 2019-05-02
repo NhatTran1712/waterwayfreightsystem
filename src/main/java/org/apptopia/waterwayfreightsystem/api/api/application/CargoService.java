@@ -7,4 +7,5 @@ import org.apptopia.waterwayfreightsystem.api.api.application.usecases.cargo.Raw
 
 public interface CargoService {
 	List<RawCargoOutput> getCargosOfCustomer(RawAccountInput rawAccountInput);
+	List<RawCargoOutput> findAllCargos();
 }

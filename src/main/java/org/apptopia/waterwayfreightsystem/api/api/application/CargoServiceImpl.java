@@ -19,7 +19,7 @@ public class CargoServiceImpl implements CargoService {
 	private CargoRepository cargoRepository;
 	
 	@Autowired
-	public void setCargoService(@Qualifier("PostgresCargoRepository")
+	public void setCargoRepository(@Qualifier("PostgresCargoRepository")
 		CargoRepository cargoRepository) {
 		this.cargoRepository = cargoRepository;
 	}
@@ -28,6 +28,17 @@ public class CargoServiceImpl implements CargoService {
 	public List<RawCargoOutput> getCargosOfCustomer(RawAccountInput rawAccountInput) {
 		Account account = RawAccountMapper.INSTANCE.fromRawInput(rawAccountInput);
 		List<Cargo> cargos = cargoRepository.findByOwner(account);
+		List<RawCargoOutput> rawCargoOutputs = new ArrayList<>();
+		
+		for(Cargo cargo : cargos) {
+			rawCargoOutputs.add(RawCargoMapper.INSTANCE.fromCargo(cargo));
+		}
+		return rawCargoOutputs;
+	}
+
+	@Override
+	public List<RawCargoOutput> findAllCargos() {
+		List<Cargo> cargos = cargoRepository.findAll();
 		List<RawCargoOutput> rawCargoOutputs = new ArrayList<>();
 		
 		for(Cargo cargo : cargos) {

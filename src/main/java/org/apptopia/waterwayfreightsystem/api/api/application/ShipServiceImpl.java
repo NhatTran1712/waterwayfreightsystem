@@ -25,11 +25,13 @@ public class ShipServiceImpl implements ShipService {
 	private TravelProblemRepository travelProblemRepository;
 	
 	@Autowired
-	public void setShipService(@Qualifier("PostgresShipRepository")
-		ShipRepository shipRepository, @Qualifier("PostgresTravelProblemRepository")
-		TravelProblemRepository travelProblemRepository) {
-		
+	public void setShipRepository(@Qualifier("PostgresShipRepository") ShipRepository shipRepository) {
 		this.shipRepository = shipRepository;
+	}
+	
+	@Autowired
+	public void setTravelProblemRepository(@Qualifier("PostgresTravelProblemRepository")
+		TravelProblemRepository travelProblemRepository) {
 		this.travelProblemRepository = travelProblemRepository;
 	}
 	

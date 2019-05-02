@@ -19,7 +19,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 	private ScheduleRepository scheduleRepository;
 	
 	@Autowired
-	public void setScheduleService(@Qualifier("PostgresScheduleRepository")
+	public void setScheduleRepository(@Qualifier("PostgresScheduleRepository")
 		ScheduleRepository scheduleRepository) {
 		this.scheduleRepository = scheduleRepository;
 	}
