@@ -9,6 +9,7 @@ import org.apptopia.waterwayfreightsystem.api.api.application.usecases.schedule.
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.schedule.RawScheduleOutput;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,9 +40,10 @@ public class ScheduleController {
 		return scheduleService.findAllSchedules();
 	}
 	
-	@RequestMapping(value = {"/add","/new/"}, produces = "application/json",
+	@RequestMapping(value = {"/add/","/add"}, produces = "application/json",
 		consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
 	@ResponseBody
+	@PreAuthorize("hasRole('ROLE_MANAGER')")
 	public RawScheduleOutput addNewSchedule(@RequestBody RawScheduleInput rawScheduleInput) {
 		return addNewScheduleUseCase.handle(rawScheduleInput);
 	}
@@ -49,6 +51,7 @@ public class ScheduleController {
 	@RequestMapping(value = {"/update/{id}/","/update/{id}"}, produces = "application/json",
 		consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.PUT)
 	@ResponseBody
+	@PreAuthorize("hasRole('ROLE_MANAGER')")
 	public RawScheduleOutput updateSchedule(@RequestBody RawScheduleInput rawScheduleInput) {
 		return updateScheduleUseCase.handle(rawScheduleInput);
 	}
