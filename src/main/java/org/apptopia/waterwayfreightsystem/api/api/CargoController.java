@@ -7,6 +7,7 @@ import org.apptopia.waterwayfreightsystem.api.api.application.usecases.account.R
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.cargo.RawCargoOutput;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,6 +29,7 @@ public class CargoController {
 	@RequestMapping(value = {"/{id}","/{id}/"}, produces = "application/json",
 		consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
 	@ResponseBody
+	@PreAuthorize("hasRole('ROLE_USER')")
 	public List<RawCargoOutput> getCargosOfCustomer(@RequestBody RawAccountInput rawAccountInput){
 		return cargoService.getCargosOfCustomer(rawAccountInput);
 	}
