@@ -2,6 +2,7 @@ package org.apptopia.waterwayfreightsystem.api.api.application;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.schedule.RawScheduleInput;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.schedule.RawScheduleMapper;
@@ -43,4 +44,16 @@ public class ScheduleServiceImpl implements ScheduleService {
 		return RawScheduleMapper.INSTANCE.fromSchedule(schedule);
 	}
 
+	@Override
+	public RawScheduleOutput updateSchedule(RawScheduleInput rawScheduleInput) {
+		Optional<Schedule> existingOne = scheduleRepository.findById(
+			rawScheduleInput.getIdSchedule());
+		
+		if(!existingOne.isPresent()) {
+			throw new IllegalArgumentException("Schedule not existed");
+		}
+		Schedule schedule = RawScheduleMapper.INSTANCE.fromRawInput(rawScheduleInput);
+		scheduleRepository.save(schedule);
+		return RawScheduleMapper.INSTANCE.fromSchedule(schedule);
+	}
 }

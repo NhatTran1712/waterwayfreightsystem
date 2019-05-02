@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apptopia.waterwayfreightsystem.api.api.application.ScheduleService;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.rawinput.AddNewScheduleUseCase;
+import org.apptopia.waterwayfreightsystem.api.api.application.usecases.rawupdate.UpdateScheduleUseCase;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.schedule.RawScheduleInput;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.schedule.RawScheduleOutput;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,12 +22,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class ScheduleController {
 	private ScheduleService scheduleService;
 	private AddNewScheduleUseCase addNewScheduleUseCase;
+	private UpdateScheduleUseCase updateScheduleUseCase;
 	
 	@Autowired
 	public void setScheduleService(ScheduleService scheduleService,
-		AddNewScheduleUseCase addNewScheduleUseCase) {
+		AddNewScheduleUseCase addNewScheduleUseCase, UpdateScheduleUseCase updateScheduleUseCase) {
 		this.scheduleService = scheduleService;
 		this.addNewScheduleUseCase = addNewScheduleUseCase;
+		this.updateScheduleUseCase = updateScheduleUseCase;
 	}
 	
 	@RequestMapping(value = {"/",""}, produces = "application/json",
@@ -41,5 +44,12 @@ public class ScheduleController {
 	@ResponseBody
 	public RawScheduleOutput addNewSchedule(@RequestBody RawScheduleInput rawScheduleInput) {
 		return addNewScheduleUseCase.handle(rawScheduleInput);
+	}
+	
+	@RequestMapping(value = {"/update/{id}/","/update/{id}"}, produces = "application/json",
+		consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.PUT)
+	@ResponseBody
+	public RawScheduleOutput updateSchedule(@RequestBody RawScheduleInput rawScheduleInput) {
+		return updateScheduleUseCase.handle(rawScheduleInput);
 	}
 }

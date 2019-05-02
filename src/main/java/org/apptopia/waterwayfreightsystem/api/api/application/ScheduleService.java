@@ -9,4 +9,5 @@ public interface ScheduleService {
 	
 	List<RawScheduleOutput> findAllSchedules();
 	RawScheduleOutput newSchedule(RawScheduleInput rawScheduleInput);
+	RawScheduleOutput updateSchedule(RawScheduleInput rawScheduleInput);
 }
