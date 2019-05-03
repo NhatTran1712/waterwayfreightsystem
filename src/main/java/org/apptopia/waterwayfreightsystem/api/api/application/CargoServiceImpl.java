@@ -2,12 +2,14 @@ package org.apptopia.waterwayfreightsystem.api.api.application;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.account.RawAccountInput;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.account.RawAccountMapper;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.cargo.RawCargoMapper;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.cargo.RawCargoOutput;
 import org.apptopia.waterwayfreightsystem.api.api.authentication.Account;
+import org.apptopia.waterwayfreightsystem.api.api.authentication.AccountRepository;
 import org.apptopia.waterwayfreightsystem.api.api.core.model.Cargo;
 import org.apptopia.waterwayfreightsystem.api.api.core.model.CargoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,18 +19,24 @@ import org.springframework.stereotype.Service;
 @Service
 public class CargoServiceImpl implements CargoService {
 	private CargoRepository cargoRepository;
+	private AccountRepository accoutRepository;
 	
 	@Autowired
 	public void setCargoRepository(@Qualifier("PostgresCargoRepository")
-		CargoRepository cargoRepository) {
+		CargoRepository cargoRepository, AccountRepository accountRepository) {
 		this.cargoRepository = cargoRepository;
+		this.accoutRepository = accountRepository;
 	}
 	
 	@Override
-	public List<RawCargoOutput> getCargosOfCustomer(RawAccountInput rawAccountInput) {
-		Account account = RawAccountMapper.INSTANCE.fromRawInput(rawAccountInput);
-		List<Cargo> cargos = cargoRepository.findByOwner(account);
+	public List<RawCargoOutput> getCargosOfCustomer(Integer idUser) {
+		Optional<Account> existingOne = accoutRepository.findById(idUser);
 		List<RawCargoOutput> rawCargoOutputs = new ArrayList<>();
+		
+		if(!existingOne.isPresent()) {
+			throw new IllegalArgumentException("Account not existed");
+		}
+		List<Cargo> cargos = cargoRepository.findByOwner(existingOne.get());
 		
 		for(Cargo cargo : cargos) {
 			rawCargoOutputs.add(RawCargoMapper.INSTANCE.fromCargo(cargo));

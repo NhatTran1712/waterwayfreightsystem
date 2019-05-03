@@ -38,6 +38,7 @@ public class TransportProcessController {
 	@RequestMapping(value = {"/",""}, produces = "application/json",
 		consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
 	@ResponseBody
+	@PreAuthorize("hasRole('ROLE_MANAGER')")
 	public List<RawTransportProcessOutput> getAllTransportProcesses(){
 		return transportProcessService.findAllTransportProcesses();
 	}
@@ -45,7 +46,7 @@ public class TransportProcessController {
 	@RequestMapping(value = {"/{id}/","/{id}"}, produces = "application/json",
 		consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.PUT)
 	@ResponseBody
-	@PreAuthorize("hasRole('ROLE_USER')")
+	@PreAuthorize("hasRole('ROLE_USER' || 'ROLE_MANAGER')")
 	public RawTransportProcessOutput showTransportProcess(@PathVariable("id")
 		Integer idTransportProcess) {
 		initializeTransportProcessUseCase.handle(idTransportProcess);

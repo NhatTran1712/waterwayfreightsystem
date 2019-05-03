@@ -1,11 +1,16 @@
 package org.apptopia.waterwayfreightsystem.api.api.application;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ListIterator;
 import java.util.Optional;
 
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.orders.RawOrdersInput;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.orders.RawOrdersMapper;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.orders.RawOrdersOutput;
 import org.apptopia.waterwayfreightsystem.api.api.authentication.Account;
+import org.apptopia.waterwayfreightsystem.api.api.authentication.AccountRepository;
+import org.apptopia.waterwayfreightsystem.api.api.core.model.Cargo;
 import org.apptopia.waterwayfreightsystem.api.api.core.model.Orders;
 import org.apptopia.waterwayfreightsystem.api.api.core.model.OrdersRepository;
 import org.apptopia.waterwayfreightsystem.api.api.ship.model.Ship;
@@ -16,12 +21,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class OrdersServiceImpl implements OrdersService {
 	private OrdersRepository ordersRepository;
+	private AccountRepository accountRepository;
 	
 	@Autowired
-	public void setOrdersRepository(@Qualifier("PostgresOrdersRepository") OrdersRepository
-		ordersRepository) {
+	public void setRepository(@Qualifier("PostgresOrdersRepository") OrdersRepository
+		ordersRepository, AccountRepository accountRepository) {
 		
 		this.ordersRepository = ordersRepository;
+		this.accountRepository = accountRepository;
 	}
 	
 	@Override
@@ -46,6 +53,52 @@ public class OrdersServiceImpl implements OrdersService {
 		Orders order = RawOrdersMapper.INSTANCE.fromRawInput(rawOrdersInput);
 		ordersRepository.save(order);
 		return RawOrdersMapper.INSTANCE.fromOrders(order);
+	}
+
+	@Override
+	public List<RawOrdersOutput> getAllOrders() {
+		List<Orders> orders = ordersRepository.findAll();
+		List<RawOrdersOutput> rawOrdersOutputs = new ArrayList<>();
+		
+		for(Orders order : orders) {
+			rawOrdersOutputs.add(RawOrdersMapper.INSTANCE.fromOrders(order));
+		}
+		return rawOrdersOutputs;
+	}
+
+	@Override
+	public List<RawOrdersOutput> getOrdersOfCustomer(Integer idUser) {
+		Optional<Account> existingOne = accountRepository.findOne(idUser);
+		List<RawOrdersOutput> rawOrdersOutputs = new ArrayList<>();
+		
+		if(!existingOne.isPresent()) {
+			throw new IllegalArgumentException("Account not existed");
+		}
+		Account account = existingOne.get();
+		List<Orders> orders = findOrdersByWhoOwner(account);
+		
+		for(Orders order : orders) {
+			rawOrdersOutputs.add(RawOrdersMapper.INSTANCE.fromOrders(order));
+		}
+		return rawOrdersOutputs;
+	}
+
+	@Override
+	public List<Orders> findOrdersByWhoOwner(Account account) {
+		List<Orders> orders = ordersRepository.findAll();
+		List<Orders> customerOrders = new ArrayList<>();
+		
+		for(Orders order : orders) {
+			ListIterator<Cargo> itr = order.getCargos().listIterator();
+			int isBreak = 0;
+			while(itr.hasNext() && isBreak == 0) {
+				if(itr.next().getOwner() == account) {
+					customerOrders.add(order);
+				}
+				isBreak = 1;
+			}
+		}
+		return customerOrders;
 	}
 
 }

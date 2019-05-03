@@ -12,6 +12,7 @@ import org.apptopia.waterwayfreightsystem.api.api.application.usecases.travelpro
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.travelproblem.RawTravelProblemOutput;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -53,6 +54,7 @@ public class ShipController {
 	@RequestMapping(value = {"/update-status/","/update-status"}, produces = "application/json",
 		consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.PUT)
 	@ResponseBody
+	@PreAuthorize("hasRole('ROLE_ADMIN' || 'ROLE_MANAGER')")
 	public RawShipOutput updateStatusForShip(@RequestBody RawShipInput rawShipInput) {
 		return updateStatusForShipUseCase.handle(rawShipInput);
 	}
@@ -61,6 +63,7 @@ public class ShipController {
 		produces = "application/json", consumes = MediaType.APPLICATION_JSON_VALUE,
 		method = RequestMethod.POST)
 	@ResponseBody
+	@PreAuthorize("hasRole('ROLE_ADMIN' || 'ROLE_MANAGER')")
 	public RawTravelProblemOutput addNewTravelProblem(@RequestBody RawTravelProblemInput
 		rawTravelProblemInput) {
 		return addNewTravelProblemUseCase.handle(rawTravelProblemInput);
@@ -70,6 +73,7 @@ public class ShipController {
 		produces = "application/json", consumes = MediaType.APPLICATION_JSON_VALUE,
 		method = RequestMethod.PUT)
 	@ResponseBody
+	@PreAuthorize("hasRole('ROLE_ADMIN' || 'ROLE_MANAGER')")
 	public RawTravelProblemOutput updateTravelProblem(@RequestBody RawTravelProblemInput
 		rawTravelProblemInput) {
 		return updateTravelProblemUseCase.handle(rawTravelProblemInput);

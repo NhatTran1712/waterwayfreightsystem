@@ -52,7 +52,7 @@ public class ScheduleController {
 		return addNewScheduleUseCase.handle(rawScheduleInput);
 	}
 	
-	@RequestMapping(value = {"/update/{id}/","/update/{id}"}, produces = "application/json",
+	@RequestMapping(value = {"/update/","/update"}, produces = "application/json",
 		consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.PUT)
 	@ResponseBody
 	@PreAuthorize("hasRole('ROLE_MANAGER')")

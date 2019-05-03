@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,15 +30,16 @@ public class CargoController {
 	@RequestMapping(value = {"/",""}, produces = "application/json",
 		consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
 	@ResponseBody
+	@PreAuthorize("hasRole('ROLE_MANAGER')")
 	public List<RawCargoOutput> getAllCargos(){
 		return cargoService.findAllCargos();
 	}
 	
-	@RequestMapping(value = {"/{id}","/{id}/"}, produces = "application/json",
+	@RequestMapping(value = {"/show-all/{id}","/{id}/"}, produces = "application/json",
 		consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
 	@ResponseBody
 	@PreAuthorize("hasRole('ROLE_USER' || 'ROLE_MANAGER')")
-	public List<RawCargoOutput> getCargosOfCustomer(@RequestBody RawAccountInput rawAccountInput){
-		return cargoService.getCargosOfCustomer(rawAccountInput);
+	public List<RawCargoOutput> getCargosOfCustomer(@PathVariable("id") Integer idUser){
+		return cargoService.getCargosOfCustomer(idUser);
 	}
 }
