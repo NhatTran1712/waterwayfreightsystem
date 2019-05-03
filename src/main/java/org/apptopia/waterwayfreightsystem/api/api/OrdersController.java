@@ -3,6 +3,7 @@ package org.apptopia.waterwayfreightsystem.api.api;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.orders.RawOrdersInput;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.orders.RawOrdersOutput;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.rawinput.AddNewOrdersUseCase;
+import org.apptopia.waterwayfreightsystem.api.api.application.usecases.rawupdate.UpdateOrdersUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -17,11 +18,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/orders")
 public class OrdersController {
 	private AddNewOrdersUseCase addNewOrdersUseCase;
+	private UpdateOrdersUseCase updateOrdersUseCase;
 	
 	@Autowired
-	public void setOrdersUseCase(AddNewOrdersUseCase addNewOrdersUseCase) {
+	public void setOrdersUseCase(AddNewOrdersUseCase addNewOrdersUseCase, UpdateOrdersUseCase
+		updateOrdersUseCase) {
 		
 		this.addNewOrdersUseCase = addNewOrdersUseCase;
+		this.updateOrdersUseCase = updateOrdersUseCase;
 	}
 	
 	@RequestMapping(value = {"/add/","/add"}, produces = "application/json",
@@ -30,4 +34,12 @@ public class OrdersController {
 	public RawOrdersOutput addNewOrders(@RequestBody RawOrdersInput rawOrdersInput) {
 		return addNewOrdersUseCase.handle(rawOrdersInput);
 	}
+	
+	@RequestMapping(value = {"/update/","/update"}, produces = "application/json",
+		consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.PUT)
+	@ResponseBody
+	public RawOrdersOutput updateOrders(@RequestBody RawOrdersInput rawOrdersInput) {
+		return updateOrdersUseCase.handle(rawOrdersInput);
+	}
+	
 }

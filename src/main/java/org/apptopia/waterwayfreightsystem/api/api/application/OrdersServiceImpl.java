@@ -1,5 +1,7 @@
 package org.apptopia.waterwayfreightsystem.api.api.application;
 
+import java.util.Optional;
+
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.orders.RawOrdersInput;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.orders.RawOrdersMapper;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.orders.RawOrdersOutput;
@@ -30,6 +32,18 @@ public class OrdersServiceImpl implements OrdersService {
 		
 		order.setShipTransport(ship);
 		order.setWhoReceive(account);
+		ordersRepository.save(order);
+		return RawOrdersMapper.INSTANCE.fromOrders(order);
+	}
+
+	@Override
+	public RawOrdersOutput updateOrders(RawOrdersInput rawOrdersInput) {
+		Optional<Orders> existingOne = ordersRepository.findById(rawOrdersInput.getIdOrder());
+		
+		if(!existingOne.isPresent()) {
+			throw new IllegalArgumentException("Order not existed");
+		}
+		Orders order = RawOrdersMapper.INSTANCE.fromRawInput(rawOrdersInput);
 		ordersRepository.save(order);
 		return RawOrdersMapper.INSTANCE.fromOrders(order);
 	}

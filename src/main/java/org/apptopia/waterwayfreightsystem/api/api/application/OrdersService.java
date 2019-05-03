@@ -6,4 +6,5 @@ import org.apptopia.waterwayfreightsystem.api.api.application.usecases.orders.Ra
 public interface OrdersService {
 	
 	RawOrdersOutput newOrders(RawOrdersInput rawOrdersInput);
+	RawOrdersOutput updateOrders(RawOrdersInput rawOrdersInput);
 }
