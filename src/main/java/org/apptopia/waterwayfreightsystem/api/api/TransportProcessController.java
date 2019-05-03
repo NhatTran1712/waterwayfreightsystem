@@ -35,12 +35,12 @@ public class TransportProcessController {
 		this.initializeTransportProcessUseCase = initializeTransportProcessUseCase;
 	}
 	
-//	@RequestMapping(value = {"/",""}, produces = "application/json",
-//		consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
-//	@ResponseBody
-//	public List<RawTransportProcessOutput> getAllTransportProcesses(){
-//		return transportProcessService.findAllTransportProcesses();
-//	}
+	@RequestMapping(value = {"/",""}, produces = "application/json",
+		consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
+	@ResponseBody
+	public List<RawTransportProcessOutput> getAllTransportProcesses(){
+		return transportProcessService.findAllTransportProcesses();
+	}
 	
 	@RequestMapping(value = {"/{id}/","/{id}"}, produces = "application/json",
 		consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.PUT)
