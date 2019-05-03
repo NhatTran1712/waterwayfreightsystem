@@ -8,6 +8,8 @@ import java.util.Optional;
 
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.transportprocess.RawTransportProcessMapper;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.transportprocess.RawTransportProcessOutput;
+import org.apptopia.waterwayfreightsystem.api.api.core.model.Orders;
+import org.apptopia.waterwayfreightsystem.api.api.core.model.OrdersRepository;
 import org.apptopia.waterwayfreightsystem.api.api.core.model.TransportProcess;
 import org.apptopia.waterwayfreightsystem.api.api.core.model.TransportProcessRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +19,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class TransportProcessServiceImpl implements TransportProcessService {
 	private TransportProcessRepository transportProcessRepository;
+	private OrdersRepository ordersRepository;
 	
 	@Autowired
-	public void setTransportProcessRepository(@Qualifier("PostgresTransportProcessRepository")
-		TransportProcessRepository transportProcessRepository) {
+	public void setRepository(@Qualifier("PostgresTransportProcessRepository")
+		TransportProcessRepository transportProcessRepository,
+		@Qualifier("PostgresOrdersRepository") OrdersRepository ordersRepository) {
+		
 		this.transportProcessRepository = transportProcessRepository;
+		this.ordersRepository = ordersRepository;
 	}
 	
 	@Override
@@ -64,8 +70,44 @@ public class TransportProcessServiceImpl implements TransportProcessService {
 		transportDuration = Duration.between(LocalDateTime.now(),
 			transportProcess.getDateArrive());
 		dayPeriod = Math.ceil(transportDuration.toMinutes()/1440.0);
-		transportProcess.setDayRemaining((int) dayPeriod);
+		transportProcess.setDayRemaining((long) dayPeriod);
 		transportProcessRepository.save(transportProcess);
 		return RawTransportProcessMapper.INSTANCE.fromTransportProcess(transportProcess);
 	}
+
+	@Override
+	public RawTransportProcessOutput initializeTransportProcessInformation(
+		Integer idTransportProcess) {
+		Optional<TransportProcess> existingOneTransPro = transportProcessRepository.findById(
+			idTransportProcess);
+		TransportProcess transportProcess;
+		Optional<Orders> existingOneOrd = ordersRepository.findById(idTransportProcess);
+		double realDay = 0.0; //day
+		Duration dayRemaining;
+		
+		if(!existingOneTransPro.isPresent()) {
+			transportProcess = new TransportProcess(idTransportProcess);
+		}
+		else {
+			transportProcess = existingOneTransPro.get();
+		}
+		if(!existingOneOrd.isPresent()) {
+			throw new IllegalArgumentException("Order not existed");
+		}
+		Orders order = existingOneOrd.get();
+		
+		transportProcess.setOrder(order);
+		transportProcess.setShip(order.getShipTransport());
+		transportProcess.setTransportProcessStatus(order.getShipTransport().getShipStatus());
+		realDay = Math.ceil(order.getShipTransport().getSchedule().getEstimateTime()/24.0);
+		transportProcess.setRealDay((int) realDay);
+		transportProcess.setDateDepart(order.getShipTransport().getSchedule().getDateDepart());
+		transportProcess.setDateArrive(order.getShipTransport().getSchedule().getDateArrive());
+		dayRemaining = Duration.between(LocalDateTime.now(),order.getShipTransport()
+			.getSchedule().getDateArrive());
+		transportProcess.setDayRemaining(dayRemaining.toDays());
+		transportProcessRepository.save(transportProcess);
+		return RawTransportProcessMapper.INSTANCE.fromTransportProcess(transportProcess);
+	}
+
 }

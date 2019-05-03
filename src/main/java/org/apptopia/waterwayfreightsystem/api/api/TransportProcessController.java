@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 import org.apptopia.waterwayfreightsystem.api.api.application.TransportProcessService;
+import org.apptopia.waterwayfreightsystem.api.api.application.usecases.rawinput.InitializeTransportProcessUseCase;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.transportprocess.RawTransportProcessOutput;
 import org.apptopia.waterwayfreightsystem.api.api.core.calculator.TransportProcessInformationCalculator;
 
@@ -22,13 +23,16 @@ import org.apptopia.waterwayfreightsystem.api.api.core.calculator.TransportProce
 public class TransportProcessController {
 	private TransportProcessService transportProcessService;
 	private TransportProcessInformationCalculator transportProcessInformationCalculator;
+	private InitializeTransportProcessUseCase initializeTransportProcessUseCase;
 	
 	@Autowired
 	public void setTransportProcessService(TransportProcessService transportProcessService,
-		TransportProcessInformationCalculator transportProcessInformationCalculator) {
+		TransportProcessInformationCalculator transportProcessInformationCalculator,
+		InitializeTransportProcessUseCase initializeTransportProcessUseCase) {
 		
 		this.transportProcessService = transportProcessService;
 		this.transportProcessInformationCalculator = transportProcessInformationCalculator;
+		this.initializeTransportProcessUseCase = initializeTransportProcessUseCase;
 	}
 	
 //	@RequestMapping(value = {"/",""}, produces = "application/json",
@@ -44,6 +48,7 @@ public class TransportProcessController {
 	@PreAuthorize("hasRole('ROLE_USER')")
 	public RawTransportProcessOutput showTransportProcess(@PathVariable("id")
 		Integer idTransportProcess) {
+		initializeTransportProcessUseCase.handle(idTransportProcess);
 		return transportProcessInformationCalculator.handle(idTransportProcess);
 	}
 }

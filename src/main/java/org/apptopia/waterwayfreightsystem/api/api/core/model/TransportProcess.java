@@ -27,7 +27,11 @@ public class TransportProcess {
 	@Enumerated(EnumType.STRING)
 	private ShipStatus transportProcessStatus;
 	private Integer realDay;
-	private Integer dayRemaining;
+	private Long dayRemaining;
 	private LocalDateTime dateDepart;
 	private LocalDateTime dateArrive;
+	
+	public TransportProcess(Integer idOrder) {
+		this.idOrder = idOrder;
+	}
 }

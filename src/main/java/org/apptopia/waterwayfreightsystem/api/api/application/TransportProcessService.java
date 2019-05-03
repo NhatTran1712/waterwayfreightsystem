@@ -7,4 +7,5 @@ import org.apptopia.waterwayfreightsystem.api.api.application.usecases.transport
 public interface TransportProcessService {
 	List<RawTransportProcessOutput> findAllTransportProcesses();
 	RawTransportProcessOutput calculateTransportProcessInformation(Integer idTransportProcess);
+	RawTransportProcessOutput initializeTransportProcessInformation(Integer idTransportProcess);
 }
