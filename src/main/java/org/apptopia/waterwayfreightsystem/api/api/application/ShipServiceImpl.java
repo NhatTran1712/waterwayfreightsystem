@@ -102,5 +102,18 @@ public class ShipServiceImpl implements ShipService {
 		shipRepository.save(ship);
 		return RawShipMapper.INSTANCE.fromShip(ship);
 	}
+
+	@Override
+	public RawShipOutput updateShip(RawShipInput rawShipInput) {
+		Optional<Ship> existingOne = shipRepository.findById(rawShipInput.getIdShip());
+		
+		if(!existingOne.isPresent()) {
+			throw new IllegalArgumentException("Ship not existed");
+		}
+		Ship ship = RawShipMapper.INSTANCE.fromRawInput(rawShipInput);
+		
+		shipRepository.save(ship);
+		return RawShipMapper.INSTANCE.fromShip(ship);
+	}
 	
 }

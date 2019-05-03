@@ -5,6 +5,7 @@ import java.util.List;
 import org.apptopia.waterwayfreightsystem.api.api.application.ShipService;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.rawinput.AddNewShipUseCase;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.rawinput.AddNewTravelProblemUseCase;
+import org.apptopia.waterwayfreightsystem.api.api.application.usecases.rawupdate.UpdateShipUseCase;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.rawupdate.UpdateStatusForShipUseCase;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.rawupdate.UpdateTravelProblemUseCase;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.ship.RawShipInput;
@@ -30,6 +31,7 @@ public class ShipController {
 	private AddNewTravelProblemUseCase addNewTravelProblemUseCase;
 	private UpdateTravelProblemUseCase updateTravelProblemUseCase;
 	private AddNewShipUseCase addNewShipUseCase;
+	private UpdateShipUseCase updateShipUseCase;
 	
 	@Autowired
 	public void setShipService(ShipService shipService) {
@@ -39,12 +41,14 @@ public class ShipController {
 	@Autowired
 	public void setShipUseCase(UpdateStatusForShipUseCase updateStatusForShipUseCase,
 		AddNewTravelProblemUseCase addNewTravelProblemUseCase,
-		UpdateTravelProblemUseCase updateTravelProblemUseCase, AddNewShipUseCase addNewShipUseCase) {
+		UpdateTravelProblemUseCase updateTravelProblemUseCase,
+		AddNewShipUseCase addNewShipUseCase, UpdateShipUseCase updateShipUseCase) {
 		
 		this.updateStatusForShipUseCase = updateStatusForShipUseCase;
 		this.addNewTravelProblemUseCase = addNewTravelProblemUseCase;
 		this.updateTravelProblemUseCase = updateTravelProblemUseCase;
 		this.addNewShipUseCase = addNewShipUseCase;
+		this.updateShipUseCase = updateShipUseCase;
 	}
 	
 	@RequestMapping(value = {"/",""}, produces = "application/json",
@@ -85,7 +89,15 @@ public class ShipController {
 	@RequestMapping(value = {"/add/","/add"}, produces = "application/json",
 		consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
 	@ResponseBody
+	@PreAuthorize("hasRole('ROLE_MANAGER')")
 	public RawShipOutput addNewShip(@RequestBody RawShipInput rawShipInput) {
 		return addNewShipUseCase.handle(rawShipInput);
+	}
+	
+	@RequestMapping(value = {"/update/","/update"}, produces = "application/json",
+		consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.PUT)
+	@ResponseBody
+	public RawShipOutput updateShip(@RequestBody RawShipInput rawShipInput) {
+		return updateShipUseCase.handle(rawShipInput);
 	}
 }
