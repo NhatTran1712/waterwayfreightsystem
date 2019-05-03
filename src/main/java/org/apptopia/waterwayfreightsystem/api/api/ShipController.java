@@ -3,6 +3,7 @@ package org.apptopia.waterwayfreightsystem.api.api;
 import java.util.List;
 
 import org.apptopia.waterwayfreightsystem.api.api.application.ShipService;
+import org.apptopia.waterwayfreightsystem.api.api.application.usecases.rawinput.AddNewShipUseCase;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.rawinput.AddNewTravelProblemUseCase;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.rawupdate.UpdateStatusForShipUseCase;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.rawupdate.UpdateTravelProblemUseCase;
@@ -28,6 +29,7 @@ public class ShipController {
 	private UpdateStatusForShipUseCase updateStatusForShipUseCase;
 	private AddNewTravelProblemUseCase addNewTravelProblemUseCase;
 	private UpdateTravelProblemUseCase updateTravelProblemUseCase;
+	private AddNewShipUseCase addNewShipUseCase;
 	
 	@Autowired
 	public void setShipService(ShipService shipService) {
@@ -37,11 +39,12 @@ public class ShipController {
 	@Autowired
 	public void setShipUseCase(UpdateStatusForShipUseCase updateStatusForShipUseCase,
 		AddNewTravelProblemUseCase addNewTravelProblemUseCase,
-		UpdateTravelProblemUseCase updateTravelProblemUseCase) {
+		UpdateTravelProblemUseCase updateTravelProblemUseCase, AddNewShipUseCase addNewShipUseCase) {
 		
 		this.updateStatusForShipUseCase = updateStatusForShipUseCase;
 		this.addNewTravelProblemUseCase = addNewTravelProblemUseCase;
 		this.updateTravelProblemUseCase = updateTravelProblemUseCase;
+		this.addNewShipUseCase = addNewShipUseCase;
 	}
 	
 	@RequestMapping(value = {"/",""}, produces = "application/json",
@@ -77,5 +80,12 @@ public class ShipController {
 	public RawTravelProblemOutput updateTravelProblem(@RequestBody RawTravelProblemInput
 		rawTravelProblemInput) {
 		return updateTravelProblemUseCase.handle(rawTravelProblemInput);
+	}
+	
+	@RequestMapping(value = {"/add/","/add"}, produces = "application/json",
+		consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
+	@ResponseBody
+	public RawShipOutput addNewShip(@RequestBody RawShipInput rawShipInput) {
+		return addNewShipUseCase.handle(rawShipInput);
 	}
 }

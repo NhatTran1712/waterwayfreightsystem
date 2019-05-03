@@ -11,6 +11,7 @@ import org.apptopia.waterwayfreightsystem.api.api.application.usecases.travelpro
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.travelproblem.RawTravelProblemMapper;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.travelproblem.RawTravelProblemOutput;
 import org.apptopia.waterwayfreightsystem.api.api.authentication.Account;
+import org.apptopia.waterwayfreightsystem.api.api.core.model.Schedule;
 import org.apptopia.waterwayfreightsystem.api.api.core.model.TravelProblem;
 import org.apptopia.waterwayfreightsystem.api.api.core.model.TravelProblemRepository;
 import org.apptopia.waterwayfreightsystem.api.api.ship.model.Ship;
@@ -85,6 +86,21 @@ public class ShipServiceImpl implements ShipService {
 		
 		travelProblemRepository.save(travelProblem);
 		return RawTravelProblemMapper.INSTANCE.fromTravelProblem(travelProblem);
+	}
+
+	@Override
+	public RawShipOutput newShip(RawShipInput rawShipInput) {
+		Ship ship = RawShipMapper.INSTANCE.fromRawInput(rawShipInput);
+		Schedule schedule = RawShipMapper.INSTANCE.toSchedule(rawShipInput.getIdSchedule());
+		TravelProblem travelProblem = RawShipMapper.INSTANCE.toTravelProblem(rawShipInput
+			.getIdTravelProblem());
+		Account account = RawShipMapper.INSTANCE.toAccount(rawShipInput.getWhoManager());
+		
+		ship.setSchedule(schedule);
+		ship.setTravelProblem(travelProblem);
+		ship.setWhoManager(account);
+		shipRepository.save(ship);
+		return RawShipMapper.INSTANCE.fromShip(ship);
 	}
 	
 }

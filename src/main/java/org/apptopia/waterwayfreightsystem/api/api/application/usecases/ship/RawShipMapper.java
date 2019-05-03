@@ -29,7 +29,7 @@ public interface RawShipMapper {
 		return schedule.getIdSchedule();
 	}
 	
-	default TravelProblem totravelProblem(Integer idTravelProblem) {
+	default TravelProblem toTravelProblem(Integer idTravelProblem) {
 		if(idTravelProblem == null || idTravelProblem == 0) {
 			return null;
 		}
