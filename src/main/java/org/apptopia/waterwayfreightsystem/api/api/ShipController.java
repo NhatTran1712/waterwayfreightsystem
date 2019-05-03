@@ -97,6 +97,7 @@ public class ShipController {
 	@RequestMapping(value = {"/update/","/update"}, produces = "application/json",
 		consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.PUT)
 	@ResponseBody
+	@PreAuthorize("hasRole('ROLE_MANAGER')")
 	public RawShipOutput updateShip(@RequestBody RawShipInput rawShipInput) {
 		return updateShipUseCase.handle(rawShipInput);
 	}
