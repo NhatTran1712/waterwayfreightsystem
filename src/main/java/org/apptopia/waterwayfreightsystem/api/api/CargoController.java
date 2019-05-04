@@ -6,6 +6,7 @@ import org.apptopia.waterwayfreightsystem.api.api.application.CargoService;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.cargo.RawCargoInput;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.cargo.RawCargoOutput;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.rawinput.AddNewCargoUseCase;
+import org.apptopia.waterwayfreightsystem.api.api.application.usecases.rawupdate.UpdateCargoUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class CargoController {
 	private CargoService cargoService;
 	private AddNewCargoUseCase addNewCargoUseCase;
+	private UpdateCargoUseCase updateCargoUseCase;
 	
 	@Autowired
 	public void setCargoService(CargoService cargoService) {
@@ -30,9 +32,11 @@ public class CargoController {
 	}
 	
 	@Autowired
-	public void setCargoUseCase(AddNewCargoUseCase addNewCargoUseCase) {
+	public void setCargoUseCase(AddNewCargoUseCase addNewCargoUseCase,
+		UpdateCargoUseCase updateCargoUseCase) {
 		
 		this.addNewCargoUseCase = addNewCargoUseCase;
+		this.updateCargoUseCase = updateCargoUseCase;
 	}
 	
 	@RequestMapping(value = {"/",""}, produces = "application/json",
@@ -58,5 +62,14 @@ public class CargoController {
 	public RawCargoOutput addNewCargo(@RequestBody RawCargoInput rawCargoInput) {
 		return addNewCargoUseCase.handle(rawCargoInput);
 	}
+	
+	@RequestMapping(value = {"/update/","/update"}, produces = "application/json",
+		consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.PUT)
+	@ResponseBody
+	@PreAuthorize("hasRole('ROLE_MANAGER')")
+	public RawCargoOutput updateCargo(@RequestBody RawCargoInput rawCargoInput) {
+		return updateCargoUseCase.handle(rawCargoInput);
+	}
+	
 	
 }

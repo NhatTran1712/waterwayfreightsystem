@@ -64,4 +64,17 @@ public class CargoServiceImpl implements CargoService {
 		return RawCargoMapper.INSTANCE.fromCargo(cargo);
 	}
 
+	@Override
+	public RawCargoOutput updateCargo(RawCargoInput rawCargoInput) {
+		Optional<Cargo> existingOne = cargoRepository.findById(rawCargoInput.getIdCargo());
+		
+		if(!existingOne.isPresent()) {
+			throw new IllegalArgumentException("Cargo not existed");
+		}
+		Cargo cargo = RawCargoMapper.INSTANCE.fromRawInput(rawCargoInput);
+		
+		cargoRepository.save(cargo);
+		return RawCargoMapper.INSTANCE.fromCargo(cargo);
+	}
+
 }
