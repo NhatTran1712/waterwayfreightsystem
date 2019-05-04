@@ -63,6 +63,13 @@ public class ShipController {
 		return shipService.findAllShips();
 	}
 	
+	@RequestMapping(value = {"/{id}/","/{id}"}, produces = "application/json",
+		consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
+	@ResponseBody
+	public RawShipOutput getShip(@PathVariable("id") Integer idShip) {
+		return shipService.findOne(idShip);
+	}
+	
 	@RequestMapping(value = {"/update-status/","/update-status"}, produces = "application/json",
 		consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.PUT)
 	@ResponseBody
@@ -111,6 +118,7 @@ public class ShipController {
 		produces = "application/json", consumes = MediaType.APPLICATION_JSON_VALUE,
 		method = RequestMethod.PUT)
 	@ResponseBody
+	@PreAuthorize("hasRole('ROLE_MANAGER')")
 	public RawShipOutput setScheduleForShip(@RequestBody RawShipInput rawShipInput) {
 		return updateScheduleForShipUseCase.handle(rawShipInput);
 	}

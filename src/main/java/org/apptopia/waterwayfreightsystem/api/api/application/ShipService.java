@@ -9,6 +9,7 @@ import org.apptopia.waterwayfreightsystem.api.api.application.usecases.travelpro
 
 public interface ShipService {
 	List<RawShipOutput> findAllShips();
+	RawShipOutput findOne(Integer idShip);
 	RawShipOutput updateStatusForShip(RawShipInput rawShipInput);
 	RawTravelProblemOutput newTravelProblem(RawTravelProblemInput rawTravelProblemInput);
 	RawTravelProblemOutput updateTravelProblem(RawTravelProblemInput rawTravelProblemInput);
