@@ -4,8 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.apptopia.waterwayfreightsystem.api.api.application.usecases.account.RawAccountInput;
-import org.apptopia.waterwayfreightsystem.api.api.application.usecases.account.RawAccountMapper;
+import org.apptopia.waterwayfreightsystem.api.api.application.usecases.cargo.RawCargoInput;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.cargo.RawCargoMapper;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.cargo.RawCargoOutput;
 import org.apptopia.waterwayfreightsystem.api.api.authentication.Account;
@@ -53,6 +52,16 @@ public class CargoServiceImpl implements CargoService {
 			rawCargoOutputs.add(RawCargoMapper.INSTANCE.fromCargo(cargo));
 		}
 		return rawCargoOutputs;
+	}
+
+	@Override
+	public RawCargoOutput newCargo(RawCargoInput rawCargoInput) {
+		Cargo cargo = RawCargoMapper.INSTANCE.fromRawInput(rawCargoInput);
+		Account account = RawCargoMapper.INSTANCE.toAccount(rawCargoInput.getIdOwner());
+		
+		cargo.setOwner(account);
+		cargoRepository.save(cargo);
+		return RawCargoMapper.INSTANCE.fromCargo(cargo);
 	}
 
 }
