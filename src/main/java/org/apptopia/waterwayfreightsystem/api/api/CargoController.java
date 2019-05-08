@@ -70,6 +70,4 @@ public class CargoController {
 	public RawCargoOutput updateCargo(@RequestBody RawCargoInput rawCargoInput) {
 		return updateCargoUseCase.handle(rawCargoInput);
 	}
-	
-	
 }

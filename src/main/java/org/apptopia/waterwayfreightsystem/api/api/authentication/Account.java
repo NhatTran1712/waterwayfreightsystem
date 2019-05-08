@@ -7,6 +7,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,6 +26,8 @@ public class Account {
 	@Column(nullable = false, unique = true)
 	private String username;
 	private String password;
+	@Transient
+    private String passwordConfirm;
 	@Enumerated(EnumType.STRING)
     private AccountType accountType;
 	private String fullname;
