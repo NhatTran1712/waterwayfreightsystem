@@ -10,10 +10,12 @@ import org.apptopia.waterwayfreightsystem.api.api.application.usecases.account.R
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.rawupdate.UpdateAccountUseCase;
 import org.apptopia.waterwayfreightsystem.api.api.authentication.Account;
 import org.apptopia.waterwayfreightsystem.api.api.authentication.AccountRepository;
+import org.apptopia.waterwayfreightsystem.api.api.authentication.AccountType;
 import org.apptopia.waterwayfreightsystem.api.api.authentication.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -34,6 +36,7 @@ public class AccountController {
 	private RegisterAccountUseCase registerAccountUseCase;
 	private UpdateAccountUseCase updateAccountUseCase;
     private UserValidator userValidator;
+    private PasswordEncoder passwordEncoder;
     
 	@Autowired
 	public void setAccountService(AccountService accountService, SecurityService securityService) {
@@ -58,46 +61,55 @@ public class AccountController {
 	public void setUserValidator(UserValidator userValidator) {
 		this.userValidator = userValidator;
 	}
-//	
-//	@RequestMapping(value = {"/register-customer-account/","/register-customer-account"},
-//		produces = "application/json", consumes = MediaType.APPLICATION_JSON_VALUE,
-//		method = RequestMethod.POST)
-//	@ResponseBody
-//	public RawAccountOutput addNewCustomerAccount(@RequestBody RawAccountInput rawAccountInput){
-//		return registerAccountUseCase.handle(rawAccountInput);
-//	}
-//	
-//
+	
+	@Autowired
+	public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
+		this.passwordEncoder = passwordEncoder;
+	}
+
     @RequestMapping(value = {"/registration"}, method = RequestMethod.GET)
-    public String registration(Model model) {
+    public String addNewCustomerAccount(Model model) {
         
     	model.addAttribute("userForm", new Account());
         return "registration";
     }
 
     @RequestMapping(value = {"/registration"}, method = RequestMethod.POST)
-    public String registration(@ModelAttribute("userForm") Account userForm,
+    public String addNewCustomerAccount(@ModelAttribute("userForm") Account userForm,
     	BindingResult bindingResult) {
         
     	userValidator.validate(userForm, bindingResult);
         if (bindingResult.hasErrors()) {
             return "registration";
         }
+        userForm.setAccountType(AccountType.USER);
+        userForm.setPassword(passwordEncoder.encode(userForm.getPassword()));
         accountRepository.save(userForm);
         securityService.autoLogin(userForm.getUsername(), userForm.getPasswordConfirm());
         return "redirect:/home";
     }
-//
-//	
-//	@RequestMapping(value = {"/register-staff-account","/register-staff-account/"},
-//		produces = "application/json", consumes = MediaType.APPLICATION_JSON_VALUE,
-//		method = RequestMethod.POST)
-//	@ResponseBody
-//	@PreAuthorize("hasRole('ROLE_ADMIN')")
-//	public RawAccountOutput addNewStaffAccount(@RequestBody RawAccountInput rawAccountInput){
-//		return registerAccountUseCase.handle(rawAccountInput);
-//	}
-//	
+
+    @RequestMapping(value = {"/registration-staff"}, method = RequestMethod.GET)
+    public String addNewStaffAccount(Model model) {
+
+    	model.addAttribute("userForm", new Account());
+    	model.addAttribute("accountTypeList", AccountType.values());
+        return "registration-staff";
+    }
+    
+    @RequestMapping(value = {"/registration-staff"}, method = RequestMethod.POST)
+    public String addNewStaffAccount(@ModelAttribute("userForm") Account userForm,
+    	BindingResult bindingResult) {
+        
+    	userValidator.validate(userForm, bindingResult);
+        if (bindingResult.hasErrors()) {
+            return "registration-staff";
+        }
+        userForm.setPassword(passwordEncoder.encode(userForm.getPassword()));
+        accountRepository.save(userForm);
+        return "redirect:/home-admin";
+    }
+
 //	@RequestMapping(value = {"/update/","/update"}, produces = "application/json",
 //			consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.PUT)
 //	@ResponseBody

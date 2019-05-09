@@ -35,6 +35,14 @@
                     <form:errors path="passwordConfirm"></form:errors>
                 </div>
             </spring:bind>
+            <spring:bind path="accountType">
+                <div class="form-group ${status.error ? 'has-error' : ''}">
+                    <form:select path="accountType">
+    					<form:options items="${accountTypeList}" />
+					</form:select>
+                    
+                </div>
+            </spring:bind>
             <spring:bind path="fullname">
                 <div class="form-group ${status.error ? 'has-error' : ''}">
                     <form:input type="text" path="fullname" class="form-control"

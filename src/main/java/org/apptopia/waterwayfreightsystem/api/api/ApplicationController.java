@@ -12,4 +12,9 @@ public class ApplicationController {
 	public String homePage(Model model) {
 		return "home";
 	}
+	
+	@RequestMapping(value = {"/home-admin/","/home-admin"}, method = RequestMethod.GET)
+	public String homeAdminPage(Model model) {
+		return "home-admin";
+	}
 }

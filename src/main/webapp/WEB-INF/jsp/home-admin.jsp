@@ -20,7 +20,8 @@
         <h5>
         	<a href="${contextPath}/account/show?username=${pageContext.request.userPrincipal.name}">
         		${pageContext.request.userPrincipal.name}</a> |
-        		<a onclick="document.forms['logoutForm'].submit()">dang xuat</a>
+        		<a onclick="document.forms['logoutForm'].submit()">dang xuat</a><br/>
+        	<a href="${contextPath}/account/registration-staff" style="color:black">Tao tai khoan</a>
         </h5>
     </c:if>
     <c:if test="${pageContext.request.userPrincipal.name == null}">
