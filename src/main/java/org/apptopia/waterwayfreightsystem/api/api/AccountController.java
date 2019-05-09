@@ -1,12 +1,13 @@
 package org.apptopia.waterwayfreightsystem.api.api;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.apptopia.waterwayfreightsystem.api.api.application.AccountService;
 import org.apptopia.waterwayfreightsystem.api.api.application.SecurityService;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.account.RawAccountInput;
+import org.apptopia.waterwayfreightsystem.api.api.application.usecases.account.RawAccountMapper;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.account.RawAccountOutput;
-import org.apptopia.waterwayfreightsystem.api.api.application.usecases.account.RegisterAccountUseCase;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.rawupdate.UpdateAccountUseCase;
 import org.apptopia.waterwayfreightsystem.api.api.authentication.Account;
 import org.apptopia.waterwayfreightsystem.api.api.authentication.AccountRepository;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -33,7 +35,6 @@ public class AccountController {
 	private AccountService accountService;	
 	private SecurityService securityService;
 	private AccountRepository accountRepository;
-	private RegisterAccountUseCase registerAccountUseCase;
 	private UpdateAccountUseCase updateAccountUseCase;
     private UserValidator userValidator;
     private PasswordEncoder passwordEncoder;
@@ -50,10 +51,8 @@ public class AccountController {
 	}
 	
 	@Autowired
-	public void setAccountUseCase(RegisterAccountUseCase registerAccountUseCase,
-		UpdateAccountUseCase updateAccountUseCase) {
-		
-		this.registerAccountUseCase = registerAccountUseCase;
+	public void setAccountUseCase(UpdateAccountUseCase updateAccountUseCase) {
+
 		this.updateAccountUseCase = updateAccountUseCase;
 	}
 	
@@ -109,14 +108,26 @@ public class AccountController {
         accountRepository.save(userForm);
         return "redirect:/home-admin";
     }
-
-//	@RequestMapping(value = {"/update/","/update"}, produces = "application/json",
-//			consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.PUT)
-//	@ResponseBody
-//	public RawAccountOutput updateAccount(@RequestBody RawAccountInput rawAccountInput) {
-//		return updateAccountUseCase.handle(rawAccountInput);
-//	}
-//	
+    
+    @RequestMapping(value = {"/update"}, method = RequestMethod.GET)
+	public String updateAccount(@RequestParam("username") String username, Model model) {
+    	model.addAttribute("account", accountService.findAccountByUserName(username));
+    	model.addAttribute("accountTypes", AccountType.values());
+		return "update-account";
+	}
+    
+    @RequestMapping(value = {"/update"}, method = RequestMethod.POST)
+    public String updateAccount(RawAccountInput rawAccountInput, Model model) { 
+    	model.addAttribute("account", updateAccountUseCase.handle(rawAccountInput));
+        return "show-account";
+    }
+    
+    @RequestMapping(value = {"/show"}, method = RequestMethod.GET)
+	public String getAccount(@RequestParam("username") String username, Model model) {
+    	model.addAttribute("account", accountService.findAccountByUserName(username));    	 
+		return "show-account";
+	}
+    
 //	@RequestMapping(value = {"/staff/","/staff"}, produces = "application/json", 
 //		method = RequestMethod.GET)
 //	@ResponseBody

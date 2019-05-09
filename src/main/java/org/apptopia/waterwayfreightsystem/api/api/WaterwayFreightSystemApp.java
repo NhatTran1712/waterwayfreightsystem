@@ -41,6 +41,7 @@ public class WaterwayFreightSystemApp extends SpringBootServletInitializer {
 				
 				if(!account.isPresent()) {
 					Account account1 = Account.builder()
+						.idUser(null)
 						.username("admin")
 						.password(passwordEncoder.encode("12345678"))
 						.accountType(AccountType.ADMIN)
@@ -52,6 +53,7 @@ public class WaterwayFreightSystemApp extends SpringBootServletInitializer {
 				
 				if(!account.isPresent()) {
 					Account account2 = Account.builder()
+						.idUser(null)
 						.username("manager")
 						.password(passwordEncoder.encode("12345678"))
 						.accountType(AccountType.MANAGER)
@@ -62,6 +64,7 @@ public class WaterwayFreightSystemApp extends SpringBootServletInitializer {
 				
 				if(!account.isPresent()) {
 					Account account3 = Account.builder()
+						.idUser(null)
 						.username("user")
 						.password(passwordEncoder.encode("12345678"))
 						.accountType(AccountType.USER)

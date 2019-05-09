@@ -12,6 +12,6 @@ public interface OrdersService {
 	RawOrdersOutput newOrders(RawOrdersInput rawOrdersInput);
 	RawOrdersOutput updateOrders(RawOrdersInput rawOrdersInput);
 	List<RawOrdersOutput> getAllOrders();
-	List<RawOrdersOutput> getOrdersOfCustomer(Integer idUser);
+	List<RawOrdersOutput> getOrdersOfCustomer(Long idUser);
 	List<Orders> findOrdersByWhoOwner(Account account);
 }

@@ -11,6 +11,7 @@ import org.apptopia.waterwayfreightsystem.api.api.authentication.Account;
 import org.apptopia.waterwayfreightsystem.api.api.authentication.AccountRepository;
 import org.apptopia.waterwayfreightsystem.api.api.authentication.AccountType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,10 +19,16 @@ import org.springframework.transaction.annotation.Transactional;
 public class AccountServiceImpl implements AccountService {
 	
 	private AccountRepository accountRepository;
+	private PasswordEncoder passwordEncoder;
 	
 	@Autowired
 	public void setAccountRepository(AccountRepository accountRepository) {
 		this.accountRepository = accountRepository;
+	}
+	
+	@Autowired
+	public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
+		this.passwordEncoder = passwordEncoder;
 	}
 	
 	@Override
@@ -33,19 +40,18 @@ public class AccountServiceImpl implements AccountService {
 	}
 	
 	@Override
-	@Transactional
 	public RawAccountOutput updateAccount(RawAccountInput rawAccountInput) {
 		
 		if(rawAccountInput.getIdUser() == null) {
 			throw new IllegalArgumentException("Account not exist!");
 		}
-		Optional<Account> existingOneOptional = accountRepository.findOne(
-			rawAccountInput.getIdUser());
-		
+		Optional<Account> existingOneOptional = accountRepository.findOne(rawAccountInput
+			.getIdUser());
 		if(! existingOneOptional.isPresent()) {
 			throw new IllegalArgumentException("Account not exist!");
 		}
 		Account account = RawAccountMapper.INSTANCE.fromRawInput(rawAccountInput);
+		account.setPassword(passwordEncoder.encode(account.getPassword()));
 		accountRepository.save(account);
 		return RawAccountMapper.INSTANCE.fromAccount(account);
 	}
@@ -71,5 +77,30 @@ public class AccountServiceImpl implements AccountService {
 			rawAccountOutputs.add(RawAccountMapper.INSTANCE.fromAccount(user));
 		}
 		return rawAccountOutputs;
+	}
+
+	@Override
+	public RawAccountOutput findAccountByUserName(String username) {
+		Optional<Account> existingOne = accountRepository.findByUsername(username);
+
+		if(existingOne.isPresent()) {
+			Account account = existingOne.get();
+			RawAccountOutput rawAccountOutput = RawAccountMapper.INSTANCE.fromAccount(account);			
+			return rawAccountOutput;
+   	 	}
+
+		return null;
+	}
+
+	@Override
+	public RawAccountOutput findAccountById(Long idUser) {
+		Optional<Account> existingOne = accountRepository.findOne(idUser);
+		
+		if(existingOne.isPresent()) {
+			RawAccountOutput rawAccountOutput = RawAccountMapper.INSTANCE.fromAccount(existingOne.get());
+			System.out.println(rawAccountOutput.toString());
+			return rawAccountOutput;
+		}
+		return null;
 	}
 }

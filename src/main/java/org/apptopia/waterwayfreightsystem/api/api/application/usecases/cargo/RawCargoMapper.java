@@ -13,14 +13,14 @@ public interface RawCargoMapper {
 	
 	public RawCargoOutput fromCargo(Cargo cargo);
 	
-	default Account toAccount(Integer idOwner) {
+	default Account toAccount(Long idOwner) {
 		if(idOwner == null || idOwner == 0) {
 			return null;
 		}
 		return new Account(idOwner);
 	}
 	
-	default Integer fromAccount(Account owner) {
+	default Long fromAccount(Account owner) {
 		if(owner == null) {
 			return null;
 		}

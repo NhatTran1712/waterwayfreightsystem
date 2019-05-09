@@ -5,7 +5,7 @@ import org.apptopia.waterwayfreightsystem.api.api.core.model.TravelProblem;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2019-05-08T16:20:38+0700",
+    date = "2019-05-10T04:19:19+0700",
     comments = "version: 1.3.0.Final, compiler: javac, environment: Java 1.8.0_201 (Oracle Corporation)"
 )
 public class RawTravelProblemMapperImpl implements RawTravelProblemMapper {
@@ -39,7 +39,9 @@ public class RawTravelProblemMapperImpl implements RawTravelProblemMapper {
         rawTravelProblemOutput.setDescription( travelProblem.getDescription() );
         rawTravelProblemOutput.setTimeExtend( travelProblem.getTimeExtend() );
         rawTravelProblemOutput.setDistanceExtend( travelProblem.getDistanceExtend() );
-        rawTravelProblemOutput.setWhoManage( fromAccount( travelProblem.getWhoManage() ) );
+        if ( travelProblem.getWhoManage() != null ) {
+            rawTravelProblemOutput.setWhoManage( fromAccount( travelProblem.getWhoManage() ).intValue() );
+        }
 
         return rawTravelProblemOutput;
     }

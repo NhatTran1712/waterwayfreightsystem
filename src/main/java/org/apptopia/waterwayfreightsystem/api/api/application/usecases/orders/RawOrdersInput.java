@@ -15,6 +15,6 @@ public class RawOrdersInput implements UseCaseInput {
 	private Integer idOrder;
 	private Integer shipTransport;
 	private List<Cargo> cargos;
-	private Integer whoReceive;
+	private Long whoReceive;
 	private Integer orderExpense;
 }

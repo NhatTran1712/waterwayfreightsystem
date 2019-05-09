@@ -25,5 +25,5 @@ public class RawScheduleInput implements UseCaseInput{
 	private LocalDateTime dateDepart;
 	@JsonDeserialize(using=LocalDateTimeDeserializer.class)
 	private LocalDateTime dateArrive;
-	private Integer whoManage;
+	private Long whoManage;
 }

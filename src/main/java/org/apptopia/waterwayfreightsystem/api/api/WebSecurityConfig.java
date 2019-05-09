@@ -40,6 +40,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.and()
 			.logout()
 				.permitAll();
+		http.csrf().disable();
+		
 	}
 	
 	@Bean
@@ -57,6 +59,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //
     @Override
     public void configure(WebSecurity web) throws Exception {
+
     }
 
 //    @Bean

@@ -51,7 +51,7 @@ public class CargoController {
 		consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
 	@ResponseBody
 	@PreAuthorize("hasRole('ROLE_USER' || 'ROLE_MANAGER')")
-	public List<RawCargoOutput> getCargosOfCustomer(@PathVariable("id") Integer idUser){
+	public List<RawCargoOutput> getCargosOfCustomer(@PathVariable("id") Long idUser){
 		return cargoService.getCargosOfCustomer(idUser);
 	}
 	

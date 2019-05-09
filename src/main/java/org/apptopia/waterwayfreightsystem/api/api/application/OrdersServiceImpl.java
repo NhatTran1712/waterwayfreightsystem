@@ -68,7 +68,7 @@ public class OrdersServiceImpl implements OrdersService {
 	}
 
 	@Override
-	public List<RawOrdersOutput> getOrdersOfCustomer(Integer idUser) {
+	public List<RawOrdersOutput> getOrdersOfCustomer(Long idUser) {
 		Optional<Account> existingOne = accountRepository.findOne(idUser);
 		List<RawOrdersOutput> rawOrdersOutputs = new ArrayList<>();
 		

@@ -67,7 +67,7 @@ public class OrdersController {
 		consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
 	@ResponseBody
 	@PreAuthorize("hasRole('ROLE_USER' || 'ROLE_MANAGER')")
-	public List<RawOrdersOutput> getOrdersOfCustomer(@PathVariable("id") Integer idUser){
+	public List<RawOrdersOutput> getOrdersOfCustomer(@PathVariable("id") Long idUser){
 		return ordersService.getOrdersOfCustomer(idUser);
 	}
 }

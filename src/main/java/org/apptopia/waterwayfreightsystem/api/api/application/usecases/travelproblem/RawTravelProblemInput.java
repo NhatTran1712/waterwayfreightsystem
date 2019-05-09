@@ -13,5 +13,5 @@ public class RawTravelProblemInput implements UseCaseInput {
 	private String description;
 	private Float timeExtend;
 	private Integer distanceExtend;
-	private Integer whoManage;
+	private Long whoManage;
 }

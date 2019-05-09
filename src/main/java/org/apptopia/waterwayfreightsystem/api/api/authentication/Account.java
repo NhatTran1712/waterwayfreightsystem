@@ -13,8 +13,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
-@Entity
+@Entity @ToString
 @Data @Builder
 @AllArgsConstructor 
 @NoArgsConstructor
@@ -22,7 +23,7 @@ public class Account {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer idUser;
+    private Long idUser;
 	@Column(nullable = false, unique = true)
 	private String username;
 	private String password;
@@ -35,7 +36,7 @@ public class Account {
 	private String phoneNumber;
 	private String idCard;
 	
-	public Account(Integer idUser) {
+	public Account(Long idUser) {
 		this.idUser = idUser;
 	}
 }

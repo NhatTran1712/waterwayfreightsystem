@@ -28,7 +28,7 @@ public class CargoServiceImpl implements CargoService {
 	}
 	
 	@Override
-	public List<RawCargoOutput> getCargosOfCustomer(Integer idUser) {
+	public List<RawCargoOutput> getCargosOfCustomer(Long idUser) {
 		Optional<Account> existingOne = accoutRepository.findById(idUser);
 		List<RawCargoOutput> rawCargoOutputs = new ArrayList<>();
 		

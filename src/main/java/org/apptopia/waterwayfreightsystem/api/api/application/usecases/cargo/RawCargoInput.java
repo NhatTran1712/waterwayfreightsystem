@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class RawCargoInput implements UseCaseInput {
 	private Integer idCargo;
-	private Integer idOwner;
+	private Long idOwner;
 	private Float cargoWeight;
 }

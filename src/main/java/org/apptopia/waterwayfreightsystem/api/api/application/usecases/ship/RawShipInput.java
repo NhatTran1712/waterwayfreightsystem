@@ -19,5 +19,5 @@ public class RawShipInput implements UseCaseInput {
 	private ShipStatus shipStatus;
 	private Float realDistance;
 	private Float realTime;
-	private Integer whoManager;
+	private Long whoManager;
 }

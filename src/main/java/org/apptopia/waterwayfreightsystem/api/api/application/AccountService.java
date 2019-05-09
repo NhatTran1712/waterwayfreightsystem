@@ -10,4 +10,6 @@ public interface AccountService {
 	RawAccountOutput newAccount(RawAccountInput rawAccountInput);
 	RawAccountOutput updateAccount(RawAccountInput rawAccountInput);
 	List<RawAccountOutput> findAccountByAccountType(String accountType);
+	RawAccountOutput findAccountByUserName(String username);
+	RawAccountOutput findAccountById(Long idUser);
 }

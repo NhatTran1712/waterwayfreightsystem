@@ -13,14 +13,14 @@ public interface RawTravelProblemMapper {
 	
 	public RawTravelProblemOutput fromTravelProblem(TravelProblem travelProblem);
 	
-	default Account toAccount(Integer idUser) {
+	default Account toAccount(Long idUser) {
 		if(idUser == null || idUser == 0) {
 			return null;
 		}
 		return new Account(idUser);
 	}
 	
-	default Integer fromAccount(Account account) {
+	default Long fromAccount(Account account) {
 		if(account == null) {
 			return null;
 		}
