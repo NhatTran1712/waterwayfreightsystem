@@ -8,12 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class RegisterAccountUseCase implements UseCase<RawAccountInput,RawAccountOutput> {
+public class RegisterStaffAccountUseCase implements UseCase<RawAccountInput,RawAccountOutput> {
 	@Autowired AccountService accountService;
 	
 	@Override
 	public RawAccountOutput handle(RawAccountInput input) {
-		return accountService.newAccount(input);
+		return accountService.newStaffAccount(input);
 	}
-	
+
 }

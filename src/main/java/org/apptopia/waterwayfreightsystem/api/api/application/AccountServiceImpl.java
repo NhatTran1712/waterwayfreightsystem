@@ -36,13 +36,22 @@ public class AccountServiceImpl implements AccountService {
 	}
 	
 	@Override
-	public RawAccountOutput newAccount(RawAccountInput rawAccountInput){
+	public RawAccountOutput newCustomerAccount(RawAccountInput rawAccountInput){
 		rawAccountInput.setAccountType(AccountType.USER);
 		rawAccountInput.setPassword(passwordEncoder.encode(rawAccountInput.getPassword()));
 		Account account = RawAccountMapper.INSTANCE.fromRawInput(rawAccountInput);
 		
 		accountRepository.save(account);
 		securityService.autoLogin(account.getUsername(), account.getPasswordConfirm());
+		return RawAccountMapper.INSTANCE.fromAccount(account);
+	}
+	
+	@Override
+	public RawAccountOutput newStaffAccount(RawAccountInput rawAccountInput) {
+		rawAccountInput.setPassword(passwordEncoder.encode(rawAccountInput.getPassword()));
+		Account account = RawAccountMapper.INSTANCE.fromRawInput(rawAccountInput);
+		
+		accountRepository.save(account);
 		return RawAccountMapper.INSTANCE.fromAccount(account);
 	}
 	

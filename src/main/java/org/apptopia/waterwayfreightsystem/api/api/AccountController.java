@@ -8,7 +8,8 @@ import org.apptopia.waterwayfreightsystem.api.api.application.SecurityService;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.account.RawAccountInput;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.account.RawAccountMapper;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.account.RawAccountOutput;
-import org.apptopia.waterwayfreightsystem.api.api.application.usecases.rawinput.RegisterAccountUseCase;
+import org.apptopia.waterwayfreightsystem.api.api.application.usecases.rawinput.RegisterCustomerAccountUseCase;
+import org.apptopia.waterwayfreightsystem.api.api.application.usecases.rawinput.RegisterStaffAccountUseCase;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.rawupdate.UpdateAccountUseCase;
 import org.apptopia.waterwayfreightsystem.api.api.authentication.Account;
 import org.apptopia.waterwayfreightsystem.api.api.authentication.AccountRepository;
@@ -37,7 +38,8 @@ public class AccountController {
 	private SecurityService securityService;
 	private AccountRepository accountRepository;
 	private UpdateAccountUseCase updateAccountUseCase;
-	private RegisterAccountUseCase registerAccountUseCase;
+	private RegisterCustomerAccountUseCase registerCustomerAccountUseCase;
+	private RegisterStaffAccountUseCase registerStaffAccountUseCase;
     private UserValidator userValidator;
     private PasswordEncoder passwordEncoder;
     
@@ -54,10 +56,12 @@ public class AccountController {
 	
 	@Autowired
 	public void setAccountUseCase(UpdateAccountUseCase updateAccountUseCase,
-		RegisterAccountUseCase registerAccountUseCase) {
+		RegisterCustomerAccountUseCase registerCustomerAccountUseCase,
+		RegisterStaffAccountUseCase registerStaffAccountUseCase) {
 
 		this.updateAccountUseCase = updateAccountUseCase;
-		this.registerAccountUseCase = registerAccountUseCase;
+		this.registerCustomerAccountUseCase = registerCustomerAccountUseCase;
+		this.registerStaffAccountUseCase = registerStaffAccountUseCase;
 	}
 	
 	@Autowired
@@ -84,28 +88,26 @@ public class AccountController {
         if (bindingResult.hasErrors()) {
             return "registration";
         }
-        registerAccountUseCase.handle(userForm);
+        registerCustomerAccountUseCase.handle(userForm);
         return "redirect:/home";
     }
 
     @RequestMapping(value = {"/registration-staff"}, method = RequestMethod.GET)
     public String addNewStaffAccount(Model model) {
-
     	model.addAttribute("userForm", new Account());
     	model.addAttribute("accountTypeList", AccountType.values());
         return "registration-staff";
     }
     
     @RequestMapping(value = {"/registration-staff"}, method = RequestMethod.POST)
-    public String addNewStaffAccount(@ModelAttribute("userForm") Account userForm,
+    public String addNewStaffAccount(@ModelAttribute("userForm") RawAccountInput userForm,
     	BindingResult bindingResult) {
         
     	userValidator.validate(userForm, bindingResult);
         if (bindingResult.hasErrors()) {
             return "registration-staff";
         }
-        userForm.setPassword(passwordEncoder.encode(userForm.getPassword()));
-        accountRepository.save(userForm);
+        registerStaffAccountUseCase.handle(userForm);
         return "redirect:/home-admin";
     }
     

@@ -32,7 +32,10 @@
         </h6>
     </c:if>
     <div class="menubar" align="center">
-    	<a href="${contextPath}/home-admin" style="color:red; text-decorattion:none">Quan tri</a>
+    	<h5>
+    		<a href="${contextPath}/home-admin" style="color:red; text-decorattion:none">Quan tri
+    			</a>
+    	</h5>
     </div>
   </div>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
