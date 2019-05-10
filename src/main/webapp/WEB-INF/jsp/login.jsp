@@ -15,11 +15,11 @@
   <body>
     <div class="container">
       <form method="POST" action="${contextPath}/login" class="form-signin">
-        <h2 class="form-heading">Dang nhap</h2>
+        <h2 class="form-heading" align="center">Dang nhap</h2>
         <div class="form-group ${error != null ? 'has-error' : ''}">
             <span style="color:red">${message}</span>
             <input name="username" type="text" class="form-control" placeholder="Username"
-                   autofocus="true"/>
+                   autofocus="autofocus"/>
             <input name="password" type="password" class="form-control" placeholder="Password"/>
             <span>${error}</span>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>

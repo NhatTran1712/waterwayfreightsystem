@@ -19,7 +19,7 @@
     <div class="container">
         <form method="POST" action="${contextPath}/account/update" class="form-signin">
             <h2 class="form-signin-heading">Cap nhat tai khoan</h2>
-            <input type="text" id="idUser" name="idUser" class="form-control"
+            <input type="hidden" id="idUser" name="idUser" class="form-control"
             	value="${account.idUser}"/>
             <script type="text/javascript">
             	function confirmUsername(val){
@@ -50,7 +50,7 @@
             <input type="password" id="confirmPassword" class="form-control"
             	placeholder="Confirm password" required="required"
             	onChange="matchPassword(this.value);"/>
-            <c:if test="${account.accountType.toString() == 'admin'}">
+            <c:if test="${account.accountType.toString() == 'ADMIN'}">
         		<select name='accountType'>
 				    <option value="${account.accountType}" selected>${account.accountType}
 				    </option>
@@ -61,9 +61,11 @@
 				    </c:forEach>
 				</select>
     		</c:if>
-    		<select name="accountType">
-    			<option value="${account.accountType}" selected>${account.accountType}</option>
-    		</select>
+    		<c:if test="${account.accountType.toString() != 'ADMIN'}">
+	    		<select name="accountType">
+	    			<option value="${account.accountType}" selected>${account.accountType}</option>
+	    		</select>
+	    	</c:if>
             <script type="text/javascript">
             	function confirmFullname(val){
 	            	if ((val.length < 2) || (val.length > 25)) {

@@ -8,6 +8,7 @@ import org.apptopia.waterwayfreightsystem.api.api.application.SecurityService;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.account.RawAccountInput;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.account.RawAccountMapper;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.account.RawAccountOutput;
+import org.apptopia.waterwayfreightsystem.api.api.application.usecases.rawinput.RegisterAccountUseCase;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.rawupdate.UpdateAccountUseCase;
 import org.apptopia.waterwayfreightsystem.api.api.authentication.Account;
 import org.apptopia.waterwayfreightsystem.api.api.authentication.AccountRepository;
@@ -36,6 +37,7 @@ public class AccountController {
 	private SecurityService securityService;
 	private AccountRepository accountRepository;
 	private UpdateAccountUseCase updateAccountUseCase;
+	private RegisterAccountUseCase registerAccountUseCase;
     private UserValidator userValidator;
     private PasswordEncoder passwordEncoder;
     
@@ -51,9 +53,11 @@ public class AccountController {
 	}
 	
 	@Autowired
-	public void setAccountUseCase(UpdateAccountUseCase updateAccountUseCase) {
+	public void setAccountUseCase(UpdateAccountUseCase updateAccountUseCase,
+		RegisterAccountUseCase registerAccountUseCase) {
 
 		this.updateAccountUseCase = updateAccountUseCase;
+		this.registerAccountUseCase = registerAccountUseCase;
 	}
 	
 	@Autowired
@@ -68,23 +72,19 @@ public class AccountController {
 
     @RequestMapping(value = {"/registration"}, method = RequestMethod.GET)
     public String addNewCustomerAccount(Model model) {
-        
-    	model.addAttribute("userForm", new Account());
+    	model.addAttribute("userForm", new RawAccountInput());
         return "registration";
     }
 
     @RequestMapping(value = {"/registration"}, method = RequestMethod.POST)
-    public String addNewCustomerAccount(@ModelAttribute("userForm") Account userForm,
+    public String addNewCustomerAccount(@ModelAttribute("userForm") RawAccountInput userForm,
     	BindingResult bindingResult) {
         
     	userValidator.validate(userForm, bindingResult);
         if (bindingResult.hasErrors()) {
             return "registration";
         }
-        userForm.setAccountType(AccountType.USER);
-        userForm.setPassword(passwordEncoder.encode(userForm.getPassword()));
-        accountRepository.save(userForm);
-        securityService.autoLogin(userForm.getUsername(), userForm.getPasswordConfirm());
+        registerAccountUseCase.handle(userForm);
         return "redirect:/home";
     }
 

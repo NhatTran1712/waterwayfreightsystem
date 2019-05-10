@@ -1,5 +1,6 @@
 package org.apptopia.waterwayfreightsystem.api.api.authentication;
 
+import org.apptopia.waterwayfreightsystem.api.api.application.usecases.account.RawAccountInput;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -18,21 +19,33 @@ public class UserValidator implements Validator {
 
     @Override
     public void validate(Object o, Errors errors) {
-        Account account = (Account) o;
+        RawAccountInput rawAccountInput = (RawAccountInput) o;
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "NotEmpty");
-        if (account.getUsername().length() < 3 || account.getUsername().length() > 25) {
+        if(rawAccountInput.getUsername().length()<3 || rawAccountInput.getUsername().length()>25) {
             errors.rejectValue("username", "Size.userForm.username");
         }
-        if (accountRepository.findByUsername(account.getUsername()).isPresent()) {
+        if(accountRepository.findByUsername(rawAccountInput.getUsername()).isPresent()) {
             errors.rejectValue("username", "Duplicate.userForm.username");
         }
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "NotEmpty");
-        if (account.getPassword().length() < 8 || account.getPassword().length() > 32) {
+        if(rawAccountInput.getPassword().length()<8 || rawAccountInput.getPassword().length()>32) {
             errors.rejectValue("password", "Size.userForm.password");
         }
-        if (!account.getPasswordConfirm().equals(account.getPassword())) {
+        if(!rawAccountInput.getPasswordConfirm().equals(rawAccountInput.getPassword())) {
             errors.rejectValue("passwordConfirm", "Diff.userForm.passwordConfirm");
+        }
+        if(rawAccountInput.getFullname().length()<2 || rawAccountInput.getFullname().length()>25) {
+            errors.rejectValue("fullname", "Size.userForm.fullname");
+        }
+        if((rawAccountInput.getPhoneNumber()!=null)&&(rawAccountInput.getPhoneNumber().length()>10)){
+            errors.rejectValue("phoneNumber", "phoneNumber.length", "Nhap so dien thoai khong qua 10 so");
+        }
+        if(!rawAccountInput.getIdCard().isEmpty()) {
+        	System.out.println("idCard " + rawAccountInput.getIdCard());
+	        if((rawAccountInput.getIdCard().length()<9)||(rawAccountInput.getIdCard().length()>12)){
+	            errors.rejectValue("idCard", "idCard.length", "Nhap CMND tu 9 den 12 so");
+	        }
         }
     }
 }

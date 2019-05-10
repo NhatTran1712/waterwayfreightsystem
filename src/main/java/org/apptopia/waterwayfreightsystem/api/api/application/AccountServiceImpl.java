@@ -13,13 +13,12 @@ import org.apptopia.waterwayfreightsystem.api.api.authentication.AccountType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class AccountServiceImpl implements AccountService {
-	
 	private AccountRepository accountRepository;
 	private PasswordEncoder passwordEncoder;
+	private SecurityService securityService;
 	
 	@Autowired
 	public void setAccountRepository(AccountRepository accountRepository) {
@@ -31,11 +30,19 @@ public class AccountServiceImpl implements AccountService {
 		this.passwordEncoder = passwordEncoder;
 	}
 	
+	@Autowired
+	public void setSecurityService(SecurityService sercurityService) {
+		this.securityService = sercurityService;
+	}
+	
 	@Override
-	@Transactional
 	public RawAccountOutput newAccount(RawAccountInput rawAccountInput){
+		rawAccountInput.setAccountType(AccountType.USER);
+		rawAccountInput.setPassword(passwordEncoder.encode(rawAccountInput.getPassword()));
 		Account account = RawAccountMapper.INSTANCE.fromRawInput(rawAccountInput);
+		
 		accountRepository.save(account);
+		securityService.autoLogin(account.getUsername(), account.getPasswordConfirm());
 		return RawAccountMapper.INSTANCE.fromAccount(account);
 	}
 	

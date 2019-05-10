@@ -11,7 +11,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-@Data
+@Data @AllArgsConstructor @NoArgsConstructor
 public class RawAccountOutput implements UseCaseOutput{
 	
 	private Long idUser;
