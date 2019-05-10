@@ -54,19 +54,33 @@ public class AccountServiceImpl implements AccountService {
 		accountRepository.save(account);
 		return RawAccountMapper.INSTANCE.fromAccount(account);
 	}
-	
+
+	@Override
+	public RawAccountOutput findAccountByUserName(String username) {
+		Optional<Account> existingOne = accountRepository.findByUsername(username);
+
+		if(existingOne.isPresent()) {
+			Account account = existingOne.get();
+			
+			RawAccountOutput rawAccountOutput = RawAccountMapper.INSTANCE.fromAccount(account);			
+			return rawAccountOutput;
+   	 	}
+		return null;
+	}
+
 	@Override
 	public RawAccountOutput updateAccount(RawAccountInput rawAccountInput) {
 		
 		if(rawAccountInput.getIdUser() == null) {
-			throw new IllegalArgumentException("Account not exist!");
+			throw new IllegalArgumentException("IdUser is null!");
 		}
-		Optional<Account> existingOneOptional = accountRepository.findOne(rawAccountInput
-			.getIdUser());
-		if(! existingOneOptional.isPresent()) {
+		Optional<Account> existingOne = accountRepository.findOne(rawAccountInput.getIdUser());
+		
+		if(!existingOne.isPresent()) {
 			throw new IllegalArgumentException("Account not exist!");
 		}
 		Account account = RawAccountMapper.INSTANCE.fromRawInput(rawAccountInput);
+		
 		account.setPassword(passwordEncoder.encode(account.getPassword()));
 		accountRepository.save(account);
 		return RawAccountMapper.INSTANCE.fromAccount(account);
@@ -93,19 +107,6 @@ public class AccountServiceImpl implements AccountService {
 			rawAccountOutputs.add(RawAccountMapper.INSTANCE.fromAccount(user));
 		}
 		return rawAccountOutputs;
-	}
-
-	@Override
-	public RawAccountOutput findAccountByUserName(String username) {
-		Optional<Account> existingOne = accountRepository.findByUsername(username);
-
-		if(existingOne.isPresent()) {
-			Account account = existingOne.get();
-			RawAccountOutput rawAccountOutput = RawAccountMapper.INSTANCE.fromAccount(account);			
-			return rawAccountOutput;
-   	 	}
-
-		return null;
 	}
 
 	@Override

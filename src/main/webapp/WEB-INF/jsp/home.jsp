@@ -19,10 +19,11 @@
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         </form>
         <h6 align="right">
-        	<a href="${contextPath}/account?username=${pageContext.request.userPrincipal.name}">
-        		${pageContext.request.userPrincipal.name}</a> |
-        		<a onclick="document.forms['logoutForm'].submit()">dang xuat</a>
-        	
+        	<a href="${contextPath}/account/show?username=${pageContext.request.userPrincipal.name}">
+       		${pageContext.request.userPrincipal.name}</a> | <a href=
+       		"${contextPath}/account/update?username=${pageContext.request.userPrincipal.name}"
+       		style="color:black;text-decoration:none">cap nhat</a> |
+       		<a onclick="document.forms['logoutForm'].submit()">dang xuat</a>
         </h6>
     </c:if>
     <c:if test="${pageContext.request.userPrincipal.name == null}">
