@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @CrossOrigin
@@ -124,17 +125,40 @@ public class AccountController {
         return "show-account";
     }
     
+    @RequestMapping(value = {"/delete"}, method = RequestMethod.GET)
+    public String deleteAccount(@RequestParam("username") String username,
+    	RedirectAttributes redirect) {
+    	accountService.deleteAccount(username);
+		redirect.addFlashAttribute("success", "Xoa tai khoan thanh cong!");
+		return "redirect:/account";
+    }
+    
     @RequestMapping(value = {"/show"}, method = RequestMethod.GET)
 	public String getAccount(@RequestParam("username") String username, Model model) {
     	model.addAttribute("account", accountService.findAccountByUserName(username));    	 
 		return "show-account";
 	}
     
-//	@RequestMapping(value = {"/staff/","/staff"}, produces = "application/json", 
-//		method = RequestMethod.GET)
-//	@ResponseBody
-//	public List<RawAccountOutput> getStaffAccount(){
-//		return accountService.findAccountByAccountType("staff"); 
+    @RequestMapping(value = {"/",""}, method = RequestMethod.GET)
+	public String getAllAccount(Model model){
+		model.addAttribute("accounts",accountService.findAllAccount());
+		return "show-accounts"; 
+	}
+    
+    @RequestMapping(value= {"/search"}, method = RequestMethod.GET)
+	public String searchAccountByFullname(@RequestParam("fullname") String fullname, Model model) {
+
+    	if (fullname.equals("")) {
+			return "redirect:/account";
+    	}
+    	model.addAttribute("accounts", accountService.searchAccountByFullname(fullname));
+		return "show-accounts";
+	}
+//    
+//	@RequestMapping(value = {"/show-all/staff/","/show-all/staff"}, method = RequestMethod.GET)
+//	public String getStaffAccount(Model model){
+//		model.addAttribute("accounts",accountService.findAccountByAccountType("staff"));
+//		return "show-accounts"; 
 //	}
 //	
 //	@RequestMapping(value = {"/customer/","/customer"}, produces = "application/json",

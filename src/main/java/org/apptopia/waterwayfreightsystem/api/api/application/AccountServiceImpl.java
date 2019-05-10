@@ -120,4 +120,41 @@ public class AccountServiceImpl implements AccountService {
 		}
 		return null;
 	}
+	
+	@Override
+	public List<RawAccountOutput> findAllAccount() {
+		List<Account> accounts = accountRepository.findAll();
+		List<RawAccountOutput> rawAccountOutputs = new ArrayList<>();
+		
+		for(Account account : accounts) {
+			rawAccountOutputs.add(RawAccountMapper.INSTANCE.fromAccount(account));
+		}
+		return rawAccountOutputs;
+	}
+	
+	@Override
+	public List<RawAccountOutput> searchAccountByFullname(String fullname) {
+		List<Account> accounts = accountRepository.findByFullnameContaining(fullname);
+
+		if(!accounts.isEmpty()) {
+			List<RawAccountOutput> rawAccountOutputs = new ArrayList<>();
+			
+			for(Account account : accounts) {
+				rawAccountOutputs.add(RawAccountMapper.INSTANCE.fromAccount(account));
+			}
+			return rawAccountOutputs;
+		}
+		return null;
+	}
+
+	@Override
+	public void deleteAccount(String username) {
+		Optional<Account> existingOne = accountRepository.findByUsername(username);
+		
+		if(!existingOne.isPresent()) {
+			throw new IllegalArgumentException("Account not exist!");
+		}
+		accountRepository.deleteById(existingOne.get().getIdUser());
+		System.out.println("Delete " + username + "sucessful!");
+	}
 }
