@@ -110,18 +110,6 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
-	public RawAccountOutput findAccountById(Long idUser) {
-		Optional<Account> existingOne = accountRepository.findOne(idUser);
-		
-		if(existingOne.isPresent()) {
-			RawAccountOutput rawAccountOutput = RawAccountMapper.INSTANCE.fromAccount(existingOne.get());
-			System.out.println(rawAccountOutput.toString());
-			return rawAccountOutput;
-		}
-		return null;
-	}
-	
-	@Override
 	public List<RawAccountOutput> findAllAccount() {
 		List<Account> accounts = accountRepository.findAll();
 		List<RawAccountOutput> rawAccountOutputs = new ArrayList<>();
@@ -148,13 +136,15 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
-	public void deleteAccount(String username) {
+	public RawAccountOutput deleteAccount(String username) {
 		Optional<Account> existingOne = accountRepository.findByUsername(username);
 		
 		if(!existingOne.isPresent()) {
 			throw new IllegalArgumentException("Account not exist!");
 		}
-		accountRepository.deleteById(existingOne.get().getIdUser());
+		Account account = existingOne.get();
+		accountRepository.deleteById(account.getIdUser());
 		System.out.println("Delete " + username + "sucessful!");
+		return RawAccountMapper.INSTANCE.fromAccount(account);
 	}
 }

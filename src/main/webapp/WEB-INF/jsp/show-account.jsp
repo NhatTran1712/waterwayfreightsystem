@@ -37,20 +37,27 @@
 	        <label for="idCard">CMND:</label>
 	        <input type="text" id="idCard" class="form-control" value="${account.idCard}"
 	        	readonly="readonly"/>
-	        <a href="${contextPath}/account/update?username=${pageContext.request.userPrincipal.name}"
+	        <a href="${contextPath}/account/update?username=${account.username}"
 	        	style="text-decoration: none"><button class="btn btn-lg btn-primary btn-block">
 	        	Cap nhat</button>
 	        </a>
-	        <c:if test="${account.accountType.toString() == 'ADMIN'}">
-		        <a href="${contextPath}/home-admin" style="text-decoration: none">
+	        <c:if test="${account.username != pageContext.request.userPrincipal.name}">
+	        	<a href="${contextPath}/home-admin" style="text-decoration: none">
 		        	<button class="btn btn-lg btn-primary btn-block">Trang chu</button>
 		        </a>
 	        </c:if>
-	        <c:if test="${account.accountType.toString() != 'ADMIN'}">
-		        <a href="${contextPath}/home" style="text-decoration: none">
-		        	<button class="btn btn-lg btn-primary btn-block">Trang chu</button>
-		        </a>
-	        </c:if>
+	        <c:if test="${account.username == pageContext.request.userPrincipal.name}">
+		        <c:if test="${account.accountType.toString() == 'ADMIN'}">
+			        <a href="${contextPath}/home-admin" style="text-decoration: none">
+			        	<button class="btn btn-lg btn-primary btn-block">Trang chu</button>
+			        </a>
+		        </c:if>
+		        <c:if test="${account.accountType.toString() != 'ADMIN'}">
+			        <a href="${contextPath}/home" style="text-decoration: none">
+			        	<button class="btn btn-lg btn-primary btn-block">Trang chu</button>
+			        </a>
+		        </c:if>
+		    </c:if>
     	</div>
     </div>
   </body>

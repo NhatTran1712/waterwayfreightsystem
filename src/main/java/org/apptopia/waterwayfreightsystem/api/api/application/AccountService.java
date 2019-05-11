@@ -12,8 +12,7 @@ public interface AccountService {
 	RawAccountOutput findAccountByUserName(String username);
 	RawAccountOutput updateAccount(RawAccountInput rawAccountInput);
 	List<RawAccountOutput> findAccountByAccountType(String accountType);
-	RawAccountOutput findAccountById(Long idUser);
 	List<RawAccountOutput> findAllAccount();
 	List<RawAccountOutput> searchAccountByFullname(String fullname);
-	void deleteAccount(String username);
+	RawAccountOutput deleteAccount(String username);
 }
