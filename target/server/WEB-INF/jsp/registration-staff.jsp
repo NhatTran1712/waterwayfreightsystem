@@ -36,12 +36,9 @@
                 </div>
             </spring:bind>
             <spring:bind path="accountType">
-                <div class="form-group ${status.error ? 'has-error' : ''}">
-                    <form:select path="accountType">
-    					<form:options items="${accountTypeList}" />
-					</form:select>
-                    
-                </div>
+                <form:select path="accountType">
+					<form:options items="${accountTypeList}" />
+				</form:select>
             </spring:bind>
             <spring:bind path="fullname">
                 <div class="form-group ${status.error ? 'has-error' : ''}">

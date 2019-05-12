@@ -5,7 +5,7 @@ import org.apptopia.waterwayfreightsystem.api.api.core.model.Cargo;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2019-05-10T16:12:43+0700",
+    date = "2019-05-12T15:40:42+0700",
     comments = "version: 1.3.0.Final, compiler: javac, environment: Java 1.8.0_201 (Oracle Corporation)"
 )
 public class RawCargoMapperImpl implements RawCargoMapper {
@@ -32,6 +32,7 @@ public class RawCargoMapperImpl implements RawCargoMapper {
 
         RawCargoOutput rawCargoOutput = new RawCargoOutput();
 
+        rawCargoOutput.setIdCargo( cargo.getIdCargo() );
         rawCargoOutput.setCargoWeight( cargo.getCargoWeight() );
 
         return rawCargoOutput;

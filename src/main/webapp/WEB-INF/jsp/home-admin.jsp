@@ -31,12 +31,6 @@
 	       				dang xuat</a><br/>
 	        </h5>
 	    </c:if>
-	    <c:if test="${pageContext.request.userPrincipal.name == null}">
-	        <h6 align="right">
-	        	<a href="${contextPath}/login">Dang nhap</a> |
-	        		<a href="${contextPath}/account/registration">Dang ky</a>
-	        </h6>
-	    </c:if>
 	    <div class="menubar">
 		    <nav class="navbar navbar-default">
 		        <div class="container-fluid">

@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data @AllArgsConstructor
 @NoArgsConstructor
 public class RawCargoInput implements UseCaseInput {
-	private Integer idCargo;
+	private Long idCargo;
 	private Long idOwner;
 	private Float cargoWeight;
 }

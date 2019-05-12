@@ -6,12 +6,11 @@ import org.apptopia.waterwayfreightsystem.api.api.application.usecases.UseCaseOu
 import org.apptopia.waterwayfreightsystem.api.api.authentication.AccountType;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-@Data @AllArgsConstructor @NoArgsConstructor
+@Data @AllArgsConstructor @NoArgsConstructor @ToString
 public class RawAccountOutput implements UseCaseOutput{
 	
 	private Long idUser;

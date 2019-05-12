@@ -19,4 +19,9 @@ public class ApplicationController {
 	public String homeAdminPage(Model model) {
 		return "home-admin";
 	}
+	
+	@RequestMapping(value = {"/home-manager/","/home-manager"}, method = RequestMethod.GET)
+	public String homeManagerPage(Model model) {
+		return "home-manager";
+	}
 }

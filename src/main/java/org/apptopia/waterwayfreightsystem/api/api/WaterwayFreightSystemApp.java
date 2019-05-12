@@ -71,6 +71,18 @@ public class WaterwayFreightSystemApp extends SpringBootServletInitializer {
 						.build();
 					accountRepository.save(account3);
 				}
+				account = accountRepository.findByUsername("nhat");
+				
+				if(!account.isPresent()) {
+					Account account4 = Account.builder()
+						.idUser(null)
+						.username("nhat")
+						.password(passwordEncoder.encode("12345678"))
+						.accountType(AccountType.USER)
+						.build();
+					accountRepository.save(account4);
+				}
+				
 			}
 		};
     }

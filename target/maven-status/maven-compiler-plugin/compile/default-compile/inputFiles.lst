@@ -11,6 +11,7 @@
 /home/nhattran/Application/workspace-sts-3.9.7.RELEASE/waterway-freight-system/src/main/java/org/apptopia/waterwayfreightsystem/api/api/application/usecases/rawupdate/UpdateScheduleForShipUseCase.java
 /home/nhattran/Application/workspace-sts-3.9.7.RELEASE/waterway-freight-system/src/main/java/org/apptopia/waterwayfreightsystem/api/api/application/usecases/travelproblem/RawTravelProblemMapper.java
 /home/nhattran/Application/workspace-sts-3.9.7.RELEASE/waterway-freight-system/src/main/java/org/apptopia/waterwayfreightsystem/api/api/application/usecases/rawinput/AddNewScheduleUseCase.java
+/home/nhattran/Application/workspace-sts-3.9.7.RELEASE/waterway-freight-system/src/main/java/org/apptopia/waterwayfreightsystem/api/api/application/usecases/delete/DeleteAccountUseCase.java
 /home/nhattran/Application/workspace-sts-3.9.7.RELEASE/waterway-freight-system/src/main/java/org/apptopia/waterwayfreightsystem/api/api/application/TransportProcessService.java
 /home/nhattran/Application/workspace-sts-3.9.7.RELEASE/waterway-freight-system/src/main/java/org/apptopia/waterwayfreightsystem/api/api/infrastructure/PostgresShipRepositoryImpl.java
 /home/nhattran/Application/workspace-sts-3.9.7.RELEASE/waterway-freight-system/src/main/java/org/apptopia/waterwayfreightsystem/api/api/application/usecases/schedule/RawScheduleOutput.java
@@ -24,6 +25,7 @@
 /home/nhattran/Application/workspace-sts-3.9.7.RELEASE/waterway-freight-system/src/main/java/org/apptopia/waterwayfreightsystem/api/api/application/usecases/travelproblem/RawTravelProblemInput.java
 /home/nhattran/Application/workspace-sts-3.9.7.RELEASE/waterway-freight-system/src/main/java/org/apptopia/waterwayfreightsystem/api/api/authentication/AccountRepository.java
 /home/nhattran/Application/workspace-sts-3.9.7.RELEASE/waterway-freight-system/src/main/java/org/apptopia/waterwayfreightsystem/api/api/ApplicationController.java
+/home/nhattran/Application/workspace-sts-3.9.7.RELEASE/waterway-freight-system/src/main/java/org/apptopia/waterwayfreightsystem/api/api/application/usecases/rawinput/RegisterStaffAccountUseCase.java
 /home/nhattran/Application/workspace-sts-3.9.7.RELEASE/waterway-freight-system/src/main/java/org/apptopia/waterwayfreightsystem/api/api/application/usecases/rawupdate/UpdateScheduleUseCase.java
 /home/nhattran/Application/workspace-sts-3.9.7.RELEASE/waterway-freight-system/src/main/java/org/apptopia/waterwayfreightsystem/api/api/application/CargoService.java
 /home/nhattran/Application/workspace-sts-3.9.7.RELEASE/waterway-freight-system/src/main/java/org/apptopia/waterwayfreightsystem/api/api/application/OrdersServiceImpl.java
@@ -62,6 +64,7 @@
 /home/nhattran/Application/workspace-sts-3.9.7.RELEASE/waterway-freight-system/src/main/java/org/apptopia/waterwayfreightsystem/api/api/core/model/ScheduleRepository.java
 /home/nhattran/Application/workspace-sts-3.9.7.RELEASE/waterway-freight-system/src/main/java/org/apptopia/waterwayfreightsystem/api/api/authentication/AccountType.java
 /home/nhattran/Application/workspace-sts-3.9.7.RELEASE/waterway-freight-system/src/main/java/org/apptopia/waterwayfreightsystem/api/api/infrastructure/PostgresTransportProcessRepositoryImpl.java
+/home/nhattran/Application/workspace-sts-3.9.7.RELEASE/waterway-freight-system/src/main/java/org/apptopia/waterwayfreightsystem/api/api/application/usecases/rawinput/RegisterCustomerAccountUseCase.java
 /home/nhattran/Application/workspace-sts-3.9.7.RELEASE/waterway-freight-system/src/main/java/org/apptopia/waterwayfreightsystem/api/api/application/usecases/UseCaseOutput.java
 /home/nhattran/Application/workspace-sts-3.9.7.RELEASE/waterway-freight-system/src/main/java/org/apptopia/waterwayfreightsystem/api/api/ship/model/ShipStatus.java
 /home/nhattran/Application/workspace-sts-3.9.7.RELEASE/waterway-freight-system/src/main/java/org/apptopia/waterwayfreightsystem/api/api/core/calculator/TransportProcessInformationCalculator.java
@@ -75,10 +78,10 @@
 /home/nhattran/Application/workspace-sts-3.9.7.RELEASE/waterway-freight-system/src/main/java/org/apptopia/waterwayfreightsystem/api/api/application/usecases/account/RawAccountMapper.java
 /home/nhattran/Application/workspace-sts-3.9.7.RELEASE/waterway-freight-system/src/main/java/org/apptopia/waterwayfreightsystem/api/api/application/usecases/rawupdate/UpdateShipUseCase.java
 /home/nhattran/Application/workspace-sts-3.9.7.RELEASE/waterway-freight-system/src/main/java/org/apptopia/waterwayfreightsystem/api/api/application/AccountService.java
-/home/nhattran/Application/workspace-sts-3.9.7.RELEASE/waterway-freight-system/src/main/java/org/apptopia/waterwayfreightsystem/api/api/application/usecases/rawinput/RegisterAccountUseCase.java
 /home/nhattran/Application/workspace-sts-3.9.7.RELEASE/waterway-freight-system/src/main/java/org/apptopia/waterwayfreightsystem/api/api/application/ShipService.java
 /home/nhattran/Application/workspace-sts-3.9.7.RELEASE/waterway-freight-system/src/main/java/org/apptopia/waterwayfreightsystem/api/api/infrastructure/PostgresCargoRepositoryImpl.java
 /home/nhattran/Application/workspace-sts-3.9.7.RELEASE/waterway-freight-system/src/main/java/org/apptopia/waterwayfreightsystem/api/api/application/usecases/orders/RawOrdersMapper.java
+/home/nhattran/Application/workspace-sts-3.9.7.RELEASE/waterway-freight-system/src/main/java/org/apptopia/waterwayfreightsystem/api/api/StartupService.java
 /home/nhattran/Application/workspace-sts-3.9.7.RELEASE/waterway-freight-system/src/main/java/org/apptopia/waterwayfreightsystem/api/api/application/OrdersService.java
 /home/nhattran/Application/workspace-sts-3.9.7.RELEASE/waterway-freight-system/src/main/java/org/apptopia/waterwayfreightsystem/api/api/core/model/TravelProblem.java
 /home/nhattran/Application/workspace-sts-3.9.7.RELEASE/waterway-freight-system/src/main/java/org/apptopia/waterwayfreightsystem/api/api/WaterwayFreightSystemApp.java

@@ -10,5 +10,6 @@ public interface CargoRepository {
 	Cargo save(Cargo cargo);
 	List<Cargo> findAll();
 	List<Cargo> findByOwner(Account account);
-	Optional<Cargo> findById(Integer idCargo);
+	Optional<Cargo> findById(Long idCargo);
+	void deleteById(Long idCargo);
 }

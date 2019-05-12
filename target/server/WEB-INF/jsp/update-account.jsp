@@ -13,7 +13,7 @@
       <link href="<c:url value="/resources/css/common.css"/>" rel="stylesheet">
       <script src="<c:url
       	value="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"/>"></script>
-    <script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
+      <script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
   </head>
   <body>
     <div class="container">
@@ -48,10 +48,11 @@
 	            }
             </script>
             <input type="password" id="confirmPassword" class="form-control"
-            	placeholder="Confirm password" required="required"
+            	placeholder="Xac nhan password" required="required"
             	onChange="matchPassword(this.value);"/>
             <c:if test="${account.accountType.toString() == 'ADMIN'}">
-        		<select name='accountType'>
+        		<label for="accountType">Loai tai khoan:</label>
+        		<select name='accountType' id="accountType">
 				    <option value="${account.accountType}" selected>${account.accountType}
 				    </option>
 				    <c:forEach items="${accountTypes}" var="accountType">
@@ -62,7 +63,8 @@
 				</select>
     		</c:if>
     		<c:if test="${account.accountType.toString() != 'ADMIN'}">
-	    		<select name="accountType">
+	    		<label for="accountType">Loai tai khoan:</label>
+	    		<select name="accountType" id="accountType">
 	    			<option value="${account.accountType}" selected>${account.accountType}</option>
 	    		</select>
 	    	</c:if>

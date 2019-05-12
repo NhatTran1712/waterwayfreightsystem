@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Qualifier("PostgresCargoRepository")
-public interface PostgresCargoRepositoryImpl extends JpaRepository<Cargo, Integer>, 
+public interface PostgresCargoRepositoryImpl extends JpaRepository<Cargo, Long>, 
 	CargoRepository, JpaSpecificationExecutor {
 
 }

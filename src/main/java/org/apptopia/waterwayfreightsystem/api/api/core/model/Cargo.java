@@ -9,17 +9,19 @@ import javax.persistence.ManyToOne;
 import org.apptopia.waterwayfreightsystem.api.api.authentication.Account;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Cargo {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer idCargo;
+    private Long idCargo;
 	@ManyToOne
 	private Account owner;
 	private Float cargoWeight;

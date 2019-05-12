@@ -8,7 +8,7 @@ import org.apptopia.waterwayfreightsystem.api.api.port.model.Port;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2019-05-10T16:12:43+0700",
+    date = "2019-05-12T15:40:42+0700",
     comments = "version: 1.3.0.Final, compiler: javac, environment: Java 1.8.0_201 (Oracle Corporation)"
 )
 public class RawScheduleMapperImpl implements RawScheduleMapper {

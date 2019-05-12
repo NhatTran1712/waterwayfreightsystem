@@ -9,7 +9,8 @@
 <head>
     <meta charset="utf-8">
     <title>Home Page</title>
-    <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	   		rel="stylesheet" />
 </head>
 <body>
   <div class="container">
@@ -18,25 +19,55 @@
         <form id="logoutForm" method="POST" action="${contextPath}/logout">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         </form>
-        <h6 align="right">
+        <h5 align="right">
         	<a href="${contextPath}/account/show?username=${pageContext.request.userPrincipal.name}">
        		${pageContext.request.userPrincipal.name}</a> | <a href=
        		"${contextPath}/account/update?username=${pageContext.request.userPrincipal.name}"
        		style="color:black;text-decoration:none">cap nhat</a> |
        		<a onclick="document.forms['logoutForm'].submit()">dang xuat</a>
-        </h6>
+        </h5>
     </c:if>
     <c:if test="${pageContext.request.userPrincipal.name == null}">
-        <h6 align="right">
-        	<a href="${contextPath}/login">Dang nhap</a> |
-        		<a href="${contextPath}/account/registration">Dang ky</a>
-        </h6>
+        <h5 align="right">
+        	<a href="${contextPath}/login">dang nhap</a> |
+        		<a href="${contextPath}/account/registration">dang ky</a>
+        </h5>
     </c:if>
     <div class="menubar" align="center">
-    	<h5>
-    		<a href="${contextPath}/home-admin" style="color:red; text-decorattion:none">Quan tri
-    			</a>
-    	</h5>
+    	<nav class="navbar navbar-default">
+		        <div class="container-fluid">
+			        <div class="navbar-header">
+						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+							data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+			        </div>
+					<div id="navbar" class="navbar-collapse collapse center-block" aria-expanded="false"
+						style="height: 1px;">
+						<ul class="nav navbar-nav">
+							<li class="active"><a href="${contextPath}/home">Home</a></li>
+							<li><a href="${contextPath}/home-admin">Quan tri</a></li>
+							<li><a href="${contextPath}/home-manager">Quan ly</a></li>
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown"
+									role="button" aria-haspopup="true" aria-expanded="false">
+									Tai khoan<span class="caret"></span></a>
+								<ul class="dropdown-menu">
+									<li><a href="${contextPath}/account/registration-staff">
+										Tao tai khoan</a></li>
+									<li><a href="${contextPath}/account">Danh sach tai khoan</a></li>
+									<li role="separator" class="divider"></li>
+									<li class="dropdown-header">Nav header</li>
+									<li><a href="#">Separated link</a></li>
+								</ul>
+							</li>
+						</ul>
+					</div><!--/.nav-collapse -->
+		        </div><!--/.container-fluid -->
+		</nav>
     </div>
   </div>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>

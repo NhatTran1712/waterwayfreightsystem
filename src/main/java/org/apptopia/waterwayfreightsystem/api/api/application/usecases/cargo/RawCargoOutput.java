@@ -5,10 +5,11 @@ import org.apptopia.waterwayfreightsystem.api.api.application.usecases.UseCaseOu
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
-@Data @AllArgsConstructor
-@NoArgsConstructor
+@Data @AllArgsConstructor @NoArgsConstructor @ToString
 public class RawCargoOutput implements UseCaseOutput {
-	private Integer idOwner;
+	private Long idCargo;
+	private Long idOwner;
 	private Float cargoWeight;
 }

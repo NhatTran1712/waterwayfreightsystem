@@ -19,7 +19,6 @@ org/apptopia/waterwayfreightsystem/api/api/application/usecases/travelproblem/Ra
 org/apptopia/waterwayfreightsystem/api/api/application/usecases/account/RawAccountMapper.class
 org/apptopia/waterwayfreightsystem/api/api/application/usecases/schedule/RawScheduleMapperImpl.class
 org/apptopia/waterwayfreightsystem/api/api/application/usecases/rawupdate/UpdateScheduleForShipUseCase.class
-org/apptopia/waterwayfreightsystem/api/api/application/usecases/rawinput/RegisterAccountUseCase.class
 org/apptopia/waterwayfreightsystem/api/api/application/usecases/rawinput/AddNewCargoUseCase.class
 org/apptopia/waterwayfreightsystem/api/api/application/usecases/orders/RawOrdersMapper.class
 org/apptopia/waterwayfreightsystem/api/api/application/usecases/rawupdate/UpdateStatusForShipUseCase.class
@@ -56,7 +55,6 @@ org/apptopia/waterwayfreightsystem/api/api/port/model/PortRepository.class
 org/apptopia/waterwayfreightsystem/api/api/core/model/ScheduleRepository.class
 org/apptopia/waterwayfreightsystem/api/api/application/usecases/rawupdate/UpdateShipUseCase.class
 org/apptopia/waterwayfreightsystem/api/api/application/usecases/transportprocess/RawTransportProcessMapperImpl.class
-org/apptopia/waterwayfreightsystem/api/api/application/usecases/account/RawAccountInput$RawAccountInputBuilder.class
 org/apptopia/waterwayfreightsystem/api/api/ship/model/ShipStatus.class
 org/apptopia/waterwayfreightsystem/api/api/application/usecases/orders/RawOrdersInput.class
 org/apptopia/waterwayfreightsystem/api/api/application/usecases/rawinput/InitializeTransportProcessUseCase.class
@@ -68,7 +66,10 @@ org/apptopia/waterwayfreightsystem/api/api/application/usecases/rawupdate/Update
 org/apptopia/waterwayfreightsystem/api/api/application/usecases/account/RawAccountInput.class
 org/apptopia/waterwayfreightsystem/api/api/application/usecases/account/RawAccountOutput.class
 org/apptopia/waterwayfreightsystem/api/api/core/model/Orders.class
+org/apptopia/waterwayfreightsystem/api/api/application/usecases/delete/DeleteAccountUseCase.class
+org/apptopia/waterwayfreightsystem/api/api/core/model/Cargo$CargoBuilder.class
 org/apptopia/waterwayfreightsystem/api/api/application/usecases/transportprocess/RawTransportProcessInput.class
+org/apptopia/waterwayfreightsystem/api/api/StartupService.class
 org/apptopia/waterwayfreightsystem/api/api/WebSecurityConfig.class
 org/apptopia/waterwayfreightsystem/api/api/ship/model/Ship.class
 org/apptopia/waterwayfreightsystem/api/api/core/model/Cargo.class
@@ -80,6 +81,7 @@ org/apptopia/waterwayfreightsystem/api/api/infrastructure/PostgresOrdersReposito
 org/apptopia/waterwayfreightsystem/api/api/core/model/TransportProcessRepository.class
 org/apptopia/waterwayfreightsystem/api/api/application/usecases/rawupdate/UpdateScheduleUseCase.class
 org/apptopia/waterwayfreightsystem/api/api/application/usecases/schedule/RawScheduleInput$RawScheduleInputBuilder.class
+org/apptopia/waterwayfreightsystem/api/api/application/usecases/rawinput/RegisterCustomerAccountUseCase.class
 org/apptopia/waterwayfreightsystem/api/api/application/usecases/schedule/RawScheduleInput.class
 org/apptopia/waterwayfreightsystem/api/api/application/usecases/transportprocess/RawTransportProcessOutput.class
 org/apptopia/waterwayfreightsystem/api/api/application/usecases/travelproblem/RawTravelProblemInput.class
@@ -100,5 +102,6 @@ org/apptopia/waterwayfreightsystem/api/api/infrastructure/PostgresTravelProblemR
 org/apptopia/waterwayfreightsystem/api/api/application/ShipServiceImpl.class
 org/apptopia/waterwayfreightsystem/api/api/application/usecases/rawinput/AddNewOrdersUseCase.class
 org/apptopia/waterwayfreightsystem/api/api/application/usecases/cargo/RawCargoOutput.class
+org/apptopia/waterwayfreightsystem/api/api/application/usecases/rawinput/RegisterStaffAccountUseCase.class
 org/apptopia/waterwayfreightsystem/api/api/application/usecases/cargo/RawCargoMapper.class
 org/apptopia/waterwayfreightsystem/api/api/application/usecases/account/RawAccountMapperImpl.class
