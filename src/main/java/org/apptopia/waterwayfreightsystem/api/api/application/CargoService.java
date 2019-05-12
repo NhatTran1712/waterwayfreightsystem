@@ -5,17 +5,21 @@ import java.util.Optional;
 
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.cargo.RawCargoInput;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.cargo.RawCargoOutput;
-import org.apptopia.waterwayfreightsystem.api.api.application.usecases.search.SearchByOwnerFullnameInput;
-import org.apptopia.waterwayfreightsystem.api.api.application.usecases.search.SearchByOwnerFullnameOutput;
+import org.apptopia.waterwayfreightsystem.api.api.application.usecases.search.cargo.SearchByIdCargoInput;
+import org.apptopia.waterwayfreightsystem.api.api.application.usecases.search.cargo.SearchByIdCargoOutput;
+import org.apptopia.waterwayfreightsystem.api.api.application.usecases.search.cargo.SearchByOwnerFullnameInput;
+import org.apptopia.waterwayfreightsystem.api.api.application.usecases.search.cargo.SearchByOwnerFullnameOutput;
 import org.apptopia.waterwayfreightsystem.api.api.core.model.Cargo;
 
 public interface CargoService {
 	List<RawCargoOutput> initDataCargo();
 	List<RawCargoOutput> findAllCargos();
+	RawCargoOutput findCargoByIdCargo(Long idCargo);
 	SearchByOwnerFullnameOutput searchCargoByOwnerFullname(SearchByOwnerFullnameInput
 		searchByOwnerFullnameInput);
-	RawCargoOutput findCargoByIdCargo(Long idCargo);
-//	List<RawCargoOutput> getCargosOfCustomer(Long idUser);
+	SearchByIdCargoOutput findCargoByIdCargo(SearchByIdCargoInput searchByIdCargoInput);
+	List<RawCargoOutput> getCargosOfCustomer(String username);
+	List<RawCargoOutput> changetoList(RawCargoOutput rawCargoOutput);
 //	RawCargoOutput newCargo(RawCargoInput rawCargoInput);
 	RawCargoOutput updateCargo(RawCargoInput rawCargoInput);
 	RawCargoOutput deleteCargo(Long idCargo);

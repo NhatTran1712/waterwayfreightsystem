@@ -1,4 +1,4 @@
-package org.apptopia.waterwayfreightsystem.api.api.application.usecases.search;
+package org.apptopia.waterwayfreightsystem.api.api.application.usecases.search.cargo;
 
 import java.util.List;
 

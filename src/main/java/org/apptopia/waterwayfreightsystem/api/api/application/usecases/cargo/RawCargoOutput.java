@@ -12,4 +12,5 @@ public class RawCargoOutput implements UseCaseOutput {
 	private Long idCargo;
 	private Long idOwner;
 	private Float cargoWeight;
+	private String describe;
 }

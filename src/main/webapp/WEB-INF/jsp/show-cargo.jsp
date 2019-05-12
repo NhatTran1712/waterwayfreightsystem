@@ -27,12 +27,15 @@
 		        <c:if test="${account.idUser == cargo.idOwner}">
 			        <input type="text" id="idOwner" class="form-control" value="${account.fullname}"
 			        	readonly="readonly"/>&nbsp;&nbsp;&nbsp;&nbsp;
-		    		<a href="${contextPath}/account/show?username=${account.fullname}">+Xem thong tin</a>
+		    		<a href="${contextPath}/account/show?username=${account.username}">+Xem thong tin</a>
 			    </c:if>
 		    </c:forEach>
 		    <br/>
 	        <label for="cargoWeight">Trong luong:</label>
 	        <input type="text" id="cargoWeight" class="form-control" value="${cargo.cargoWeight}"
+	        	readonly="readonly"/>
+	        <label for="describe">Mo ta:</label>
+	        <input type="text" id="describe" class="form-control" value="${cargo.describe}"
 	        	readonly="readonly"/>
 	        <a href="${contextPath}/cargo/update?id=${cargo.idCargo}"
 	        	style="text-decoration: none"><button class="btn btn-lg btn-primary btn-block">

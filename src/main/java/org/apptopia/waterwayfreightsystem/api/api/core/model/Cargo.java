@@ -26,4 +26,5 @@ public class Cargo {
 	@ManyToOne
 	private Account owner;
 	private Float cargoWeight;
+	private String describe;
 }

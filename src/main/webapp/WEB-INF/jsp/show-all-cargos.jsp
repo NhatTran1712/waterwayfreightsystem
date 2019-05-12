@@ -36,7 +36,7 @@
 					</a>
 				</div>
 				<form method="GET" class="form-inline pull-right"
-					action="${contextPath}/cargo/search">
+					action="${contextPath}/cargo/search-owner-fullname">
 					<div class="form-group">
 						<input type="text" class="form-control" name="ownerFullname"
 							placeholder="Nhap ho ten nguoi so huu..."/>
@@ -55,6 +55,7 @@
 								<th>ID</th>
 								<th>Nguoi so huu</th>
 								<th>Trong luong</th>
+								<th>Mo ta</th>
 								<th>Cap nhat</th>
 								<th>Xoa</th>
 							</tr>
@@ -72,6 +73,7 @@
 									    </c:forEach>
 									</td>
 									<td>${cargo.cargoWeight}</td>
+									<td>${cargo.describe}</td>
 									<td>
 										<a href="${contextPath}/cargo/update?id=${cargo.idCargo}">
 											<span class="glyphicon glyphicon-pencil"></span>

@@ -99,7 +99,7 @@
 	            }
             </script>
             <input type="text" id="idCcard" name="idCard" class="form-control" placeholder="CMND"
-            	value="${account.idCard}"></input>
+            	value="${account.idCard}" onChange="confirmIdCard(this.value);"></input>
             <button class="btn btn-lg btn-primary btn-block" type="submit">Cap nhat</button>
             <button class="btn btn-lg btn-primary btn-block" type="reset">Reset</button>
             <a href="${contextPath}/home" style="text-decoration: none">

@@ -11,9 +11,10 @@ import org.apptopia.waterwayfreightsystem.api.api.application.usecases.cargo.Raw
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.delete.DeleteCargoUseCase;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.rawinput.AddNewCargoUseCase;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.rawupdate.UpdateCargoUseCase;
-import org.apptopia.waterwayfreightsystem.api.api.application.usecases.search.SearchByOwnerFullnameInput;
-import org.apptopia.waterwayfreightsystem.api.api.application.usecases.search.SearchByOwnerFullnameOutput;
-import org.apptopia.waterwayfreightsystem.api.api.application.usecases.search.SearchByOwnerFullnameUseCase;
+import org.apptopia.waterwayfreightsystem.api.api.application.usecases.search.cargo.SearchByIdCargoInput;
+import org.apptopia.waterwayfreightsystem.api.api.application.usecases.search.cargo.SearchByOwnerFullnameInput;
+import org.apptopia.waterwayfreightsystem.api.api.application.usecases.search.cargo.SearchByOwnerFullnameOutput;
+import org.apptopia.waterwayfreightsystem.api.api.application.usecases.search.cargo.SearchByOwnerFullnameUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -63,6 +64,18 @@ public class CargoController {
 		model.addAttribute("accounts", accountService.findAllAccount());
 		return "show-all-cargos";
 	}
+
+	@RequestMapping(value = {"/search-owner-fullname"}, method = RequestMethod.GET)
+	public String searchCargoByOwnerFullname(SearchByOwnerFullnameInput searchByOwnerFullnameInput,
+		Model model){
+		if(searchByOwnerFullnameInput == null) {
+			return "redirect:/cargo";
+		}
+		model.addAttribute("cargos", searchByOwnerFullnameUseCase.handle(searchByOwnerFullnameInput)
+			.getRawCargoOutputs());
+		model.addAttribute("accounts", accountService.findAllAccount());
+		return "show-all-cargos";
+	}
 	
 	@RequestMapping(value = {"/update"}, method = RequestMethod.GET)
 //	@PreAuthorize("hasRole('ROLE_MANAGER')")
@@ -86,26 +99,27 @@ public class CargoController {
 		return "redirect:/cargo";
 	}
 	
-	@RequestMapping(value = {"/search"}, method = RequestMethod.GET)
-	public String searchCargoByOwnerFullname(SearchByOwnerFullnameInput searchByOwnerFullnameInput,
-		Model model){
-		if(searchByOwnerFullnameInput == null) {
-			return "redirect:/cargo";
-		}
-		model.addAttribute("cargos", searchByOwnerFullnameUseCase.handle(searchByOwnerFullnameInput)
-			.getRawCargoOutputs());
-		model.addAttribute("accounts", accountService.findAllAccount());
-		return "show-all-cargos";
-	}
-//	
-//	@RequestMapping(value = {"/show-all/{id}","/{id}/"}, produces = "application/json",
-//		consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
-//	@ResponseBody
+	@RequestMapping(value = {"/show-customer-cargos"}, method = RequestMethod.GET)
 //	@PreAuthorize("hasRole('ROLE_USER' || 'ROLE_MANAGER')")
-//	public List<RawCargoOutput> getCargosOfCustomer(@PathVariable("id") Long idUser){
-//		return cargoService.getCargosOfCustomer(idUser);
-//	}
-//	
+	public String getCargosOfCustomer(@RequestParam("username") String username, Model model){
+		 if(username.equals("")) {
+			 return "redirect:/home";
+		 }
+		 model.addAttribute("cargos", cargoService.getCargosOfCustomer(username));
+		 return "show-customer-cargos";
+	}
+
+	@RequestMapping(value = {"/search-id"}, method = RequestMethod.GET)
+	public String searchCargoByIdCargo(SearchByIdCargoInput searchByIdCargoInput, Model model){
+		if(searchByIdCargoInput.getIdCargo() == null || searchByIdCargoInput.getIdCargo() == 0) {
+			return "redirect:/cargo/show-customer-cargos?username="+searchByIdCargoInput
+				.getOwnerUsername();
+		}
+		model.addAttribute("cargos", cargoService.changetoList(cargoService.findCargoByIdCargo
+			(searchByIdCargoInput).getRawCargoOutput()));
+		return "show-customer-cargos";
+	}
+	
 //	@RequestMapping(value = {"/add/","/add"}, produces = "application/json",
 //		consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
 //	@ResponseBody

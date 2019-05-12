@@ -12,4 +12,5 @@ public class RawCargoInput implements UseCaseInput {
 	private Long idCargo;
 	private Long idOwner;
 	private Float cargoWeight;
+	private String describe;
 }

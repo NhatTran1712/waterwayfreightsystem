@@ -36,9 +36,9 @@
 					</a>
 				</div>
 				<form method="GET" class="form-inline pull-right"
-					action="${contextPath}/cargo/search">
+					action="${contextPath}/cargo/search-owner-fullname">
 					<div class="form-group">
-						<input type="text" class="form-control" name="fullname"
+						<input type="text" class="form-control" name="ownerFullname"
 							placeholder="Nhap ho ten nguoi so huu..."/>
 					</div>
 				<button type="submit" class="btn btn-primary">Tim kiem</button>
@@ -47,7 +47,7 @@
 			<c:if test="${cargos.isEmpty()}">
 				<h3>Khong co hang hoa</h3>
 			</c:if>
-			<c:if test="${!accounts.isEmpty()}">
+			<c:if test="${!cargos.isEmpty()}">
 				<div class="row">
 					<table class="table table-bordered table-hover">
 						<thead>
@@ -55,6 +55,7 @@
 								<th>ID</th>
 								<th>Nguoi so huu</th>
 								<th>Trong luong</th>
+								<th>Mo ta</th>
 								<th>Cap nhat</th>
 								<th>Xoa</th>
 							</tr>
@@ -67,11 +68,12 @@
 									    <c:forEach items="${accounts}" var="account">
 									        <c:if test="${account.idUser == cargo.idOwner}">
 									            <a href="${contextPath}/account/show?username=${account.username}">
-												${account.username}</a>
+												${account.fullname}</a>
 									        </c:if>
 									    </c:forEach>
 									</td>
 									<td>${cargo.cargoWeight}</td>
+									<td>${cargo.describe}</td>
 									<td>
 										<a href="${contextPath}/cargo/update?id=${cargo.idCargo}">
 											<span class="glyphicon glyphicon-pencil"></span>

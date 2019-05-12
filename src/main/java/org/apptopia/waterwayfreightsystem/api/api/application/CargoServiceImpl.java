@@ -8,8 +8,10 @@ import org.apptopia.waterwayfreightsystem.api.api.application.usecases.account.R
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.cargo.RawCargoInput;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.cargo.RawCargoMapper;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.cargo.RawCargoOutput;
-import org.apptopia.waterwayfreightsystem.api.api.application.usecases.search.SearchByOwnerFullnameInput;
-import org.apptopia.waterwayfreightsystem.api.api.application.usecases.search.SearchByOwnerFullnameOutput;
+import org.apptopia.waterwayfreightsystem.api.api.application.usecases.search.cargo.SearchByIdCargoInput;
+import org.apptopia.waterwayfreightsystem.api.api.application.usecases.search.cargo.SearchByIdCargoOutput;
+import org.apptopia.waterwayfreightsystem.api.api.application.usecases.search.cargo.SearchByOwnerFullnameInput;
+import org.apptopia.waterwayfreightsystem.api.api.application.usecases.search.cargo.SearchByOwnerFullnameOutput;
 import org.apptopia.waterwayfreightsystem.api.api.authentication.Account;
 import org.apptopia.waterwayfreightsystem.api.api.authentication.AccountRepository;
 import org.apptopia.waterwayfreightsystem.api.api.core.model.Cargo;
@@ -47,6 +49,7 @@ public class CargoServiceImpl implements CargoService {
 					.idCargo(null)
 					.owner(owner)
 					.cargoWeight((float)1.0)
+					.describe("Tui giay mau nau")
 					.build();
 			
 			cargoRepository.save(cargo1);
@@ -55,6 +58,7 @@ public class CargoServiceImpl implements CargoService {
 					.idCargo(null)
 					.owner(owner)
 					.cargoWeight((float)2.0)
+					.describe("Hop nhua chu nhat mau trang")
 					.build();
 			
 			cargoRepository.save(cargo2);
@@ -73,6 +77,7 @@ public class CargoServiceImpl implements CargoService {
 					.idCargo(null)
 					.owner(owner)
 					.cargoWeight((float)1.0)
+					.describe("Hop vuong nho mau trang duc")
 					.build();
 			
 			cargoRepository.save(cargo3);
@@ -81,6 +86,7 @@ public class CargoServiceImpl implements CargoService {
 					.idCargo(null)
 					.owner(owner)
 					.cargoWeight((float)2.0)
+					.describe("Hop vuong nho goi giay bao")
 					.build();
 			
 			cargoRepository.save(cargo4);
@@ -100,6 +106,20 @@ public class CargoServiceImpl implements CargoService {
 			rawCargoOutputs.add(rawCargoOutput);
 		}
 		return rawCargoOutputs;
+	}
+	
+	@Override
+	public RawCargoOutput findCargoByIdCargo(Long idCargo) {
+		Optional<Cargo> existingOne = cargoRepository.findById(idCargo);
+		
+		if(!existingOne.isPresent()) {
+			throw new IllegalArgumentException("Cargo not existed!");
+		}
+		Cargo cargo = existingOne.get();
+		RawCargoOutput rawCargoOutput = RawCargoMapper.INSTANCE.fromCargo(cargo);
+
+		rawCargoOutput.setIdOwner(RawCargoMapper.INSTANCE.fromAccount(cargo.getOwner()));
+		return rawCargoOutput;
 	}
 
 	@Override
@@ -124,35 +144,54 @@ public class CargoServiceImpl implements CargoService {
 	}
 	
 	@Override
-	public RawCargoOutput findCargoByIdCargo(Long idCargo) {
-		Optional<Cargo> existingOne = cargoRepository.findById(idCargo);
+	public SearchByIdCargoOutput findCargoByIdCargo(SearchByIdCargoInput searchByIdCargoInput) {
+		Optional<Cargo> existingOne = cargoRepository.findById(searchByIdCargoInput.getIdCargo());
+		SearchByIdCargoOutput searchByIdCargoOutput = new SearchByIdCargoOutput();
 		
 		if(!existingOne.isPresent()) {
 			throw new IllegalArgumentException("Cargo not existed!");
 		}
 		Cargo cargo = existingOne.get();
-		RawCargoOutput rawCargoOutput = RawCargoMapper.INSTANCE.fromCargo(cargo);
 		
-		rawCargoOutput.setIdOwner(RawCargoMapper.INSTANCE.fromAccount(cargo.getOwner()));
-		return rawCargoOutput;
+		if(cargo.getOwner().getUsername().equals(searchByIdCargoInput.getOwnerUsername())) {
+			RawCargoOutput rawCargoOutput = RawCargoMapper.INSTANCE.fromCargo(cargo);
+			
+			rawCargoOutput.setIdOwner(RawCargoMapper.INSTANCE.fromAccount(cargo.getOwner()));
+			searchByIdCargoOutput.setRawCargoOutput(rawCargoOutput);
+		}
+		return searchByIdCargoOutput;
 	}
-//	
-//	@Override
-//	public List<RawCargoOutput> getCargosOfCustomer(Long idUser) {
-//		Optional<Account> existingOne = accountRepository.findById(idUser);
-//		List<RawCargoOutput> rawCargoOutputs = new ArrayList<>();
-//		
-//		if(!existingOne.isPresent()) {
-//			throw new IllegalArgumentException("Account not existed");
-//		}
-//		List<Cargo> cargos = cargoRepository.findByOwner(existingOne.get());
-//		
-//		for(Cargo cargo : cargos) {
-//			rawCargoOutputs.add(RawCargoMapper.INSTANCE.fromCargo(cargo));
-//		}
-//		return rawCargoOutputs;
-//	}
-//
+	
+	@Override
+	public List<RawCargoOutput> getCargosOfCustomer(String username) {
+		Optional<Account> existingOne = accountRepository.findByUsername(username);
+		List<RawCargoOutput> rawCargoOutputs = new ArrayList<>();
+		RawCargoOutput rawCargoOutput;
+		
+		if(!existingOne.isPresent()) {
+			throw new IllegalArgumentException("Account not existed");
+		}
+		List<Cargo> cargos = cargoRepository.findByOwner(existingOne.get());
+		
+		for(Cargo cargo : cargos) {
+			rawCargoOutput = RawCargoMapper.INSTANCE.fromCargo(cargo);
+			rawCargoOutput.setIdOwner(RawCargoMapper.INSTANCE.fromAccount(cargo.getOwner()));
+			rawCargoOutputs.add(rawCargoOutput);
+		}
+		return rawCargoOutputs;
+	}
+
+	@Override
+	public List<RawCargoOutput> changetoList(RawCargoOutput rawCargoOutput) {
+		List<RawCargoOutput> rawCargoOutputs = new ArrayList<>();
+		
+		if(rawCargoOutput == null) {
+			return rawCargoOutputs;
+		}
+		rawCargoOutputs.add(rawCargoOutput);
+		return rawCargoOutputs;
+	}
+	
 //	@Override
 //	public RawCargoOutput newCargo(RawCargoInput rawCargoInput) {
 //		Cargo cargo = RawCargoMapper.INSTANCE.fromRawInput(rawCargoInput);
@@ -192,4 +231,5 @@ public class CargoServiceImpl implements CargoService {
 		System.out.println("Delete cargo " + idCargo + "successful");
 		return RawCargoMapper.INSTANCE.fromCargo(existingOne.get());
 	}
+
 }
