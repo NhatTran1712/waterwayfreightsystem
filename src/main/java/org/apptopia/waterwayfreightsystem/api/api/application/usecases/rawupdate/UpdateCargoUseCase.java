@@ -15,5 +15,4 @@ public class UpdateCargoUseCase implements UseCase<RawCargoInput,RawCargoOutput>
 	public RawCargoOutput handle(RawCargoInput input) {
 		return cargoService.updateCargo(input);
 	}
-
 }
