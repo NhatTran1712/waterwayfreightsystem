@@ -1,5 +1,7 @@
 package org.apptopia.waterwayfreightsystem.api.api;
 
+import java.util.ArrayList;
+
 import org.apptopia.waterwayfreightsystem.api.api.application.AccountService;
 import org.apptopia.waterwayfreightsystem.api.api.application.SecurityService;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.account.RawAccountInput;
@@ -133,6 +135,22 @@ public class AccountController {
     	}
     	model.addAttribute("accounts", accountService.searchAccountByFullname(fullname));
 		return "show-accounts";
+	}
+    
+    @RequestMapping(value = {"/search-role-manager-init"}, method = RequestMethod.GET)
+	public String searchAccountByFullnameForManagerInit(Model model){
+		model.addAttribute("accounts", new ArrayList<RawAccountOutput>());
+		return "show-accounts-manager"; 
+	}
+    
+    @RequestMapping(value= {"/search-role-manager"}, method = RequestMethod.GET)
+	public String searchAccountByFullnameForManager(@RequestParam("fullname") String fullname,
+		Model model) {
+    	if (fullname.equals("")) {
+			return "redirect:/account/search-role-manager-init";
+    	}
+    	model.addAttribute("accounts", accountService.searchAccountByFullname(fullname));
+		return "show-accounts-manager";
 	}
 //    
 //	@RequestMapping(value = {"/show-all/staff/","/show-all/staff"}, method = RequestMethod.GET)

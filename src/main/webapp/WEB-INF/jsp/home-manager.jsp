@@ -54,7 +54,7 @@
 									role="button" aria-haspopup="true" aria-expanded="false">
 									Tai khoan<span class="caret"></span></a>
 								<ul class="dropdown-menu">
-									<li><a href="${contextPath}/account/search">Tim kiem</a></li>
+									<li><a href="${contextPath}/account/search-role-manager-init">Tim kiem</a></li>
 								</ul>
 							</li>
 							<li class="dropdown">							

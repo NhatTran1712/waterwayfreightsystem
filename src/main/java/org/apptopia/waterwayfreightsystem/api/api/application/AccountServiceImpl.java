@@ -123,16 +123,14 @@ public class AccountServiceImpl implements AccountService {
 	@Override
 	public List<RawAccountOutput> searchAccountByFullname(String fullname) {
 		List<Account> accounts = accountRepository.findByFullnameContaining(fullname);
-
+		List<RawAccountOutput> rawAccountOutputs = new ArrayList<>();
+		
 		if(!accounts.isEmpty()) {
-			List<RawAccountOutput> rawAccountOutputs = new ArrayList<>();
-			
 			for(Account account : accounts) {
 				rawAccountOutputs.add(RawAccountMapper.INSTANCE.fromAccount(account));
 			}
-			return rawAccountOutputs;
 		}
-		return null;
+		return rawAccountOutputs;
 	}
 
 	@Override
