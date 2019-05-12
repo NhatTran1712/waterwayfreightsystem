@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.apptopia.waterwayfreightsystem.api.api.application.usecases.account.RawAccountOutput;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.cargo.RawCargoInput;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.cargo.RawCargoMapper;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.cargo.RawCargoOutput;
@@ -192,15 +191,17 @@ public class CargoServiceImpl implements CargoService {
 		return rawCargoOutputs;
 	}
 	
-//	@Override
-//	public RawCargoOutput newCargo(RawCargoInput rawCargoInput) {
-//		Cargo cargo = RawCargoMapper.INSTANCE.fromRawInput(rawCargoInput);
-//		Account account = RawCargoMapper.INSTANCE.toAccount(rawCargoInput.getIdOwner());
-//		
-//		cargo.setOwner(account);
-//		cargoRepository.save(cargo);
-//		return RawCargoMapper.INSTANCE.fromCargo(cargo);
-//	}
+	@Override
+	public RawCargoOutput newCargo(RawCargoInput rawCargoInput) {
+		Cargo cargo = RawCargoMapper.INSTANCE.fromRawInput(rawCargoInput);
+		
+		cargo.setOwner(RawCargoMapper.INSTANCE.toAccount(rawCargoInput.getIdOwner()));
+		cargoRepository.save(cargo);
+		RawCargoOutput rawCargoOutput = RawCargoMapper.INSTANCE.fromCargo(cargo);
+		
+		rawCargoOutput.setIdOwner(RawCargoMapper.INSTANCE.fromAccount(cargo.getOwner()));
+		return rawCargoOutput;
+	}
 
 	@Override
 	public RawCargoOutput updateCargo(RawCargoInput rawCargoInput) {

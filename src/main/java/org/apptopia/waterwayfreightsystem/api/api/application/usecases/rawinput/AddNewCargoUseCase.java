@@ -13,8 +13,7 @@ public class AddNewCargoUseCase implements UseCase<RawCargoInput,RawCargoOutput>
 	
 	@Override
 	public RawCargoOutput handle(RawCargoInput rawCargoInput) {
-		return null;
-//		return cargoService.newCargo(rawCargoInput);
+		return cargoService.newCargo(rawCargoInput);
 	}
 
 }

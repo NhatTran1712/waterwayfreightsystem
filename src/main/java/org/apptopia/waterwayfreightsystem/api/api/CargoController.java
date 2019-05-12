@@ -1,11 +1,7 @@
 package org.apptopia.waterwayfreightsystem.api.api;
 
-import java.util.List;
-
 import org.apptopia.waterwayfreightsystem.api.api.application.AccountService;
 import org.apptopia.waterwayfreightsystem.api.api.application.CargoService;
-import org.apptopia.waterwayfreightsystem.api.api.application.usecases.account.RawAccountInput;
-import org.apptopia.waterwayfreightsystem.api.api.application.usecases.account.RawAccountOutput;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.cargo.RawCargoInput;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.cargo.RawCargoOutput;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.delete.DeleteCargoUseCase;
@@ -13,20 +9,14 @@ import org.apptopia.waterwayfreightsystem.api.api.application.usecases.rawinput.
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.rawupdate.UpdateCargoUseCase;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.search.cargo.SearchByIdCargoInput;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.search.cargo.SearchByOwnerFullnameInput;
-import org.apptopia.waterwayfreightsystem.api.api.application.usecases.search.cargo.SearchByOwnerFullnameOutput;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.search.cargo.SearchByOwnerFullnameUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -77,6 +67,21 @@ public class CargoController {
 		return "show-all-cargos";
 	}
 	
+	@RequestMapping(value = {"/add/","/add"}, method = RequestMethod.GET)
+//	@PreAuthorize("hasRole('ROLE_MANAGER')")
+	public String addNewCargo(Model model) {
+		model.addAttribute("rawCargoInput", new RawCargoInput());
+		model.addAttribute("accounts", accountService.findAccountByAccountType("user"));
+		return "add-cargo";
+	}
+	
+	@RequestMapping(value = {"/add"}, method = RequestMethod.POST)
+//	@PreAuthorize("hasRole('ROLE_MANAGER')")
+	public String addNewCargo(RawCargoInput rawCargoInput) {
+		RawCargoOutput rawCargoOutput = addNewCargoUseCase.handle(rawCargoInput);
+		return "redirect:/cargo/show?id=" + rawCargoOutput.getIdCargo();
+	}
+	
 	@RequestMapping(value = {"/update"}, method = RequestMethod.GET)
 //	@PreAuthorize("hasRole('ROLE_MANAGER')")
 	public String updateCargo(@RequestParam("id") Long idCargo, Model model) {
@@ -120,11 +125,13 @@ public class CargoController {
 		return "show-customer-cargos";
 	}
 	
-//	@RequestMapping(value = {"/add/","/add"}, produces = "application/json",
-//		consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
-//	@ResponseBody
-//	@PreAuthorize("hasRole('ROLE_MANAGER')")
-//	public RawCargoOutput addNewCargo(@RequestBody RawCargoInput rawCargoInput) {
-//		return addNewCargoUseCase.handle(rawCargoInput);
-//	}
+	@RequestMapping(value = {"/show"}, method = RequestMethod.GET)
+	public String getCargo(@RequestParam("id") Long idCargo, Model model){
+		 if(idCargo == null || idCargo == 0) {
+			 return "redirect:/cargo/add";
+		 }
+		 model.addAttribute("cargo", cargoService.findCargoByIdCargo(idCargo));
+		 model.addAttribute("accounts", accountService.findAccountByAccountType("user"));
+		 return "show-cargo";
+	}
 }
