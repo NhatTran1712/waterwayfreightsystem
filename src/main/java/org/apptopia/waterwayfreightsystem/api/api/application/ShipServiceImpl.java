@@ -94,7 +94,7 @@ public class ShipServiceImpl implements ShipService {
 		Schedule schedule = RawShipMapper.INSTANCE.toSchedule(rawShipInput.getIdSchedule());
 		TravelProblem travelProblem = RawShipMapper.INSTANCE.toTravelProblem(rawShipInput
 			.getIdTravelProblem());
-		Account account = RawShipMapper.INSTANCE.toAccount(rawShipInput.getWhoManager());
+		Account account = RawShipMapper.INSTANCE.toAccount(rawShipInput.getIdWhoManager());
 		
 		ship.setSchedule(schedule);
 		ship.setTravelProblem(travelProblem);

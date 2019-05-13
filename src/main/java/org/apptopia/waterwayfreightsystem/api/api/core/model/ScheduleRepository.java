@@ -7,5 +7,5 @@ public interface ScheduleRepository {
 	
 	Schedule save(Schedule schedule);
 	List<Schedule> findAll();
-	Optional<Schedule> findById(Integer idSchedule);
+	Optional<Schedule> findById(Long idSchedule);
 }

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Qualifier("PostgresScheduleRepository")
-public interface PostgresScheduleRepositoryImpl extends JpaRepository<Schedule, Integer>,
+public interface PostgresScheduleRepositoryImpl extends JpaRepository<Schedule, Long>,
 	ScheduleRepository, JpaSpecificationExecutor{
 	
 }

@@ -54,7 +54,7 @@
 									role="button" aria-haspopup="true" aria-expanded="false">
 									Tai khoan<span class="caret"></span></a>
 								<ul class="dropdown-menu">
-									<li><a href="${contextPath}/account/search">Tim kiem</a></li>
+									<li><a href="${contextPath}/account/search-role-manager-init">Tim kiem</a></li>
 								</ul>
 							</li>
 							<li class="dropdown">							
@@ -62,6 +62,7 @@
 									role="button" aria-haspopup="true" aria-expanded="false">
 									Hang hoa<span class="caret"></span></a>
 								<ul class="dropdown-menu">
+									<li><a href="${contextPath}/cargo/add">Tao hang hoa</a></li>
 									<li><a href="${contextPath}/cargo">Danh sach hang hoa</a></li>
 									<li role="separator" class="divider"></li>
 									<li class="dropdown-header">Nav header</li>

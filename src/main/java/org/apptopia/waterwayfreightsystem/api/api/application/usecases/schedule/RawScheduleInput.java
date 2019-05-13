@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @Data @AllArgsConstructor @Builder @NoArgsConstructor
 public class RawScheduleInput implements UseCaseInput{
 
-	private Integer idSchedule;
+	private Long idSchedule;
 	private List<Port> visitingPorts;
 	private Integer estimateDistance;
 	private Integer estimateTime;
@@ -25,5 +25,5 @@ public class RawScheduleInput implements UseCaseInput{
 	private LocalDateTime dateDepart;
 	@JsonDeserialize(using=LocalDateTimeDeserializer.class)
 	private LocalDateTime dateArrive;
-	private Long whoManage;
+	private Long idWhoManage;
 }

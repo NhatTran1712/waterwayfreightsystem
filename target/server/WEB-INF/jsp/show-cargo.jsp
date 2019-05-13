@@ -27,7 +27,7 @@
 		        <c:if test="${account.idUser == cargo.idOwner}">
 			        <input type="text" id="idOwner" class="form-control" value="${account.fullname}"
 			        	readonly="readonly"/>&nbsp;&nbsp;&nbsp;&nbsp;
-		    		<a href="${contextPath}/account/show?username=${account.fullname}">+Xem thong tin</a>
+		    		<a href="${contextPath}/account/show?username=${account.username}">+Xem thong tin</a>
 			    </c:if>
 		    </c:forEach>
 		    <br/>

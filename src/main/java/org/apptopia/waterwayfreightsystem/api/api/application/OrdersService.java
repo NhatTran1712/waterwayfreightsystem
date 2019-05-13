@@ -9,6 +9,7 @@ import org.apptopia.waterwayfreightsystem.api.api.core.model.Orders;
 
 public interface OrdersService {
 	
+	List<RawOrdersOutput> initDataOrders();
 	RawOrdersOutput newOrders(RawOrdersInput rawOrdersInput);
 	RawOrdersOutput updateOrders(RawOrdersInput rawOrdersInput);
 	List<RawOrdersOutput> getAllOrders();

@@ -11,6 +11,7 @@ import org.apptopia.waterwayfreightsystem.api.api.application.usecases.orders.Ra
 import org.apptopia.waterwayfreightsystem.api.api.authentication.Account;
 import org.apptopia.waterwayfreightsystem.api.api.authentication.AccountRepository;
 import org.apptopia.waterwayfreightsystem.api.api.core.model.Cargo;
+import org.apptopia.waterwayfreightsystem.api.api.core.model.CargoRepository;
 import org.apptopia.waterwayfreightsystem.api.api.core.model.Orders;
 import org.apptopia.waterwayfreightsystem.api.api.core.model.OrdersRepository;
 import org.apptopia.waterwayfreightsystem.api.api.ship.model.Ship;
@@ -22,13 +23,30 @@ import org.springframework.stereotype.Service;
 public class OrdersServiceImpl implements OrdersService {
 	private OrdersRepository ordersRepository;
 	private AccountRepository accountRepository;
+	private CargoRepository cargoRepository;
 	
 	@Autowired
 	public void setRepository(@Qualifier("PostgresOrdersRepository") OrdersRepository
-		ordersRepository, AccountRepository accountRepository) {
+		ordersRepository, AccountRepository accountRepository,
+		@Qualifier("PostgresCargoRepository") CargoRepository cargoRepository) {
 		
 		this.ordersRepository = ordersRepository;
 		this.accountRepository = accountRepository;
+		this.cargoRepository = cargoRepository;
+	}
+	
+	@Override
+	public List<RawOrdersOutput> initDataOrders() {
+		List<RawOrdersOutput> rawOrdersOutput = new ArrayList<>();
+		Optional<Account> existingOne = accountRepository.findByUsername("user");
+		
+		if(!existingOne.isPresent()) {
+			throw new IllegalArgumentException("User not existed");
+		}
+		List<Cargo> cargos = cargoRepository.findByOwner(existingOne.get());
+		
+		
+		return null;
 	}
 	
 	@Override
@@ -101,5 +119,4 @@ public class OrdersServiceImpl implements OrdersService {
 		}
 		return customerOrders;
 	}
-
 }

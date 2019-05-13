@@ -14,17 +14,18 @@ import org.apptopia.waterwayfreightsystem.api.api.authentication.Account;
 import org.apptopia.waterwayfreightsystem.api.api.port.model.Port;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity @Data
+@Entity @Data @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Schedule {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer idSchedule;
+	private Long idSchedule;
 	@OneToMany
 	private List<Port> visitingPorts;
 	private Integer estimateDistance;
@@ -34,7 +35,7 @@ public class Schedule {
 	@ManyToOne
 	private Account whoManage;
 	
-	public Schedule(Integer idSchedule) {
+	public Schedule(Long idSchedule) {
 		this.idSchedule = idSchedule;
 	}
 }

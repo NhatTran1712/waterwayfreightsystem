@@ -15,14 +15,14 @@ public interface RawShipMapper {
 	
 	public RawShipOutput fromShip(Ship ship);
 
-	default Schedule toSchedule(Integer idSchedule) {
+	default Schedule toSchedule(Long idSchedule) {
 		if(idSchedule == null || idSchedule == 0) {
 			return null;
 		}
 		return new Schedule(idSchedule);
 	}
 	
-	default Integer fromSchedule(Schedule schedule) {
+	default Long fromSchedule(Schedule schedule) {
 		if(schedule == null) {
 			return null;
 		}
