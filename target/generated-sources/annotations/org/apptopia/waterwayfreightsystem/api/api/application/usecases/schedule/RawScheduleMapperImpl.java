@@ -8,7 +8,7 @@ import org.apptopia.waterwayfreightsystem.api.api.port.model.Port;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2019-05-13T07:36:25+0700",
+    date = "2019-08-19T11:22:35+0700",
     comments = "version: 1.3.0.Final, compiler: javac, environment: Java 1.8.0_201 (Oracle Corporation)"
 )
 public class RawScheduleMapperImpl implements RawScheduleMapper {
@@ -22,6 +22,7 @@ public class RawScheduleMapperImpl implements RawScheduleMapper {
         Schedule schedule = new Schedule();
 
         schedule.setIdSchedule( rawScheduleInput.getIdSchedule() );
+        schedule.setNameSchedule( rawScheduleInput.getNameSchedule() );
         List<Port> list = rawScheduleInput.getVisitingPorts();
         if ( list != null ) {
             schedule.setVisitingPorts( new ArrayList<Port>( list ) );
@@ -43,6 +44,7 @@ public class RawScheduleMapperImpl implements RawScheduleMapper {
         RawScheduleOutput rawScheduleOutput = new RawScheduleOutput();
 
         rawScheduleOutput.setIdSchedule( schedule.getIdSchedule() );
+        rawScheduleOutput.setNameSchedule( schedule.getNameSchedule() );
         List<Port> list = schedule.getVisitingPorts();
         if ( list != null ) {
             rawScheduleOutput.setVisitingPorts( new ArrayList<Port>( list ) );

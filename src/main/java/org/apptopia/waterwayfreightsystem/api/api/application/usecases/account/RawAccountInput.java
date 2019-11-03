@@ -3,7 +3,7 @@ package org.apptopia.waterwayfreightsystem.api.api.application.usecases.account;
 import javax.persistence.Transient;
 
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.UseCaseInput;
-import org.apptopia.waterwayfreightsystem.api.api.authentication.AccountType;
+import org.apptopia.waterwayfreightsystem.api.api.authentication.account.AccountType;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

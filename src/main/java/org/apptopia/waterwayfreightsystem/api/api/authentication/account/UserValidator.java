@@ -1,4 +1,4 @@
-package org.apptopia.waterwayfreightsystem.api.api.authentication;
+package org.apptopia.waterwayfreightsystem.api.api.authentication.account;
 
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.account.RawAccountInput;
 import org.springframework.beans.factory.annotation.Autowired;

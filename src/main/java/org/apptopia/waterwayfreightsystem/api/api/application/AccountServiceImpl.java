@@ -7,9 +7,9 @@ import java.util.Optional;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.account.RawAccountInput;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.account.RawAccountMapper;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.account.RawAccountOutput;
-import org.apptopia.waterwayfreightsystem.api.api.authentication.Account;
-import org.apptopia.waterwayfreightsystem.api.api.authentication.AccountRepository;
-import org.apptopia.waterwayfreightsystem.api.api.authentication.AccountType;
+import org.apptopia.waterwayfreightsystem.api.api.authentication.account.Account;
+import org.apptopia.waterwayfreightsystem.api.api.authentication.account.AccountRepository;
+import org.apptopia.waterwayfreightsystem.api.api.authentication.account.AccountType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -33,6 +33,61 @@ public class AccountServiceImpl implements AccountService {
 	@Autowired
 	public void setSecurityService(SecurityService sercurityService) {
 		this.securityService = sercurityService;
+	}
+	
+	@Override
+	public List<RawAccountOutput> initDataAccount(){
+		Optional<Account> account = accountRepository.findByUsername("admin");
+		List<RawAccountOutput> rawAccountOutputs = new ArrayList<>();
+		
+		if(!account.isPresent()) {
+			Account account1 = Account.builder()
+				.idUser(null)
+				.username("admin")
+				.password(passwordEncoder.encode("admin"))
+				.accountType(AccountType.ADMIN)
+				.build();
+			
+			accountRepository.save(account1);
+			rawAccountOutputs.add(RawAccountMapper.INSTANCE.fromAccount(account1));
+		}
+		account = accountRepository.findByUsername("manager");
+		
+		if(!account.isPresent()) {
+			Account account2 = Account.builder()
+				.idUser(null)
+				.username("manager")
+				.password(passwordEncoder.encode("12345678"))
+				.accountType(AccountType.MANAGER)
+				.build();
+			accountRepository.save(account2);
+			rawAccountOutputs.add(RawAccountMapper.INSTANCE.fromAccount(account2));
+		}
+		account = accountRepository.findByUsername("user");
+		
+		if(!account.isPresent()) {
+			Account account3 = Account.builder()
+				.idUser(null)
+				.username("user")
+				.password(passwordEncoder.encode("12345678"))
+				.accountType(AccountType.USER)
+				.build();
+			accountRepository.save(account3);
+			rawAccountOutputs.add(RawAccountMapper.INSTANCE.fromAccount(account3));
+		}
+		account = accountRepository.findByUsername("nhat");
+		
+		if(!account.isPresent()) {
+			Account account4 = Account.builder()
+				.idUser(null)
+				.username("nhat")
+				.password(passwordEncoder.encode("12345678"))
+				.accountType(AccountType.USER)
+				.build();
+			accountRepository.save(account4);
+			rawAccountOutputs.add(RawAccountMapper.INSTANCE.fromAccount(account4));
+		}
+		return rawAccountOutputs;
 	}
 	
 	@Override

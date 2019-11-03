@@ -9,6 +9,9 @@ public interface ScheduleService {
 	
 	List<RawScheduleOutput> initDataSchedule();
 	List<RawScheduleOutput> findAllSchedules();
+	List<RawScheduleOutput> findScheduleByNameSchedule(String nameSchedule);
+	RawScheduleOutput findScheduleByIdSchedule(Long idSchedule);
 	RawScheduleOutput newSchedule(RawScheduleInput rawScheduleInput);
 	RawScheduleOutput updateSchedule(RawScheduleInput rawScheduleInput);
+	RawScheduleOutput deleteSchedule(Long idSchedule);
 }

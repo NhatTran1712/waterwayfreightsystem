@@ -1,6 +1,6 @@
 package org.apptopia.waterwayfreightsystem.api.api.application.usecases.ship;
 
-import org.apptopia.waterwayfreightsystem.api.api.authentication.Account;
+import org.apptopia.waterwayfreightsystem.api.api.authentication.account.Account;
 import org.apptopia.waterwayfreightsystem.api.api.core.model.Schedule;
 import org.apptopia.waterwayfreightsystem.api.api.core.model.TravelProblem;
 import org.apptopia.waterwayfreightsystem.api.api.ship.model.Ship;

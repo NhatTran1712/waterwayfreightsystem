@@ -11,8 +11,8 @@ import org.apptopia.waterwayfreightsystem.api.api.application.usecases.search.ca
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.search.cargo.SearchByIdCargoOutput;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.search.cargo.SearchByOwnerFullnameInput;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.search.cargo.SearchByOwnerFullnameOutput;
-import org.apptopia.waterwayfreightsystem.api.api.authentication.Account;
-import org.apptopia.waterwayfreightsystem.api.api.authentication.AccountRepository;
+import org.apptopia.waterwayfreightsystem.api.api.authentication.account.Account;
+import org.apptopia.waterwayfreightsystem.api.api.authentication.account.AccountRepository;
 import org.apptopia.waterwayfreightsystem.api.api.core.model.Cargo;
 import org.apptopia.waterwayfreightsystem.api.api.core.model.CargoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,9 +98,10 @@ public class CargoServiceImpl implements CargoService {
 	public List<RawCargoOutput> findAllCargos() {
 		List<Cargo> cargos = cargoRepository.findAll();
 		List<RawCargoOutput> rawCargoOutputs = new ArrayList<>();
+		RawCargoOutput rawCargoOutput = new RawCargoOutput();
 		
 		for(Cargo cargo : cargos) {
-			RawCargoOutput rawCargoOutput = RawCargoMapper.INSTANCE.fromCargo(cargo);
+			rawCargoOutput = RawCargoMapper.INSTANCE.fromCargo(cargo);
 			rawCargoOutput.setIdOwner(RawCargoMapper.INSTANCE.fromAccount(cargo.getOwner()));
 			rawCargoOutputs.add(rawCargoOutput);
 		}

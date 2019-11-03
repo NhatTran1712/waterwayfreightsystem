@@ -8,6 +8,7 @@
 /home/nhattran/Application/workspace-sts-3.9.7.RELEASE/waterway-freight-system/src/main/java/org/apptopia/waterwayfreightsystem/api/api/infrastructure/PostgresShipRepositoryImpl.java
 /home/nhattran/Application/workspace-sts-3.9.7.RELEASE/waterway-freight-system/src/main/java/org/apptopia/waterwayfreightsystem/api/api/application/usecases/search/cargo/SearchByIdCargoInput.java
 /home/nhattran/Application/workspace-sts-3.9.7.RELEASE/waterway-freight-system/src/main/java/org/apptopia/waterwayfreightsystem/api/api/application/usecases/schedule/RawScheduleOutput.java
+/home/nhattran/Application/workspace-sts-3.9.7.RELEASE/waterway-freight-system/src/main/java/org/apptopia/waterwayfreightsystem/api/api/application/usecases/delete/DeleteScheduleUseCase.java
 /home/nhattran/Application/workspace-sts-3.9.7.RELEASE/waterway-freight-system/src/main/java/org/apptopia/waterwayfreightsystem/api/api/application/usecases/account/RawAccountInput.java
 /home/nhattran/Application/workspace-sts-3.9.7.RELEASE/waterway-freight-system/src/main/java/org/apptopia/waterwayfreightsystem/api/api/application/usecases/ship/RawShipInput.java
 /home/nhattran/Application/workspace-sts-3.9.7.RELEASE/waterway-freight-system/src/main/java/org/apptopia/waterwayfreightsystem/api/api/OrdersController.java

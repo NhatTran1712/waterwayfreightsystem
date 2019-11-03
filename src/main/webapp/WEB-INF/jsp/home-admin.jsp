@@ -15,7 +15,7 @@
   	<script src="${contextPath}/resources/js/bootstrap.min.js"></script>
 </head>
 <body>
-	<div class="container">
+	<div class="container" align="center">
 	  	<h2 align="left">He Thong Van Chuyen Hang Hoa Duong Thuy</h2>
 	    <c:if test="${pageContext.request.userPrincipal.name != null}">
 	        <form id="logoutForm" method="POST" action="${contextPath}/logout">
@@ -48,7 +48,7 @@
 						style="height: 1px;">
 						<ul class="nav navbar-nav">
 							<li class="active"><a href="${contextPath}/home-admin">Trang chu</a></li>
-							<li><a href="#">Example</a></li>
+<!-- 							<li><a href="#">Example</a></li> -->
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown"
 									role="button" aria-haspopup="true" aria-expanded="false">
@@ -57,9 +57,9 @@
 									<li><a href="${contextPath}/account/registration-staff">
 										Tao tai khoan</a></li>
 									<li><a href="${contextPath}/account">Danh sach tai khoan</a></li>
-									<li role="separator" class="divider"></li>
+<!-- 									<li role="separator" class="divider"></li>
 									<li class="dropdown-header">Nav header</li>
-									<li><a href="#">Separated link</a></li>
+									<li><a href="#">Separated link</a></li> -->
 								</ul>
 							</li>
 						</ul>
@@ -67,6 +67,7 @@
 		        </div><!--/.container-fluid -->
 		      </nav>
 		</div>
+		<img alt="home-pic" src="${contextPath}/resources/logistic-picture.jpg">
 	</div>
 </body>
 </html>

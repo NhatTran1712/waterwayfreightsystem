@@ -3,7 +3,7 @@ package org.apptopia.waterwayfreightsystem.api.api.core.model;
 import java.util.List;
 import java.util.Optional;
 
-import org.apptopia.waterwayfreightsystem.api.api.authentication.Account;
+import org.apptopia.waterwayfreightsystem.api.api.authentication.account.Account;
 
 public interface CargoRepository {
 

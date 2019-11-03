@@ -1,11 +1,10 @@
-package org.apptopia.waterwayfreightsystem.api.api.authentication;
+package org.apptopia.waterwayfreightsystem.api.api.authentication.account;
 
+import org.apptopia.waterwayfreightsystem.api.api.authentication.account.Account;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 import java.util.Optional;
-
-import org.apptopia.waterwayfreightsystem.api.api.authentication.Account;
 
 public interface AccountRepository extends JpaRepository<Account, Long> {
 	
@@ -13,7 +12,9 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
 	default Optional<Account> findOne(Long idUser) {
 		return findById(idUser);
 	}
-	List<Account> findByAccountType(AccountType accountType);
+//	List<Account> findByAccountType(AccountType accountType);
 	List<Account> findAll();
 	List<Account> findByFullnameContaining(String fullname);
+	Boolean existsByUsername(String username);
+//	Boolean existsByEmail(String email);
 }

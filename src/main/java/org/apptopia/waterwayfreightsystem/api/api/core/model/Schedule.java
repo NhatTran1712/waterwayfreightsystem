@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import org.apptopia.waterwayfreightsystem.api.api.authentication.Account;
+import org.apptopia.waterwayfreightsystem.api.api.authentication.account.Account;
 import org.apptopia.waterwayfreightsystem.api.api.port.model.Port;
 
 import lombok.AllArgsConstructor;
@@ -26,6 +26,7 @@ public class Schedule {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 	private Long idSchedule;
+	private String nameSchedule;
 	@OneToMany
 	private List<Port> visitingPorts;
 	private Integer estimateDistance;

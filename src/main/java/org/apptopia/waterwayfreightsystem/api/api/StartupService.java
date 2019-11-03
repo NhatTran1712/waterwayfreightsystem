@@ -1,5 +1,6 @@
 package org.apptopia.waterwayfreightsystem.api.api;
 
+import org.apptopia.waterwayfreightsystem.api.api.application.AccountService;
 import org.apptopia.waterwayfreightsystem.api.api.application.CargoService;
 import org.apptopia.waterwayfreightsystem.api.api.application.OrdersService;
 import org.apptopia.waterwayfreightsystem.api.api.application.PortService;
@@ -11,14 +12,16 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class StartupService {
+	private AccountService accountService; 
 	private CargoService cargoService;
 	private PortService portService;
 	private ScheduleService scheduleService;
 	private OrdersService ordersService;
 	
 	@Autowired
-	public void setStartupService(CargoService cargoService, PortService portService, OrdersService
-		ordersService, ScheduleService scheduleService) {
+	public void setStartupService(AccountService accountService, CargoService cargoService,
+		PortService portService, OrdersService ordersService, ScheduleService scheduleService) {
+		this.accountService = accountService;
 		this.cargoService = cargoService;
 		this.portService = portService;
 		this.scheduleService = scheduleService;
@@ -27,6 +30,7 @@ public class StartupService {
 	
 	@EventListener(ContextRefreshedEvent.class)
 	public void contextRefreshedEvent() {
+		accountService.initDataAccount();
 		cargoService.initDataCargo();
 		portService.initDataPort();
 		scheduleService.initDataSchedule();

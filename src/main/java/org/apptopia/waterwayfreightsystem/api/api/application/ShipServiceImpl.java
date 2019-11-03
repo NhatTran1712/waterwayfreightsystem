@@ -10,7 +10,7 @@ import org.apptopia.waterwayfreightsystem.api.api.application.usecases.ship.RawS
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.travelproblem.RawTravelProblemInput;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.travelproblem.RawTravelProblemMapper;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.travelproblem.RawTravelProblemOutput;
-import org.apptopia.waterwayfreightsystem.api.api.authentication.Account;
+import org.apptopia.waterwayfreightsystem.api.api.authentication.account.Account;
 import org.apptopia.waterwayfreightsystem.api.api.core.model.Schedule;
 import org.apptopia.waterwayfreightsystem.api.api.core.model.TravelProblem;
 import org.apptopia.waterwayfreightsystem.api.api.core.model.TravelProblemRepository;

@@ -18,6 +18,7 @@ import lombok.NoArgsConstructor;
 public class RawScheduleInput implements UseCaseInput{
 
 	private Long idSchedule;
+	private String nameSchedule;
 	private List<Port> visitingPorts;
 	private Integer estimateDistance;
 	private Integer estimateTime;

@@ -1,7 +1,6 @@
 package org.apptopia.waterwayfreightsystem.api.api;
 
 import java.util.ArrayList;
-
 import org.apptopia.waterwayfreightsystem.api.api.application.AccountService;
 import org.apptopia.waterwayfreightsystem.api.api.application.SecurityService;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.account.RawAccountInput;
@@ -10,21 +9,24 @@ import org.apptopia.waterwayfreightsystem.api.api.application.usecases.delete.De
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.rawinput.RegisterCustomerAccountUseCase;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.rawinput.RegisterStaffAccountUseCase;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.rawupdate.UpdateAccountUseCase;
-import org.apptopia.waterwayfreightsystem.api.api.authentication.Account;
-import org.apptopia.waterwayfreightsystem.api.api.authentication.AccountType;
-import org.apptopia.waterwayfreightsystem.api.api.authentication.UserValidator;
+import org.apptopia.waterwayfreightsystem.api.api.authentication.account.Account;
+import org.apptopia.waterwayfreightsystem.api.api.authentication.account.AccountType;
+import org.apptopia.waterwayfreightsystem.api.api.authentication.account.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-@Controller
+@RestController
 @CrossOrigin
 @RequestMapping("/account")
 public class AccountController {
@@ -57,25 +59,15 @@ public class AccountController {
 		this.userValidator = userValidator;
 	}
 
-    @RequestMapping(value = {"/registration"}, method = RequestMethod.GET)
-    public String addNewCustomerAccount(Model model) {
-    	model.addAttribute("userForm", new RawAccountInput());
-        return "registration";
-    }
-
-    @RequestMapping(value = {"/registration"}, method = RequestMethod.POST)
-    public String addNewCustomerAccount(@ModelAttribute("userForm") RawAccountInput userForm,
-    	BindingResult bindingResult) {
-        
-    	userValidator.validate(userForm, bindingResult);
-        if (bindingResult.hasErrors()) {
-            return "registration";
-        }
+    @RequestMapping(value = {"/registration","/registrations/"}, produces = "application/json",
+    		consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
+    public String addNewCustomerAccount(@RequestBody RawAccountInput rawAccountInput) {
         registerCustomerAccountUseCase.handle(userForm);
-        return "redirect:/home";
+        return "registration"; 
     }
-
+        
     @RequestMapping(value = {"/registration-staff"}, method = RequestMethod.GET)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String addNewStaffAccount(Model model) {
     	model.addAttribute("userForm", new Account());
     	model.addAttribute("accountTypeList", AccountType.values());

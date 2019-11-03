@@ -7,6 +7,7 @@ import org.apptopia.waterwayfreightsystem.api.api.application.usecases.account.R
 
 public interface AccountService {
 	
+	List<RawAccountOutput> initDataAccount();
 	RawAccountOutput newCustomerAccount(RawAccountInput rawAccountInput);
 	RawAccountOutput newStaffAccount(RawAccountInput rawAccountInput);
 	RawAccountOutput findAccountByUserName(String username);

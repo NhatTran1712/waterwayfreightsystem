@@ -8,8 +8,8 @@ import java.util.Optional;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.schedule.RawScheduleInput;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.schedule.RawScheduleMapper;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.schedule.RawScheduleOutput;
-import org.apptopia.waterwayfreightsystem.api.api.authentication.Account;
-import org.apptopia.waterwayfreightsystem.api.api.authentication.AccountRepository;
+import org.apptopia.waterwayfreightsystem.api.api.authentication.account.Account;
+import org.apptopia.waterwayfreightsystem.api.api.authentication.account.AccountRepository;
 import org.apptopia.waterwayfreightsystem.api.api.core.model.Schedule;
 import org.apptopia.waterwayfreightsystem.api.api.core.model.ScheduleRepository;
 import org.apptopia.waterwayfreightsystem.api.api.port.model.Port;
@@ -56,6 +56,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 			visitingPorts1.add(existing2.get());
 			Schedule schedule1 = Schedule.builder()
 				.idSchedule(null)
+				.nameSchedule("quang ninh - hai phong")
 				.visitingPorts(visitingPorts1)
 				.estimateDistance(6000)
 				.estimateTime(48)
@@ -73,6 +74,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 			System.out.println("vsiting2 " + visitingPorts2.toString());
 			Schedule schedule2 = Schedule.builder()
 				.idSchedule(null)
+				.nameSchedule("nam dinh - thai binh")
 				.visitingPorts(visitingPorts2)
 				.estimateDistance(7000)
 				.estimateTime(72)
@@ -105,6 +107,35 @@ public class ScheduleServiceImpl implements ScheduleService {
 	}
 
 	@Override
+	public List<RawScheduleOutput> findScheduleByNameSchedule(String nameSchedule) {
+		List<Schedule> schedules = scheduleRepository.findByNameScheduleContaining(nameSchedule);
+		List<RawScheduleOutput> rawScheduleOutputs = new ArrayList<>();
+		RawScheduleOutput rawScheduleOutput = new RawScheduleOutput();
+		
+		for(Schedule schedule : schedules) {
+			rawScheduleOutput = RawScheduleMapper.INSTANCE.fromSchedule(schedule);
+			rawScheduleOutput.setIdWhoManage(RawScheduleMapper.INSTANCE.fromAccount(schedule.
+				getWhoManage()));
+			rawScheduleOutputs.add(rawScheduleOutput);
+		}
+		return rawScheduleOutputs;
+	}
+
+	@Override
+	public RawScheduleOutput findScheduleByIdSchedule(Long idSchedule) {
+		Optional<Schedule> existingOne = scheduleRepository.findById(idSchedule);
+		
+		if(!existingOne.isPresent()) {
+			throw new IllegalArgumentException("Schedule not existed");
+		}
+		Schedule schedule = existingOne.get();
+		RawScheduleOutput rawScheduleOutput = RawScheduleMapper.INSTANCE.fromSchedule(schedule);
+		
+		rawScheduleOutput.setIdWhoManage(RawScheduleMapper.INSTANCE.fromAccount(schedule.getWhoManage()));
+		return rawScheduleOutput;
+	}
+	
+	@Override
 	public RawScheduleOutput newSchedule(RawScheduleInput rawScheduleInput) {
 		Schedule schedule = RawScheduleMapper.INSTANCE.fromRawInput(rawScheduleInput);
 		Account account = RawScheduleMapper.INSTANCE.toAccount(rawScheduleInput.getIdWhoManage());
@@ -124,5 +155,22 @@ public class ScheduleServiceImpl implements ScheduleService {
 		Schedule schedule = RawScheduleMapper.INSTANCE.fromRawInput(rawScheduleInput);
 		scheduleRepository.save(schedule);
 		return RawScheduleMapper.INSTANCE.fromSchedule(schedule);
+	}
+
+	@Override
+	public RawScheduleOutput deleteSchedule(Long idSchedule) {
+		Optional<Schedule> existingOne = scheduleRepository.findById(idSchedule);
+		RawScheduleOutput rawScheduleOutput = new RawScheduleOutput();
+		
+		if(!existingOne.isPresent()) {
+			throw new IllegalArgumentException("Schedule not existed");
+		}
+		Schedule schedule = existingOne.get();
+		
+		scheduleRepository.deleteById(idSchedule);
+		rawScheduleOutput = RawScheduleMapper.INSTANCE.fromSchedule(schedule);
+		rawScheduleOutput.setIdWhoManage(RawScheduleMapper.INSTANCE.fromAccount(schedule.getWhoManage()));
+		System.out.println("Delete " + schedule.getNameSchedule() + " successful!");
+		return rawScheduleOutput;
 	}
 }

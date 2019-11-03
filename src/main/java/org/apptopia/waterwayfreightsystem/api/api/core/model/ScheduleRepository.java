@@ -8,4 +8,6 @@ public interface ScheduleRepository {
 	Schedule save(Schedule schedule);
 	List<Schedule> findAll();
 	Optional<Schedule> findById(Long idSchedule);
+	List<Schedule> findByNameScheduleContaining(String nameSchedule);
+	void deleteById(Long idSchedule);
 }

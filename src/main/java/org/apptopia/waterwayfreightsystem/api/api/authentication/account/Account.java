@@ -1,24 +1,31 @@
-package org.apptopia.waterwayfreightsystem.api.api.authentication;
+package org.apptopia.waterwayfreightsystem.api.api.authentication.account;
+
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
+
+import org.apptopia.waterwayfreightsystem.api.api.authentication.role.Role;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 @Entity @ToString
 @Data @Builder
-@AllArgsConstructor 
 @NoArgsConstructor
+@AllArgsConstructor
+@Getter @Setter
 public class Account {
 	
 	@Id
@@ -29,12 +36,24 @@ public class Account {
 	private String password;
 	@Transient
     private String passwordConfirm;
-	@Enumerated(EnumType.STRING)
-    private AccountType accountType;
+//	@Enumerated(EnumType.STRING)
+//    private AccountType accountType;
+	@ManyToOne
+	private Set<Role> roles = new HashSet<>();
 	private String fullname;
 	private String address;
 	private String phoneNumber;
 	private String idCard;
+	
+	public Account(String username, String password, String fullname, String address,
+		String phoneNumber, String idCard) {
+        this.username = username;
+        this.password = password;
+        this.fullname = fullname;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.idCard = idCard;
+    }
 	
 	public Account(Long idUser) {
 		this.idUser = idUser;

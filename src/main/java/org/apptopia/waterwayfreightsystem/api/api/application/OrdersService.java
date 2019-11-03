@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.orders.RawOrdersInput;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.orders.RawOrdersOutput;
-import org.apptopia.waterwayfreightsystem.api.api.authentication.Account;
+import org.apptopia.waterwayfreightsystem.api.api.authentication.account.Account;
 import org.apptopia.waterwayfreightsystem.api.api.core.model.Orders;
 
 public interface OrdersService {

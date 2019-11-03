@@ -17,6 +17,7 @@ import lombok.NoArgsConstructor;
 public class RawScheduleOutput implements UseCaseOutput {
 	
 	private Long idSchedule;
+	private String nameSchedule;
 	private List<Port> visitingPorts;
 	private Integer estimateDistance;
 	private Integer estimateTime;

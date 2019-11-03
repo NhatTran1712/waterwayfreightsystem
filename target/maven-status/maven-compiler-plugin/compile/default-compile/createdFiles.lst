@@ -1,12 +1,12 @@
 org/apptopia/waterwayfreightsystem/api/api/application/usecases/UseCaseOutput.class
 org/apptopia/waterwayfreightsystem/api/api/ScheduleController.class
-org/apptopia/waterwayfreightsystem/api/api/WaterwayFreightSystemApp$1.class
 org/apptopia/waterwayfreightsystem/api/api/application/OrdersServiceImpl.class
 org/apptopia/waterwayfreightsystem/api/api/application/usecases/rawinput/AddNewTravelProblemUseCase.class
 org/apptopia/waterwayfreightsystem/api/api/infrastructure/PostgresScheduleRepositoryImpl.class
 org/apptopia/waterwayfreightsystem/api/api/authentication/Account.class
 org/apptopia/waterwayfreightsystem/api/api/port/model/Port.class
 org/apptopia/waterwayfreightsystem/api/api/application/usecases/rawinput/AddNewShipUseCase.class
+org/apptopia/waterwayfreightsystem/api/api/application/usecases/delete/DeleteScheduleUseCase.class
 org/apptopia/waterwayfreightsystem/api/api/application/usecases/cargo/RawCargoMapperImpl.class
 org/apptopia/waterwayfreightsystem/api/api/application/usecases/orders/RawOrdersMapperImpl.class
 org/apptopia/waterwayfreightsystem/api/api/AccountController.class
