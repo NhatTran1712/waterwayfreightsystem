@@ -1,11 +1,11 @@
 package org.apptopia.waterwayfreightsystem.api.api.application.usecases.account;
 
 import javax.annotation.Generated;
-import org.apptopia.waterwayfreightsystem.api.api.authentication.Account;
+import org.apptopia.waterwayfreightsystem.api.api.authentication.account.Account;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2019-08-19T11:22:33+0700",
+    date = "2019-11-06T02:12:15+0700",
     comments = "version: 1.3.0.Final, compiler: javac, environment: Java 1.8.0_201 (Oracle Corporation)"
 )
 public class RawAccountMapperImpl implements RawAccountMapper {
@@ -22,7 +22,6 @@ public class RawAccountMapperImpl implements RawAccountMapper {
         account.setUsername( rawAccountInput.getUsername() );
         account.setPassword( rawAccountInput.getPassword() );
         account.setPasswordConfirm( rawAccountInput.getPasswordConfirm() );
-        account.setAccountType( rawAccountInput.getAccountType() );
         account.setFullname( rawAccountInput.getFullname() );
         account.setAddress( rawAccountInput.getAddress() );
         account.setPhoneNumber( rawAccountInput.getPhoneNumber() );
@@ -43,7 +42,6 @@ public class RawAccountMapperImpl implements RawAccountMapper {
         rawAccountOutput.setUsername( account.getUsername() );
         rawAccountOutput.setPassword( account.getPassword() );
         rawAccountOutput.setPasswordConfirm( account.getPasswordConfirm() );
-        rawAccountOutput.setAccountType( account.getAccountType() );
         rawAccountOutput.setFullname( account.getFullname() );
         rawAccountOutput.setAddress( account.getAddress() );
         rawAccountOutput.setPhoneNumber( account.getPhoneNumber() );

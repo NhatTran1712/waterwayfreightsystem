@@ -30,6 +30,7 @@ public class StartupService {
 	
 	@EventListener(ContextRefreshedEvent.class)
 	public void contextRefreshedEvent() {
+		accountService.initDataRole();
 		accountService.initDataAccount();
 		cargoService.initDataCargo();
 		portService.initDataPort();

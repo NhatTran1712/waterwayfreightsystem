@@ -59,12 +59,12 @@ public class AccountController {
 		this.userValidator = userValidator;
 	}
 
-    @RequestMapping(value = {"/registration","/registrations/"}, produces = "application/json",
-    		consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
-    public String addNewCustomerAccount(@RequestBody RawAccountInput rawAccountInput) {
-        registerCustomerAccountUseCase.handle(userForm);
-        return "registration"; 
-    }
+//    @RequestMapping(value = {"/registration","/registrations/"}, produces = "application/json",
+//    		consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
+//    public String addNewCustomerAccount(@RequestBody RawAccountInput rawAccountInput) {
+//        registerCustomerAccountUseCase.handle(userForm);
+//        return "registration"; 
+//    }
         
     @RequestMapping(value = {"/registration-staff"}, method = RequestMethod.GET)
     @PreAuthorize("hasRole('ROLE_ADMIN')")

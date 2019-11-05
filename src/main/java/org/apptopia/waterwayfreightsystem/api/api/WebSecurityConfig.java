@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -41,11 +42,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 	
 	@Override
-    public void configure(AuthenticationManagerBuilder authenticationManagerBuilder)
+    public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) 
     	throws Exception {
         authenticationManagerBuilder
                 .userDetailsService(userDetailsService)
                 .passwordEncoder(passwordEncoder());
+//                .and()
+//        		.authenticationProvider(authenticationProvider());
     }
 	
 	@Bean
@@ -63,7 +66,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.cors().and().csrf().disable()
 			.authorizeRequests() 
-				.antMatchers("/", "/home", "/login", "/logout", "/account/registration",
+				.antMatchers("/", "/home", "/authenticate/login", 
 					"/resources/**").permitAll()
 				.anyRequest().authenticated()
 				.and()
@@ -80,19 +83,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //				.permitAll();
 	}
 //	
-//	@Override
-//    protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
-//        auth.userDetailsService(userDetailsService)
-//            .passwordEncoder(encoder())
-//            .and()
-//            .authenticationProvider(authenticationProvider());
+//    @Override
+//    public void configure(WebSecurity web) throws Exception {
+//
 //    }
 //
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-
-    }
-
 //    @Bean
 //    public DaoAuthenticationProvider authenticationProvider() {
 //        final DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
@@ -100,19 +95,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //        authProvider.setPasswordEncoder(encoder());
 //        return authProvider;
 //    }
-
-    @Bean
-    public PasswordEncoder encoder() {
-        return new BCryptPasswordEncoder(12);
-    }
+//    
+//    
+//    
+//    @Bean
+//    public PasswordEncoder encoder() {
+//        return new BCryptPasswordEncoder(12);
+//    }
 //
 //    @Bean
 //    public SecurityEvaluationContextExtension securityEvaluationContextExtension() {
 //        return new SecurityEvaluationContextExtension();
 //    }
 //    
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-    	auth.userDetailsService(userDetailsService).passwordEncoder(encoder());
-    }
+//    @Autowired
+//    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+//    	auth.userDetailsService(userDetailsService).passwordEncoder(encoder());
+//    }
 }

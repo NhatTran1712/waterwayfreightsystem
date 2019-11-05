@@ -53,7 +53,6 @@ public class AuthenticationController {
 		this.roleRepository = roleRepository;
 	}
 	 
-    
 	@Autowired
 	public void setPasswordEncoder(PasswordEncoder encoder) {
 		this.encoder = encoder;
@@ -67,6 +66,7 @@ public class AuthenticationController {
     @RequestMapping(value = {"/login"}, produces = "application/json",
     		consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
     public ResponseEntity<?> login(@Valid @RequestBody LoginForm loginForm) {
+    	System.out.println("login: "+ loginForm.toString());
     	Authentication authentication = authenticationManager.authenticate(
     			new UsernamePasswordAuthenticationToken(loginForm.getUsername(),
     			loginForm.getPassword()));

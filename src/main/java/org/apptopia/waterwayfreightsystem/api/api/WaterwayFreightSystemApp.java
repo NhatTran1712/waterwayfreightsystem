@@ -1,26 +1,14 @@
 package org.apptopia.waterwayfreightsystem.api.api;
 
-import java.util.Optional;
-
-import org.apptopia.waterwayfreightsystem.api.api.authentication.account.Account;
-import org.apptopia.waterwayfreightsystem.api.api.authentication.account.AccountRepository;
-import org.apptopia.waterwayfreightsystem.api.api.authentication.account.AccountType;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.security.crypto.password.PasswordEncoder;
  
 @SpringBootApplication
 @ComponentScan(basePackages = "org.apptopia.waterwayfreightsystem.api.api")
 public class WaterwayFreightSystemApp extends SpringBootServletInitializer {
-	@Autowired PasswordEncoder passwordEncoder;
-	@Autowired AccountRepository accountRepository;
-	
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
 		return application.sources(WaterwayFreightSystemApp.class);

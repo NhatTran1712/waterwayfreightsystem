@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 import javax.persistence.Transient;
 
 import org.apptopia.waterwayfreightsystem.api.api.authentication.role.Role;
@@ -36,9 +36,7 @@ public class Account {
 	private String password;
 	@Transient
     private String passwordConfirm;
-//	@Enumerated(EnumType.STRING)
-//    private AccountType accountType;
-	@ManyToOne
+	@ManyToMany
 	private Set<Role> roles = new HashSet<>();
 	private String fullname;
 	private String address;
