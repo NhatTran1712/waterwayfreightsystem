@@ -5,13 +5,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.account.RawAccountInput;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.account.RawAccountMapper;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.account.RawAccountOutput;
 import org.apptopia.waterwayfreightsystem.api.api.authentication.account.Account;
 import org.apptopia.waterwayfreightsystem.api.api.authentication.account.AccountRepository;
-import org.apptopia.waterwayfreightsystem.api.api.authentication.account.AccountType;
 import org.apptopia.waterwayfreightsystem.api.api.authentication.role.Role;
 import org.apptopia.waterwayfreightsystem.api.api.authentication.role.RoleName;
 import org.apptopia.waterwayfreightsystem.api.api.authentication.role.RoleRepository;
@@ -73,7 +71,7 @@ public class AccountServiceImpl implements AccountService {
 				.roles(role)
 				.fullname("Admin")
 				.address("")
-				.phoneNumber("123")
+				.phoneNum("123")
 				.idCard("123")
 				.build();
 			accountRepository.save(account1);
@@ -92,7 +90,7 @@ public class AccountServiceImpl implements AccountService {
 				.roles(role)
 				.fullname("Manager")
 				.address("")
-				.phoneNumber("345")
+				.phoneNum("345")
 				.idCard("345")
 				.build();
 			accountRepository.save(account2);
@@ -111,7 +109,7 @@ public class AccountServiceImpl implements AccountService {
 				.roles(role)
 				.fullname("User")
 				.address("")
-				.phoneNumber("567")
+				.phoneNum("567")
 				.idCard("567")
 				.build();
 			accountRepository.save(account3);
@@ -130,7 +128,7 @@ public class AccountServiceImpl implements AccountService {
 				.roles(role)
 				.fullname("Nhat")
 				.address("")
-				.phoneNumber("789")
+				.phoneNum("789")
 				.idCard("789")
 				.build();
 			accountRepository.save(account4);
@@ -138,26 +136,61 @@ public class AccountServiceImpl implements AccountService {
 //		return rawAccountOutputs;
 	}
 
-	@Override
-	public RawAccountOutput newCustomerAccount(RawAccountInput rawAccountInput){
-		rawAccountInput.setAccountType(AccountType.USER);
-		rawAccountInput.setPassword(passwordEncoder.encode(rawAccountInput.getPassword()));
-		Account account = RawAccountMapper.INSTANCE.fromRawInput(rawAccountInput);
-		
-		accountRepository.save(account);
-		securityService.autoLogin(account.getUsername(), account.getPasswordConfirm());
-		return RawAccountMapper.INSTANCE.fromAccount(account);
-	}
+//	@Override
+//	public RawAccountOutput newCustomerAccount(RawAccountInput rawAccountInput){
+//		rawAccountInput.setAccountType(AccountType.USER);
+//		rawAccountInput.setPassword(passwordEncoder.encode(rawAccountInput.getPassword()));
+//		Account account = RawAccountMapper.INSTANCE.fromRawInput(rawAccountInput);
+//		
+//		accountRepository.save(account);
+//		securityService.autoLogin(account.getUsername(), account.getPasswordConfirm());
+//		return RawAccountMapper.INSTANCE.fromAccount(account);
+//	}
+//	
+//	@Override
+//	public RawAccountOutput newStaffAccount(RawAccountInput rawAccountInput) {
+//		rawAccountInput.setPassword(passwordEncoder.encode(rawAccountInput.getPassword()));
+//		Account account = RawAccountMapper.INSTANCE.fromRawInput(rawAccountInput);
+//		
+//		accountRepository.save(account);
+//		return RawAccountMapper.INSTANCE.fromAccount(account);
+//	}
 	
 	@Override
-	public RawAccountOutput newStaffAccount(RawAccountInput rawAccountInput) {
-		rawAccountInput.setPassword(passwordEncoder.encode(rawAccountInput.getPassword()));
-		Account account = RawAccountMapper.INSTANCE.fromRawInput(rawAccountInput);
+	public RawAccountOutput newAccount(RawAccountInput input){
+		Account acc = RawAccountMapper.INSTANCE.fromRawInput(input);
 		
-		accountRepository.save(account);
-		return RawAccountMapper.INSTANCE.fromAccount(account);
+		acc.setCity(RawAccountMapper.INSTANCE.toCity(input.getIdCity()));
+		acc.setDist(RawAccountMapper.INSTANCE.toDistrict(input.getIdDist()));
+    	Set<String> strRoles = input.getRole();
+    	Set<Role> roles = new HashSet<>();
+    	 
+    	strRoles.forEach(role -> {
+    		switch (role) {
+    	    case "admin":
+    	    	Role adminRole = roleRepository.findByName(RoleName.ROLE_ADMIN)
+    	        	.orElseThrow(() -> new RuntimeException
+    	        	("Fail! -> Cause: User Role not find."));
+    	        roles.add(adminRole);
+    	        break;
+    	    case "manager":
+    	        Role mRole = roleRepository.findByName(RoleName.ROLE_MANAGER)
+    	            .orElseThrow(() -> new RuntimeException
+    	            ("Fail! -> Cause: User Role not find."));
+    	        roles.add(mRole);   	 
+    	        break;
+    	    default:
+    	        Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
+    	            .orElseThrow(() -> new RuntimeException
+    	            ("Fail! -> Cause: User Role not find."));
+    	        roles.add(userRole);
+    	    }
+    	});
+    	acc.setRoles(roles);
+    	accountRepository.save(acc);
+    	return RawAccountMapper.INSTANCE.fromAccount(acc);
 	}
-
+	
 	@Override
 	public RawAccountOutput findAccountByUserName(String username) {
 		Optional<Account> existingOne = accountRepository.findByUsername(username);

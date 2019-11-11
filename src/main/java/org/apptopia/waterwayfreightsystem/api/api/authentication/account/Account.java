@@ -12,20 +12,18 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Transient;
 
 import org.apptopia.waterwayfreightsystem.api.api.authentication.role.Role;
+import org.apptopia.waterwayfreightsystem.api.api.location.model.City;
+import org.apptopia.waterwayfreightsystem.api.api.location.model.District;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
-@Entity @ToString
+@Entity
 @Data @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter @Setter
 public class Account {
 	
 	@Id
@@ -34,22 +32,26 @@ public class Account {
 	@Column(nullable = false, unique = true)
 	private String username;
 	private String password;
-	@Transient
-    private String passwordConfirm;
+//	@Transient
+//    private String passwordConfirm;
 	@ManyToMany
 	private Set<Role> roles = new HashSet<>();
 	private String fullname;
+	private City city;
+	private District dist;
 	private String address;
-	private String phoneNumber;
+	private String phoneNum;
 	private String idCard;
 	
-	public Account(String username, String password, String fullname, String address,
-		String phoneNumber, String idCard) {
+	public Account(String username, String password, String fullname, City city, District dist,
+		String address, String phoneNum, String idCard) {
         this.username = username;
         this.password = password;
         this.fullname = fullname;
+        this.city = city;
+        this.dist = dist;
         this.address = address;
-        this.phoneNumber = phoneNumber;
+        this.phoneNum = phoneNum;
         this.idCard = idCard;
     }
 	

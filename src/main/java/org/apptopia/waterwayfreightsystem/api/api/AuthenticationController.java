@@ -5,6 +5,8 @@ import java.util.Set;
 
 import javax.validation.Valid;
 
+import org.apptopia.waterwayfreightsystem.api.api.application.usecases.account.AddNewAccountUseCase;
+import org.apptopia.waterwayfreightsystem.api.api.application.usecases.account.RawAccountInput;
 import org.apptopia.waterwayfreightsystem.api.api.authentication.account.Account;
 import org.apptopia.waterwayfreightsystem.api.api.authentication.account.AccountRepository;
 import org.apptopia.waterwayfreightsystem.api.api.authentication.core.model.LoginForm;
@@ -29,6 +31,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -40,6 +43,7 @@ public class AuthenticationController {
 	private RoleRepository roleRepository;
 	private PasswordEncoder encoder;
 	private JwtProvider jwtProvider;
+	private AddNewAccountUseCase addNewAccountUseCase;
 	
 	@Autowired
 	public void setAuthenticationManager(AuthenticationManager authenticationManager) {
@@ -52,7 +56,7 @@ public class AuthenticationController {
 		this.accountRepository = accountRepository;
 		this.roleRepository = roleRepository;
 	}
-	 
+	
 	@Autowired
 	public void setPasswordEncoder(PasswordEncoder encoder) {
 		this.encoder = encoder;
@@ -62,9 +66,15 @@ public class AuthenticationController {
 	public void setJwtProvider(JwtProvider jwtProvider) {
 		this.jwtProvider = jwtProvider;
 	}
+
+	@Autowired
+	public void setUseCaseService(AddNewAccountUseCase addNewAccountUseCase) {
+		this.addNewAccountUseCase = addNewAccountUseCase;
+	}
 	
     @RequestMapping(value = {"/login"}, produces = "application/json",
     		consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
+    @ResponseBody
     public ResponseEntity<?> login(@Valid @RequestBody LoginForm loginForm) {
     	System.out.println("login: "+ loginForm.toString());
     	Authentication authentication = authenticationManager.authenticate(
@@ -79,47 +89,19 @@ public class AuthenticationController {
     }
     
     @RequestMapping(value = {"/signup"}, produces = "application/json",
-    		consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
-    public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpForm signUpRequest) {
-    	if(accountRepository.existsByUsername(signUpRequest.getUsername())) {
+		consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<?> registerUser(@Valid @RequestBody RawAccountInput signUpInfo) {
+    	if(accountRepository.existsByUsername(signUpInfo.getUsername())) {
     		return new ResponseEntity<>(new ResponseMessage("Fail -> Username is already taken!"),
     				HttpStatus.BAD_REQUEST);
     	}
-    	if (!signUpRequest.getPasswordConfirm().equals(signUpRequest.getPassword())) {
+    	if (!signUpInfo.getPassConfirm().equals(signUpInfo.getPassword())) {
     	    return new ResponseEntity<>(new ResponseMessage("Fail -> Password not match!"),
     	          HttpStatus.BAD_REQUEST);
     	}
-	    Account acc = new Account(signUpRequest.getUsername(), encoder.encode(signUpRequest
-	    		.getPassword()), signUpRequest.getFullname(), signUpRequest.getAddress(),
-	    		signUpRequest.getPhoneNumber(), signUpRequest.getIdCard()); 
-    	Set<String> strRoles = signUpRequest.getRole();
-    	Set<Role> roles = new HashSet<>();
-    	 
-    	strRoles.forEach(role -> {
-    		switch (role) {
-    	    case "admin":
-    	    	Role adminRole = roleRepository.findByName(RoleName.ROLE_ADMIN)
-    	        	.orElseThrow(() -> new RuntimeException
-    	        	("Fail! -> Cause: User Role not find."));
-    	        roles.add(adminRole);
-    	        break;
-    	    case "manager":
-    	        Role mRole = roleRepository.findByName(RoleName.ROLE_MANAGER)
-    	            .orElseThrow(() -> new RuntimeException
-    	            ("Fail! -> Cause: User Role not find."));
-    	        roles.add(mRole);   	 
-    	        break;
-    	    default:
-    	        Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
-    	            .orElseThrow(() -> new RuntimeException
-    	            ("Fail! -> Cause: User Role not find."));
-    	        roles.add(userRole);
-    	    }
-    	});
-    	 
-    	acc.setRoles(roles);
-    	accountRepository.save(acc);
-    	return new ResponseEntity<>(new ResponseMessage("User registered successfully!"),
-    			HttpStatus.OK);
+	    this.addNewAccountUseCase.handle(signUpInfo);
+	    return new ResponseEntity<>(new ResponseMessage("User registered successfully!"),
+    		HttpStatus.OK);
     }
 }
