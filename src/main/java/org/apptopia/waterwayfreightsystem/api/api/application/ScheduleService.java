@@ -7,7 +7,7 @@ import org.apptopia.waterwayfreightsystem.api.api.application.usecases.schedule.
 
 public interface ScheduleService {
 	
-	List<RawScheduleOutput> initDataSchedule();
+	void initDataSchedule();
 	List<RawScheduleOutput> findAllSchedules();
 	List<RawScheduleOutput> findScheduleByNameSchedule(String nameSchedule);
 	RawScheduleOutput findScheduleByIdSchedule(Long idSchedule);

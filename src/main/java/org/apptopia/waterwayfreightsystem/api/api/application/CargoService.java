@@ -10,7 +10,7 @@ import org.apptopia.waterwayfreightsystem.api.api.application.usecases.search.ca
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.search.cargo.SearchByOwnerFullnameOutput;
 
 public interface CargoService {
-	List<RawCargoOutput> initDataCargo();
+	void initDataCargo();
 	List<RawCargoOutput> findAllCargos();
 	RawCargoOutput findCargoByIdCargo(Long idCargo);
 	SearchByOwnerFullnameOutput searchCargoByOwnerFullname(SearchByOwnerFullnameInput

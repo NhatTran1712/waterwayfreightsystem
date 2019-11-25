@@ -33,8 +33,7 @@ public class CargoServiceImpl implements CargoService {
 	
 
 	@Override
-	public List<RawCargoOutput> initDataCargo() {
-		List<RawCargoOutput> rawCargoOutputs = new ArrayList<>();
+	public void initDataCargo() {
 		Optional<Account> account = accountRepository.findByUsername("user");
 		
 		if(!account.isPresent()) {
@@ -52,7 +51,6 @@ public class CargoServiceImpl implements CargoService {
 					.build();
 			
 			cargoRepository.save(cargo1);
-			rawCargoOutputs.add(RawCargoMapper.INSTANCE.fromCargo(cargo1));
 			Cargo cargo2 = Cargo.builder()
 					.idCargo(null)
 					.owner(owner)
@@ -61,7 +59,6 @@ public class CargoServiceImpl implements CargoService {
 					.build();
 			
 			cargoRepository.save(cargo2);
-			rawCargoOutputs.add(RawCargoMapper.INSTANCE.fromCargo(cargo2));
 		}
 		account = accountRepository.findByUsername("nhat");
 		
@@ -80,7 +77,6 @@ public class CargoServiceImpl implements CargoService {
 					.build();
 			
 			cargoRepository.save(cargo3);
-			rawCargoOutputs.add(RawCargoMapper.INSTANCE.fromCargo(cargo3));
 			Cargo cargo4 = Cargo.builder()
 					.idCargo(null)
 					.owner(owner)
@@ -89,9 +85,7 @@ public class CargoServiceImpl implements CargoService {
 					.build();
 			
 			cargoRepository.save(cargo4);
-			rawCargoOutputs.add(RawCargoMapper.INSTANCE.fromCargo(cargo4));
 		}
-		return rawCargoOutputs;
 	}
 
 	@Override

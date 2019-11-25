@@ -24,10 +24,8 @@ public class PortServiceImpl implements PortService{
 	}
 	
 	@Override
-	public List<RawPortOutput> initDataPort() {
-		List<RawPortOutput> rawPortOutputs = new ArrayList<>();
+	public void initDataPort() {
 		Optional<Port> existingOne = portRepository.findByNamePort("Ben cang xang dau Cai Lan");
-		RawPortOutput rawPortOutput = new RawPortOutput();
 		Port port1;
 		
 		if(!existingOne.isPresent()) {
@@ -41,13 +39,10 @@ public class PortServiceImpl implements PortService{
 					.build();
 			
 			portRepository.save(port1);
-			rawPortOutput = RawPortMapper.INSTANCE.fromPort(port1);
-			rawPortOutputs.add(rawPortOutput);
 		}
 		else {
 			port1 = existingOne.get();
 		}
-		
 		existingOne = portRepository.findByNamePort("Ben cang Nam Ninh");
 		if(!existingOne.isPresent()) {
 			Port port2 = Port.builder()
@@ -60,10 +55,6 @@ public class PortServiceImpl implements PortService{
 					.build();
 			
 			portRepository.save(port2);
-			rawPortOutput = RawPortMapper.INSTANCE.fromPort(port2);
-			rawPortOutput.setIdPortDepend(RawPortMapper.INSTANCE.fromPortDepend(port2.
-				getPortDepend()));
-			rawPortOutputs.add(rawPortOutput);
 		}
 		existingOne = portRepository.findByNamePort("Ben cang Thinh Long");
 		Port port3;
@@ -78,15 +69,10 @@ public class PortServiceImpl implements PortService{
 					.build();
 			
 			portRepository.save(port3);
-			rawPortOutput = RawPortMapper.INSTANCE.fromPort(port3);
-			rawPortOutput.setIdPortDepend(RawPortMapper.INSTANCE.fromPortDepend(port3.
-				getPortDepend()));
-			rawPortOutputs.add(rawPortOutput);
 		}
 		else {
 			port3 = existingOne.get();
 		}
-		
 		existingOne = portRepository.findByNamePort("Ben cang xuat nhap xang dau Hai Ha");
 		if(!existingOne.isPresent()) {
 			Port port4 = Port.builder()
@@ -99,12 +85,6 @@ public class PortServiceImpl implements PortService{
 					.build();
 			
 			portRepository.save(port4);
-			rawPortOutput = RawPortMapper.INSTANCE.fromPort(port4);
-			rawPortOutput.setIdPortDepend(RawPortMapper.INSTANCE.fromPortDepend(port4.
-				getPortDepend()));
-			rawPortOutputs.add(rawPortOutput);
 		}
-		return rawPortOutputs;
 	}
-
 }

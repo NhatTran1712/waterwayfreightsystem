@@ -32,13 +32,13 @@ public class UserValidator implements Validator {
         if(rawAccountInput.getPassword().length()<8 || rawAccountInput.getPassword().length()>32) {
             errors.rejectValue("password", "Size.userForm.password");
         }
-        if(!rawAccountInput.getPasswordConfirm().equals(rawAccountInput.getPassword())) {
+        if(!rawAccountInput.getPassConfirm().equals(rawAccountInput.getPassword())) {
             errors.rejectValue("passwordConfirm", "Diff.userForm.passwordConfirm");
         }
         if(rawAccountInput.getFullname().length()<2 || rawAccountInput.getFullname().length()>25) {
             errors.rejectValue("fullname", "Size.userForm.fullname");
         }
-        if((rawAccountInput.getPhoneNumber()!=null)&&(rawAccountInput.getPhoneNumber().length()>10)){
+        if((rawAccountInput.getPhoneNum()!=null)&&(rawAccountInput.getPhoneNum().length()>10)){
             errors.rejectValue("phoneNumber", "phoneNumber.length", "Nhap so dien thoai khong qua 10 so");
         }
         if(!rawAccountInput.getIdCard().isEmpty()) {

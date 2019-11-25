@@ -1,5 +1,7 @@
 package org.apptopia.waterwayfreightsystem.api.api.application.usecases.account;
 
+import java.util.Set;
+
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.UseCaseOutput;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,7 +12,7 @@ public class RawAccountOutput implements UseCaseOutput{
 	
 //	private Long idUser;
 	private String username;
-    private String roles;
+    private Set<String> role;
 	private String fullname;
 	private String address;
 	private String phoneNum;

@@ -38,7 +38,7 @@ public class MyUserPrincipal implements UserDetails {
                 account.getPassword(),
                 account.getFullname(),
                 account.getAddress(),
-                account.getPhoneNumber(),
+                account.getPhoneNum(),
                 account.getIdCard(),
                 authorities
         );

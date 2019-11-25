@@ -35,10 +35,8 @@ public class ScheduleServiceImpl implements ScheduleService {
 	}
 	
 	@Override
-	public List<RawScheduleOutput> initDataSchedule() {
+	public void initDataSchedule() {
 		List<Schedule> schedules = scheduleRepository.findAll();
-		List<RawScheduleOutput> rawScheduleOutputs = new ArrayList<>();
-		RawScheduleOutput rawScheduleOutput = new RawScheduleOutput();
 		
 		if(schedules.size()<2) {
 			Optional<Port> existing1 = portRepository.findByNamePort("Ben cang xang dau Cai Lan");
@@ -46,49 +44,49 @@ public class ScheduleServiceImpl implements ScheduleService {
 			Optional<Port> existing3 = portRepository.findByNamePort("Ben cang Thinh Long");
 			Optional<Port> existing4 = portRepository.findByNamePort
 				("Ben cang xuat nhap xang dau Hai Ha");
+			
 			System.out.println("ex3: " + existing3.get().toString());
 			System.out.println("ex3: " + existing4.get().toString());
 			List<Port> visitingPorts1 = new ArrayList<>();
 			List<Port> visitingPorts2 = new ArrayList<>();
 			Optional<Account> existingOne = accountRepository.findByUsername("manager");
+			Optional<Schedule> existingSchedule = scheduleRepository.findByNameSchedule
+					("quang ninh - hai phong");
 			
-			visitingPorts1.add(existing1.get());
-			visitingPorts1.add(existing2.get());
-			Schedule schedule1 = Schedule.builder()
-				.idSchedule(null)
-				.nameSchedule("quang ninh - hai phong")
-				.visitingPorts(visitingPorts1)
-				.estimateDistance(6000)
-				.estimateTime(48)
-				.dateDepart(LocalDateTime.now())
-				.dateArrive(LocalDateTime.now().plusDays(2))
-				.whoManage(existingOne.get())
-				.build();
-			scheduleRepository.save(schedule1);
-			rawScheduleOutput = RawScheduleMapper.INSTANCE.fromSchedule(schedule1);
-			rawScheduleOutput.setIdWhoManage(RawScheduleMapper.INSTANCE.fromAccount(schedule1.
-				getWhoManage()));
-			rawScheduleOutputs.add(rawScheduleOutput);
-			visitingPorts2.add(existing3.get());
-			visitingPorts2.add(existing4.get());
-			System.out.println("vsiting2 " + visitingPorts2.toString());
-			Schedule schedule2 = Schedule.builder()
-				.idSchedule(null)
-				.nameSchedule("nam dinh - thai binh")
-				.visitingPorts(visitingPorts2)
-				.estimateDistance(7000)
-				.estimateTime(72)
-				.dateDepart(LocalDateTime.now().plusDays(1))
-				.dateArrive(LocalDateTime.now().plusDays(4))
-				.whoManage(existingOne.get())
-				.build();
-			scheduleRepository.save(schedule2);
-			rawScheduleOutput = RawScheduleMapper.INSTANCE.fromSchedule(schedule2);
-			rawScheduleOutput.setIdWhoManage(RawScheduleMapper.INSTANCE.fromAccount(schedule2.
-				getWhoManage()));
-			rawScheduleOutputs.add(rawScheduleOutput);
+			if(!existingSchedule.isPresent()) {
+				visitingPorts1.add(existing1.get());
+				visitingPorts1.add(existing2.get());
+				Schedule schedule1 = Schedule.builder()
+					.idSchedule(null)
+					.nameSchedule("quang ninh - hai phong")
+					.visitingPorts(visitingPorts1)
+					.estimateDistance(6000)
+					.estimateTime(48)
+					.dateDepart(LocalDateTime.now())
+					.dateArrive(LocalDateTime.now().plusDays(2))
+					.whoManage(existingOne.get())
+					.build();
+				scheduleRepository.save(schedule1);
+			}
+			existingSchedule = scheduleRepository.findByNameSchedule("nam dinh - thai binh");
+			
+			if(!existingSchedule.isPresent()) {
+				visitingPorts2.add(existing3.get());
+				visitingPorts2.add(existing4.get());
+				System.out.println("vsiting2 " + visitingPorts2.toString());
+				Schedule schedule2 = Schedule.builder()
+					.idSchedule(null)
+					.nameSchedule("nam dinh - thai binh")
+					.visitingPorts(visitingPorts2)
+					.estimateDistance(7000)
+					.estimateTime(72)
+					.dateDepart(LocalDateTime.now().plusDays(1))
+					.dateArrive(LocalDateTime.now().plusDays(4))
+					.whoManage(existingOne.get())
+					.build();
+				scheduleRepository.save(schedule2);
+			}
 		}
-		return rawScheduleOutputs;
 	}
 	
 	@Override

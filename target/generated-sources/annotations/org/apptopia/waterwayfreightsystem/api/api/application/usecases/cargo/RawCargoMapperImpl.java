@@ -5,8 +5,8 @@ import org.apptopia.waterwayfreightsystem.api.api.core.model.Cargo;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2019-11-06T02:12:15+0700",
-    comments = "version: 1.3.0.Final, compiler: javac, environment: Java 1.8.0_201 (Oracle Corporation)"
+    date = "2019-11-26T02:38:55+0700",
+    comments = "version: 1.3.1.Final, compiler: javac, environment: Java 1.8.0_202 (Oracle Corporation)"
 )
 public class RawCargoMapperImpl implements RawCargoMapper {
 

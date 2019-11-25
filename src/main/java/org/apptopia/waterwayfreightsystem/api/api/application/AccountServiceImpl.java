@@ -162,31 +162,7 @@ public class AccountServiceImpl implements AccountService {
 		
 		acc.setCity(RawAccountMapper.INSTANCE.toCity(input.getIdCity()));
 		acc.setDist(RawAccountMapper.INSTANCE.toDistrict(input.getIdDist()));
-    	Set<String> strRoles = input.getRole();
-    	Set<Role> roles = new HashSet<>();
-    	 
-    	strRoles.forEach(role -> {
-    		switch (role) {
-    	    case "admin":
-    	    	Role adminRole = roleRepository.findByName(RoleName.ROLE_ADMIN)
-    	        	.orElseThrow(() -> new RuntimeException
-    	        	("Fail! -> Cause: User Role not find."));
-    	        roles.add(adminRole);
-    	        break;
-    	    case "manager":
-    	        Role mRole = roleRepository.findByName(RoleName.ROLE_MANAGER)
-    	            .orElseThrow(() -> new RuntimeException
-    	            ("Fail! -> Cause: User Role not find."));
-    	        roles.add(mRole);   	 
-    	        break;
-    	    default:
-    	        Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
-    	            .orElseThrow(() -> new RuntimeException
-    	            ("Fail! -> Cause: User Role not find."));
-    	        roles.add(userRole);
-    	    }
-    	});
-    	acc.setRoles(roles);
+    	acc.setRoles(RawAccountMapper.INSTANCE.toRoles(input.getRole()));;
     	accountRepository.save(acc);
     	return RawAccountMapper.INSTANCE.fromAccount(acc);
 	}

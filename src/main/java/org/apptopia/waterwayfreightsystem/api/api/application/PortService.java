@@ -5,5 +5,5 @@ import java.util.List;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.port.RawPortOutput;
 
 public interface PortService {
-	List<RawPortOutput> initDataPort(); 
+	void initDataPort(); 
 }

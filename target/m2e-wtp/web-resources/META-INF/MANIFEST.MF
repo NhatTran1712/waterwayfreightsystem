@@ -1,9 +1,6 @@
 Manifest-Version: 1.0
-Built-By: nhattran
-Build-Jdk: 11.0.2
 Implementation-Title: waterwayfreightsystem
 Implementation-Version: 0.0.1-SNAPSHOT
-Implementation-Vendor-Id: org.apptopia.waterwayfreightsystem.api
-Implementation-URL: http://maven.apache.org
+Build-Jdk-Spec: 1.8
 Created-By: Maven Integration for Eclipse
 

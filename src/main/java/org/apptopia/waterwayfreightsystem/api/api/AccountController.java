@@ -6,8 +6,8 @@ import org.apptopia.waterwayfreightsystem.api.api.application.SecurityService;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.account.RawAccountInput;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.account.RawAccountOutput;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.delete.DeleteAccountUseCase;
-import org.apptopia.waterwayfreightsystem.api.api.application.usecases.rawinput.RegisterCustomerAccountUseCase;
-import org.apptopia.waterwayfreightsystem.api.api.application.usecases.rawinput.RegisterStaffAccountUseCase;
+//import org.apptopia.waterwayfreightsystem.api.api.application.usecases.rawinput.RegisterCustomerAccountUseCase;
+//import org.apptopia.waterwayfreightsystem.api.api.application.usecases.rawinput.RegisterStaffAccountUseCase;
 import org.apptopia.waterwayfreightsystem.api.api.application.usecases.rawupdate.UpdateAccountUseCase;
 import org.apptopia.waterwayfreightsystem.api.api.authentication.account.Account;
 import org.apptopia.waterwayfreightsystem.api.api.authentication.account.AccountType;
@@ -32,8 +32,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class AccountController {
 	private AccountService accountService;
 	private UpdateAccountUseCase updateAccountUseCase;
-	private RegisterCustomerAccountUseCase registerCustomerAccountUseCase;
-	private RegisterStaffAccountUseCase registerStaffAccountUseCase;
+//	private RegisterCustomerAccountUseCase registerCustomerAccountUseCase;
+//	private RegisterStaffAccountUseCase registerStaffAccountUseCase;
 	private DeleteAccountUseCase deleteAccountUseCase;
     private UserValidator userValidator;
     
@@ -44,13 +44,13 @@ public class AccountController {
 	
 	@Autowired
 	public void setAccountUseCase(UpdateAccountUseCase updateAccountUseCase,
-		RegisterCustomerAccountUseCase registerCustomerAccountUseCase,
-		RegisterStaffAccountUseCase registerStaffAccountUseCase,
+//		RegisterCustomerAccountUseCase registerCustomerAccountUseCase,
+//		RegisterStaffAccountUseCase registerStaffAccountUseCase,
 		DeleteAccountUseCase deleteAccountUseCase) {
 
 		this.updateAccountUseCase = updateAccountUseCase;
-		this.registerCustomerAccountUseCase = registerCustomerAccountUseCase;
-		this.registerStaffAccountUseCase = registerStaffAccountUseCase;
+//		this.registerCustomerAccountUseCase = registerCustomerAccountUseCase;
+//		this.registerStaffAccountUseCase = registerStaffAccountUseCase;
 		this.deleteAccountUseCase = deleteAccountUseCase;
 	}
 	
@@ -74,17 +74,17 @@ public class AccountController {
         return "registration-staff";
     }
     
-    @RequestMapping(value = {"/registration-staff"}, method = RequestMethod.POST)
-    public String addNewStaffAccount(@ModelAttribute("userForm") RawAccountInput userForm,
-    	BindingResult bindingResult) {
-        
-    	userValidator.validate(userForm, bindingResult);
-        if (bindingResult.hasErrors()) {
-            return "registration-staff";
-        }
-        RawAccountOutput rawAccountOutput = registerStaffAccountUseCase.handle(userForm);
-        return "redirect:/account/show?username=" + rawAccountOutput.getUsername();
-    }
+//    @RequestMapping(value = {"/registration-staff"}, method = RequestMethod.POST)
+//    public String addNewStaffAccount(@ModelAttribute("userForm") RawAccountInput userForm,
+//    	BindingResult bindingResult) {
+//        
+//    	userValidator.validate(userForm, bindingResult);
+//        if (bindingResult.hasErrors()) {
+//            return "registration-staff";
+//        }
+//        RawAccountOutput rawAccountOutput = registerStaffAccountUseCase.handle(userForm);
+//        return "redirect:/account/show?username=" + rawAccountOutput.getUsername();
+//    }
     
     @RequestMapping(value = {"/update"}, method = RequestMethod.GET)
 	public String updateAccount(@RequestParam("username") String username, Model model) {
